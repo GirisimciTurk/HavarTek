@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&family=Instrument+Sans:wght@400;500&display=swap">
+<script src="./image-slot.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin:0; background:#0B0D0F; color:#F2F0EC; font-family:'Instrument Sans',system-ui,sans-serif; -webkit-font-smoothing:antialiased; text-wrap:pretty; }
+  a { color:#F0A93B; text-decoration:none; }
+  a:hover { color:#FFC96B; }
+  ::selection { background:#F0A93B; color:#0B0D0F; }
+  input, select, textarea, button { font-family:inherit; }
+  :focus-visible { outline:2px solid #F0A93B; outline-offset:3px; }
+  image-slot { --slot-bg:#14181C; }
+  @keyframes dtRise { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
+  @keyframes dtFade { from { opacity:0; } to { opacity:1; } }
+  @keyframes dtBob { 0%,100% { translate:0 0; } 50% { translate:0 -2.5px; } }
+  @media (prefers-reduced-motion:reduce) { *{ animation:none !important; } }
+</style>
+</helmet>
+
+<nav style="position:sticky;top:0;z-index:30;display:flex;flex-wrap:wrap;align-items:center;gap:28px;padding:16px clamp(20px,4vw,64px);background:rgba(11,13,15,.86);backdrop-filter:blur(14px);border-bottom:1px solid rgba(242,240,236,.12)">
+  <span style="display:flex;align-items:center;gap:10px;margin-right:auto">
+    <img src="assets/logo-white.png" alt="DroneTek" style="height:22px;width:auto;display:block" />
+    <span style="font-family:'Archivo',sans-serif;font-weight:800;font-size:21px;letter-spacing:-.02em">Drone<span style="color:#F0A93B">Tek</span></span>
+  </span>
+  <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
+    <span style="position:relative;display:flex;align-items:center" onMouseEnter="{{ n.enter }}" onMouseLeave="{{ n.leave }}">
+      <img src="assets/logo-white.png" alt="" aria-hidden="true" style="position:absolute;left:50%;margin-left:-8px;top:-15px;height:8px;width:auto;pointer-events:none;opacity:{{ n.markOn }};transform:translateY({{ n.markY }});transition:opacity .3s ease,transform .3s cubic-bezier(.22,.61,.36,1);animation:dtBob 2.6s ease-in-out infinite" />
+      <a href="#" onClick="{{ n.go }}" aria-current="{{ n.current }}" style="cursor:pointer;white-space:nowrap;font-size:15px;color:#F2F0EC;opacity:{{ n.labelOpacity }};transition:opacity .25s ease">{{ n.label }}</a>
+    </span>
+  </sc-for>
+  <a href="DroneTek 3D.html" style="white-space:nowrap;font-size:15px;color:#F2F0EC;opacity:.72" style-hover="{opacity:1,color:'#F2F0EC'}">{{ t.nav3d }}</a>
+  <div style="display:flex;gap:2px;padding:3px;border:1px solid rgba(242,240,236,.18);border-radius:999px">
+    <sc-for list="{{ langOpts }}" as="l" hint-placeholder-count="2">
+      <label style="cursor:pointer;font-size:12px;font-weight:500;letter-spacing:.08em;padding:5px 11px;border-radius:999px;background:{{ l.pillBg }};color:{{ l.pillFg }}">
+        <input type="radio" name="v2-lang" checked="{{ l.checked }}" onChange="{{ l.select }}" style="position:absolute;opacity:0;width:0;height:0" />{{ l.label }}
+      </label>
+    </sc-for>
+  </div>
+  <button type="button" onClick="{{ goContact }}" style="cursor:pointer;border:0;border-radius:999px;background:#F0A93B;color:#0B0D0F;font-size:14px;font-weight:500;padding:11px 20px" style-hover="{background:'#FFC96B'}">{{ t.cta }}</button>
+</nav>
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<div>
+  <section style="position:relative;min-height:100vh;display:grid">
+    <image-slot id="v2-hero" shape="rect" style="position:absolute;inset:0;width:100%;height:100%" placeholder="Manşet fotoğrafı: gün doğumunda uçuş halindeki platform, geniş açı"></image-slot>
+    <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(11,13,15,.6) 0%,rgba(11,13,15,.4) 34%,rgba(11,13,15,.86) 72%,rgba(11,13,15,.97) 100%)"></div>
+    <div style="position:relative;pointer-events:none;align-self:end;padding:clamp(56px,8vw,120px) clamp(20px,4vw,64px) clamp(40px,4vw,56px);max-width:1320px;width:100%;margin:0 auto">
+      <h1 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(44px,7.4vw,104px);line-height:1.14;letter-spacing:-.035em;margin:0;max-width:20ch;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">
+        <span style="display:block">{{ t.hero.l1 }}</span>
+        <span style="display:block;color:#F0A93B">{{ t.hero.l2 }}</span>
+      </h1>
+      <p style="font-size:17px;line-height:29px;max-width:60ch;margin:28px 0 0;color:rgba(242,240,236,.76)">{{ t.hero.sub }}</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:36px;pointer-events:auto">
+        <button type="button" onClick="{{ goContact }}" style="cursor:pointer;border:0;border-radius:999px;background:#F0A93B;color:#0B0D0F;font-size:15px;font-weight:500;padding:14px 26px" style-hover="{background:'#FFC96B'}">{{ t.hero.b1 }}</button>
+        <button type="button" onClick="{{ goAreas }}" style="cursor:pointer;border:1px solid rgba(242,240,236,.34);border-radius:999px;background:transparent;color:#F2F0EC;font-size:15px;font-weight:500;padding:14px 26px" style-hover="{background:'rgba(242,240,236,.1)'}">{{ t.hero.b2 }}</button>
+      </div>
+    </div>
+  </section>
+
+  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:2px;background:#0B0D0F">
+    <sc-for list="{{ mosaic }}" as="m" hint-placeholder-count="5">
+      <div style="position:relative;width:100%;aspect-ratio:{{ m.ratio }}"><image-slot id="{{ m.slotId }}" shape="rect" style="position:absolute;inset:0;width:100%;height:100%" placeholder="{{ m.ph }}"></image-slot></div>
+    </sc-for>
+  </section>
+
+  <section style="position:relative;display:grid;min-height:min(58vh,520px);border-bottom:1px solid rgba(242,240,236,.12)">
+    <image-slot id="v3-stats-bg" shape="rect" style="position:absolute;inset:0;width:100%;height:100%" placeholder="Tam genişlik fotoğraf: havadan bakış, tarla veya şantiye deseni"></image-slot>
+    <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(11,13,15,.82) 0%,rgba(11,13,15,.62) 50%,rgba(11,13,15,.9) 100%)"></div>
+    <div style="position:relative;pointer-events:none;align-self:center;width:100%;max-width:1320px;margin:0 auto;padding:clamp(40px,5vw,72px) clamp(20px,4vw,64px)">
+      <span style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#F0A93B;margin-bottom:32px">{{ t.statsK }}</span>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:32px">
+      <sc-for list="{{ t.stats }}" as="s" hint-placeholder-count="4">
+        <div>
+          <div style="font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(40px,5.2vw,68px);line-height:1;letter-spacing:-.035em;font-feature-settings:'tnum' 1;animation:dtRise .8s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 8% cover 34%">{{ s.v }}</div>
+          <div style="font-size:14px;line-height:20px;margin-top:14px;color:rgba(242,240,236,.74)">{{ s.l }}</div>
+        </div>
+      </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width:1320px;margin:0 auto;padding:clamp(64px,7vw,104px) clamp(20px,4vw,64px) 0">
+    <span style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#F0A93B;margin-bottom:18px;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.missionK }}</span>
+    <h2 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(28px,3.6vw,48px);line-height:1.14;letter-spacing:-.03em;margin:0;max-width:22ch;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.missionTitle }}</h2>
+    <div style="display:grid;align-items:start;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(16px,2vw,28px);margin-top:44px">
+      <sc-for list="{{ missionCards }}" as="m" hint-placeholder-count="3">
+        <div style="display:flex;flex-direction:column;min-width:0;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%;transition:transform .35s cubic-bezier(.22,.61,.36,1)" style-hover="{transform:'translateY(-5px)'}">
+          <div style="position:relative;width:100%;aspect-ratio:4/3;flex:none"><image-slot id="{{ m.slotId }}" shape="rect" style="position:absolute;inset:0;width:100%;height:100%" placeholder="{{ m.t }}"></image-slot></div>
+          <h3 style="font-family:'Archivo',sans-serif;font-weight:600;font-size:21px;line-height:26px;letter-spacing:-.015em;margin:18px 0 0">{{ m.t }}</h3>
+          <p style="font-size:15px;line-height:24px;margin:10px 0 0;color:rgba(242,240,236,.74)">{{ m.b }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width:1320px;margin:0 auto;padding:clamp(64px,7vw,104px) clamp(20px,4vw,64px)">
+    <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:end;justify-content:space-between">
+      <div>
+        <span style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#F0A93B;margin-bottom:18px;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.areasK }}</span>
+        <h2 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(30px,3.8vw,52px);line-height:1.14;letter-spacing:-.03em;margin:0;max-width:24ch;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.areasTitle }}</h2>
+      </div>
+      <p style="font-size:16px;line-height:26px;max-width:44ch;margin:0;color:rgba(242,240,236,.72)">{{ t.areasLead }}</p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:40px">
+      <sc-for list="{{ catOpts }}" as="c" hint-placeholder-count="6">
+        <label style="cursor:pointer;font-size:14px;padding:9px 16px;border-radius:999px;border:1px solid {{ c.chipBorder }};background:{{ c.chipBg }};color:{{ c.chipFg }}">
+          <input type="radio" name="v2-cat" checked="{{ c.checked }}" onChange="{{ c.select }}" style="position:absolute;opacity:0;width:0;height:0" />{{ c.label }}
+        </label>
+      </sc-for>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(460px,1fr));gap:2px;margin-top:44px">
+      <sc-for list="{{ visibleAreas }}" as="a" hint-placeholder-count="6">
+        <article style="position:relative;min-height:min(72vh,620px);display:grid;overflow:hidden;background:#14181C;animation:dtFade 1.1s ease-out both;animation-timeline:view();animation-range:entry 4% cover 26%">
+          <image-slot id="{{ a.slotId }}" shape="rect" style="position:absolute;inset:0;width:100%;height:100%" placeholder="{{ a.title }}"></image-slot>
+          <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(11,13,15,0) 0%,rgba(11,13,15,.18) 34%,rgba(11,13,15,.82) 62%,rgba(11,13,15,.97) 100%)"></div>
+          <div style="position:relative;pointer-events:none;align-self:end;padding:32px 32px 36px">
+            <span style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#F0A93B;margin-bottom:12px">{{ a.catLabel }}</span>
+            <h3 style="font-family:'Archivo',sans-serif;font-weight:600;font-size:26px;line-height:1.2;letter-spacing:-.02em;margin:0">{{ a.title }}</h3>
+            <p style="font-size:15px;line-height:24px;margin:12px 0 0;max-width:46ch;color:rgba(242,240,236,.82)">{{ a.body }}</p>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="background:#14181C">
+    <div style="max-width:1320px;margin:0 auto;padding:clamp(64px,7vw,104px) clamp(20px,4vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:clamp(32px,4vw,72px);align-items:start">
+      <div>
+        <span style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#F0A93B;margin-bottom:18px;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.techK }}</span>
+        <h2 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(28px,3.2vw,42px);line-height:1.14;letter-spacing:-.03em;margin:0;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.specTitle }}</h2>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:28px">
+          <sc-for list="{{ platformOpts }}" as="p" hint-placeholder-count="3">
+            <label style="cursor:pointer;font-size:14px;padding:9px 16px;border-radius:999px;border:1px solid {{ p.chipBorder }};background:{{ p.chipBg }};color:{{ p.chipFg }}">
+              <input type="radio" name="v2-platform" checked="{{ p.checked }}" onChange="{{ p.select }}" style="position:absolute;opacity:0;width:0;height:0" />{{ p.label }}
+            </label>
+          </sc-for>
+        </div>
+        <div style="margin-top:28px">
+          <image-slot id="v2-platform-shot" shape="rect" style="width:100%;aspect-ratio:16/10" placeholder="Seçili platformun stüdyo veya saha fotoğrafı"></image-slot>
+        </div>
+        <p style="font-size:13px;line-height:21px;margin:16px 0 0;color:rgba(242,240,236,.55)">{{ sheetNote }}</p>
+      </div>
+      <div style="display:flex;flex-direction:column">
+        <sc-for list="{{ specRows }}" as="r" hint-placeholder-count="5">
+          <div style="display:grid;grid-template-columns:1fr auto;gap:12px 24px;align-items:baseline;padding:22px 0;border-top:1px solid rgba(242,240,236,.14)">
+            <div>
+              <div style="font-size:16px;line-height:22px">{{ r.prop }}</div>
+              <div style="font-size:13px;line-height:20px;margin-top:4px;color:rgba(242,240,236,.55)">{{ r.rem }}</div>
+            </div>
+            <div style="font-family:'Archivo',sans-serif;font-weight:800;font-size:30px;line-height:1;letter-spacing:-.02em;white-space:nowrap;color:#F0A93B;font-feature-settings:'tnum' 1">{{ r.val }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width:1320px;margin:0 auto;padding:clamp(64px,7vw,104px) clamp(20px,4vw,64px)">
+    <span style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#F0A93B;margin-bottom:18px;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.stepsK }}</span>
+    <h2 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(28px,3.2vw,44px);line-height:1.14;letter-spacing:-.03em;margin:0;max-width:24ch;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.stepsTitle }}</h2>
+    <div style="display:grid;align-items:start;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:clamp(16px,2vw,28px);margin-top:44px">
+      <sc-for list="{{ stepItems }}" as="s" hint-placeholder-count="4">
+        <div style="display:flex;flex-direction:column;min-width:0;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%;transition:transform .35s cubic-bezier(.22,.61,.36,1)" style-hover="{transform:'translateY(-5px)'}">
+          <div style="position:relative;display:grid">
+            <div style="position:relative;width:100%;aspect-ratio:3/4;flex:none"><image-slot id="{{ s.slotId }}" shape="rect" style="position:absolute;inset:0;width:100%;height:100%" placeholder="{{ s.t }}"></image-slot></div>
+            <span style="position:absolute;top:16px;left:16px;pointer-events:none;font-family:'Archivo',sans-serif;font-weight:800;font-size:15px;letter-spacing:.02em;color:#0B0D0F;background:#F0A93B;padding:5px 11px;border-radius:999px;font-feature-settings:'tnum' 1">{{ s.n }}</span>
+          </div>
+          <h3 style="font-family:'Archivo',sans-serif;font-weight:600;font-size:20px;line-height:25px;letter-spacing:-.015em;margin:18px 0 0">{{ s.t }}</h3>
+          <p style="font-size:15px;line-height:23px;margin:8px 0 0;color:rgba(242,240,236,.72)">{{ s.b }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="position:relative;display:grid;min-height:min(92vh,900px)">
+    <image-slot id="v2-case" shape="rect" style="position:absolute;inset:0;width:100%;height:100%" placeholder="Tam genişlik fotoğraf: iletim hattı koridoru üzerinde denetim uçuşu"></image-slot>
+    <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(11,13,15,.94) 0%,rgba(11,13,15,.72) 46%,rgba(11,13,15,.35) 100%)"></div>
+    <div style="position:relative;pointer-events:none;align-self:center;max-width:1320px;width:100%;margin:0 auto;padding:clamp(56px,7vw,96px) clamp(20px,4vw,64px)">
+      <span style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#F0A93B;margin-bottom:24px">{{ t.caseK }}</span>
+      <blockquote style="font-family:'Archivo',sans-serif;font-weight:600;font-size:clamp(24px,3.1vw,40px);line-height:1.22;letter-spacing:-.025em;max-width:34ch;margin:0">{{ t.caseQuote }}</blockquote>
+      <p style="font-size:15px;line-height:24px;margin:28px 0 0;color:rgba(242,240,236,.66)">{{ t.caseAuthor }}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:48px;margin-top:44px">
+        <sc-for list="{{ t.caseMetrics }}" as="m" hint-placeholder-count="3">
+          <div>
+            <div style="font-family:'Archivo',sans-serif;font-weight:800;font-size:38px;line-height:1;letter-spacing:-.03em;font-feature-settings:'tnum' 1">{{ m.v }}</div>
+            <div style="font-size:13px;line-height:20px;margin-top:10px;color:rgba(242,240,236,.62)">{{ m.l }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="position:relative;display:grid;min-height:min(86vh,820px)">
+    <image-slot id="v4-disaster" shape="rect" style="position:absolute;inset:0;width:100%;height:100%" placeholder="Afet bölgesi fotoğrafı: yardım taşıyan drone, hasarlı yol"></image-slot>
+    <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(11,13,15,.3) 0%,rgba(11,13,15,.72) 55%,rgba(11,13,15,.95) 100%)"></div>
+    <div style="position:relative;pointer-events:none;align-self:end;width:100%;max-width:1320px;margin:0 auto;padding:clamp(56px,7vw,104px) clamp(20px,4vw,64px)">
+      <h2 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(28px,4.2vw,60px);line-height:1.14;letter-spacing:-.03em;margin:0;max-width:26ch;color:rgba(242,240,236,.72);animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.disasterA }}</h2>
+      <h2 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(28px,4.2vw,60px);line-height:1.14;letter-spacing:-.03em;margin:16px 0 0;max-width:26ch;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.disasterB }}</h2>
+    </div>
+  </section>
+
+  <section style="max-width:1320px;margin:0 auto;padding:clamp(64px,7vw,104px) clamp(20px,4vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(28px,4vw,72px);align-items:start">
+    <div>
+      <span style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#F0A93B;margin-bottom:18px;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.oppK }}</span>
+      <h2 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(26px,3.2vw,44px);line-height:1.14;letter-spacing:-.03em;margin:0;max-width:26ch;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.oppTitle }}</h2>
+      <p style="font-size:17px;line-height:28px;max-width:44ch;margin:24px 0 0;color:#F0A93B">{{ t.oppNote }}</p>
+    </div>
+    <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column">
+      <sc-for list="{{ t.oppItems }}" as="o" hint-placeholder-count="4">
+        <li style="padding:18px 0;border-top:1px solid rgba(242,240,236,.14);font-size:17px;line-height:26px">{{ o }}</li>
+      </sc-for>
+    </ul>
+  </section>
+
+  <sc-if value="{{ showRegulation }}" hint-placeholder-val="{{ true }}">
+  <section style="background:#F0A93B;color:#0B0D0F">
+    <div style="max-width:1320px;margin:0 auto;padding:clamp(56px,6vw,88px) clamp(20px,4vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:32px clamp(32px,5vw,80px)">
+      <div>
+        <span style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;opacity:.7;margin-bottom:18px">{{ t.regK }}</span>
+        <h2 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(28px,3.2vw,44px);line-height:1.14;letter-spacing:-.03em;margin:0;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.regTitle }}</h2>
+        <p style="font-size:16px;line-height:26px;max-width:46ch;margin:20px 0 0;opacity:.82">{{ t.regBody }}</p>
+      </div>
+      <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;align-self:center">
+        <sc-for list="{{ t.regItems }}" as="r" hint-placeholder-count="4">
+          <li style="padding:16px 0;border-top:1px solid rgba(11,13,15,.24);font-size:16px;line-height:24px">{{ r }}</li>
+        </sc-for>
+      </ul>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ showNews }}" hint-placeholder-val="{{ true }}">
+  <section style="max-width:1320px;margin:0 auto;padding:clamp(64px,7vw,104px) clamp(20px,4vw,64px)">
+    <span style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#F0A93B;margin-bottom:18px;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.newsK }}</span>
+    <h2 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(28px,3.2vw,44px);line-height:1.14;letter-spacing:-.03em;margin:0;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.newsTitle }}</h2>
+    <div style="display:grid;align-items:start;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(20px,2.4vw,32px);margin-top:44px">
+      <sc-for list="{{ newsItems }}" as="n" hint-placeholder-count="3">
+        <article style="display:flex;flex-direction:column;min-width:0;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%;transition:transform .35s cubic-bezier(.22,.61,.36,1)" style-hover="{transform:'translateY(-5px)'}">
+          <div style="position:relative;width:100%;aspect-ratio:3/2;flex:none"><image-slot id="{{ n.slotId }}" shape="rect" style="position:absolute;inset:0;width:100%;height:100%" placeholder="{{ n.t }}"></image-slot></div>
+          <div style="display:flex;gap:12px;align-items:center;margin-top:18px">
+            <span style="font-size:13px;color:rgba(242,240,236,.6);font-feature-settings:'tnum' 1">{{ n.d }}</span>
+            <span style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:999px;border:1px solid rgba(240,169,59,.5);color:#F0A93B">{{ n.tag }}</span>
+          </div>
+          <h3 style="font-family:'Archivo',sans-serif;font-weight:600;font-size:21px;line-height:26px;letter-spacing:-.015em;margin:14px 0 0">{{ n.t }}</h3>
+          <p style="font-size:15px;line-height:24px;margin:10px 0 0;color:rgba(242,240,236,.72)">{{ n.b }}</p>
+        </article>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <section style="max-width:1320px;margin:0 auto;padding:clamp(48px,6vw,88px) clamp(20px,4vw,64px) clamp(64px,7vw,104px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(28px,4vw,72px);align-items:start">
+    <div>
+      <span style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#F0A93B;margin-bottom:18px;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.joinK }}</span>
+      <h2 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(26px,3.2vw,44px);line-height:1.14;letter-spacing:-.03em;margin:0;max-width:24ch;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.joinTitle }}</h2>
+      <p style="font-size:16px;line-height:26px;max-width:44ch;margin:22px 0 0;color:rgba(242,240,236,.76)">{{ t.joinNote }}</p>
+      <div style="margin-top:32px">
+        <image-slot id="v4-join" shape="rect" style="width:100%;aspect-ratio:16/9" placeholder="Ekip fotoğrafı: atölyede mühendisler ve girişimciler"></image-slot>
+      </div>
+    </div>
+    <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column">
+      <sc-for list="{{ t.joinItems }}" as="j" hint-placeholder-count="4">
+        <li style="padding:18px 0;border-top:1px solid rgba(242,240,236,.14);font-size:17px;line-height:26px">{{ j }}</li>
+      </sc-for>
+    </ul>
+  </section>
+
+  <section style="position:relative;display:grid;min-height:min(80vh,760px)">
+    <image-slot id="v3-cta-bg" shape="rect" style="position:absolute;inset:0;width:100%;height:100%" placeholder="Kapanış fotoğrafı: alacakaranlıkta kalkışa hazır platform"></image-slot>
+    <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(11,13,15,.35) 0%,rgba(11,13,15,.8) 62%,rgba(11,13,15,.96) 100%)"></div>
+    <div style="position:relative;pointer-events:none;align-self:end;width:100%;max-width:1320px;margin:0 auto;padding:clamp(56px,7vw,104px) clamp(20px,4vw,64px)">
+      <h2 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(32px,5.4vw,76px);line-height:1.14;letter-spacing:-.035em;margin:0;max-width:20ch;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.ctaTitle }}</h2>
+      <p style="font-size:17px;line-height:28px;max-width:54ch;margin:22px 0 0;color:rgba(242,240,236,.8)">{{ t.ctaBody }}</p>
+      <button type="button" onClick="{{ goContact }}" style="cursor:pointer;pointer-events:auto;margin-top:32px;border:0;border-radius:999px;background:#F0A93B;color:#0B0D0F;font-size:15px;font-weight:500;padding:15px 28px" style-hover="{background:'#FFC96B'}">{{ t.form.send }}</button>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<sc-if value="{{ isAreas }}">
+<div>
+  <section style="position:relative;display:grid;min-height:min(84vh,780px)">
+    <image-slot id="v2-areas-hero" shape="rect" style="position:absolute;inset:0;width:100%;height:100%" placeholder="Geniş açı saha fotoğrafı: tarla üzerinde ilaçlama uçuşu"></image-slot>
+    <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(11,13,15,.45) 0%,rgba(11,13,15,.92) 100%)"></div>
+    <div style="position:relative;pointer-events:none;align-self:end;max-width:1320px;width:100%;margin:0 auto;padding:clamp(48px,6vw,88px) clamp(20px,4vw,64px)">
+      <span style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#F0A93B;margin-bottom:20px">{{ t.apK }}</span>
+      <h1 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(36px,6vw,84px);line-height:1.14;letter-spacing:-.035em;margin:0;max-width:22ch;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.apTitle }}</h1>
+      <p style="font-size:17px;line-height:28px;max-width:58ch;margin:24px 0 0;color:rgba(242,240,236,.76)">{{ t.apLead }}</p>
+    </div>
+  </section>
+
+  <section style="max-width:1320px;margin:0 auto;padding:36px clamp(20px,4vw,64px) 0">
+    <div style="display:flex;flex-wrap:wrap;gap:8px">
+      <sc-for list="{{ catOpts }}" as="c" hint-placeholder-count="6">
+        <label style="cursor:pointer;font-size:14px;padding:9px 16px;border-radius:999px;border:1px solid {{ c.chipBorder }};background:{{ c.chipBg }};color:{{ c.chipFg }}">
+          <input type="radio" name="v2-cat-2" checked="{{ c.checked }}" onChange="{{ c.select }}" style="position:absolute;opacity:0;width:0;height:0" />{{ c.label }}
+        </label>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width:1320px;margin:0 auto;padding:clamp(40px,5vw,64px) clamp(20px,4vw,64px) clamp(72px,8vw,112px);display:flex;flex-direction:column;gap:clamp(48px,6vw,88px)">
+    <sc-for list="{{ visibleAreas }}" as="a" hint-placeholder-count="8">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(24px,3vw,56px);align-items:center">
+        <div style="position:relative;width:100%;aspect-ratio:{{ a.detailRatio }}"><image-slot id="{{ a.detailSlotId }}" shape="rect" style="position:absolute;inset:0;width:100%;height:100%" placeholder="{{ a.title }}"></image-slot></div>
+        <div>
+          <span style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#F0A93B;margin-bottom:14px">{{ a.catLabel }}</span>
+          <h2 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(26px,2.8vw,38px);line-height:1.14;letter-spacing:-.03em;margin:0;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ a.title }}</h2>
+          <p style="font-size:16px;line-height:26px;margin:16px 0 0;max-width:48ch;color:rgba(242,240,236,.76)">{{ a.body }}</p>
+          <span style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,240,236,.55);margin:28px 0 10px">{{ t.deliver }}</span>
+          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column">
+            <sc-for list="{{ a.items }}" as="it" hint-placeholder-count="3">
+              <li style="padding:11px 0;border-top:1px solid rgba(242,240,236,.14);font-size:15px;line-height:23px">{{ it }}</li>
+            </sc-for>
+          </ul>
+        </div>
+      </div>
+    </sc-for>
+  </section>
+</div>
+</sc-if>
+
+<sc-if value="{{ isTech }}">
+<div>
+  <section style="position:relative;display:grid;min-height:min(80vh,760px)">
+    <image-slot id="v3-tech-hero" shape="rect" style="position:absolute;inset:0;width:100%;height:100%" placeholder="Manşet fotoğrafı: platform yakın çekim, sensör yükü görünür"></image-slot>
+    <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(11,13,15,.4) 0%,rgba(11,13,15,.9) 100%)"></div>
+    <div style="position:relative;pointer-events:none;align-self:end;width:100%;max-width:1320px;margin:0 auto;padding:clamp(48px,6vw,88px) clamp(20px,4vw,64px)">
+      <span style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#F0A93B;margin-bottom:20px">{{ t.tpK }}</span>
+      <h1 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(36px,5.6vw,80px);line-height:1.14;letter-spacing:-.035em;margin:0;max-width:20ch;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.tpTitle }}</h1>
+      <p style="font-size:17px;line-height:28px;max-width:56ch;margin:24px 0 0;color:rgba(242,240,236,.8)">{{ t.tpLead }}</p>
+    </div>
+  </section>
+
+  <section style="max-width:1320px;margin:0 auto;padding:0 clamp(20px,4vw,64px) clamp(56px,6vw,88px)">
+    <div style="display:grid;align-items:start;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(20px,2.4vw,32px)">
+      <sc-for list="{{ platformCards }}" as="p" hint-placeholder-count="3">
+        <div style="display:flex;flex-direction:column;min-width:0;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%;transition:transform .35s cubic-bezier(.22,.61,.36,1)" style-hover="{transform:'translateY(-5px)'}">
+          <div style="position:relative;width:100%;aspect-ratio:3/4;flex:none"><image-slot id="{{ p.slotId }}" shape="rect" style="position:absolute;inset:0;width:100%;height:100%" placeholder="{{ p.head }}"></image-slot></div>
+          <h3 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:24px;line-height:1.2;letter-spacing:-.02em;margin:18px 0 0">{{ p.id }}</h3>
+          <p style="font-size:14px;line-height:22px;margin:6px 0 0;color:rgba(242,240,236,.62)">{{ p.type }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="background:#14181C">
+    <div style="max-width:1320px;margin:0 auto;padding:clamp(56px,6vw,88px) clamp(20px,4vw,64px)">
+      <h2 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(26px,3vw,40px);line-height:1.14;letter-spacing:-.03em;margin:0 0 32px;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.matrixTitle }}</h2>
+      <div style="overflow-x:auto">
+        <table style="width:100%;min-width:620px;border-collapse:collapse;text-align:left">
+          <thead>
+            <tr>
+              <th scope="col" style="padding:14px 20px 14px 0;font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(242,240,236,.55);border-bottom:1px solid rgba(242,240,236,.2)">{{ t.cols.prop }}</th>
+              <sc-for list="{{ platforms }}" as="p" hint-placeholder-count="3">
+                <th scope="col" style="padding:14px 20px 14px 0;font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(242,240,236,.55);border-bottom:1px solid rgba(242,240,236,.2)">{{ p.head }}</th>
+              </sc-for>
+            </tr>
+          </thead>
+          <tbody>
+            <sc-for list="{{ matrixRows }}" as="r" hint-placeholder-count="5">
+              <tr>
+                <td style="padding:18px 20px 18px 0;font-size:16px;line-height:24px;border-bottom:1px solid rgba(242,240,236,.12)">{{ r.prop }}</td>
+                <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="3">
+                  <td style="padding:18px 20px 18px 0;font-family:'Archivo',sans-serif;font-weight:800;font-size:22px;line-height:24px;letter-spacing:-.02em;white-space:nowrap;border-bottom:1px solid rgba(242,240,236,.12);font-feature-settings:'tnum' 1">{{ c.v }}</td>
+                </sc-for>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width:1320px;margin:0 auto;padding:clamp(56px,6vw,96px) clamp(20px,4vw,64px)">
+    <span style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#F0A93B;margin-bottom:18px;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.payloadK }}</span>
+    <h2 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(26px,3vw,42px);line-height:1.14;letter-spacing:-.03em;margin:0;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.payloadTitle }}</h2>
+    <div style="display:grid;align-items:start;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:clamp(20px,2.4vw,32px);margin-top:40px">
+      <sc-for list="{{ payloadItems }}" as="p" hint-placeholder-count="4">
+        <div style="display:flex;flex-direction:column;min-width:0;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%;transition:transform .35s cubic-bezier(.22,.61,.36,1)" style-hover="{transform:'translateY(-5px)'}">
+          <div style="position:relative;width:100%;aspect-ratio:1/1;flex:none"><image-slot id="{{ p.slotId }}" shape="rect" style="position:absolute;inset:0;width:100%;height:100%" placeholder="{{ p.t }}"></image-slot></div>
+          <h3 style="font-family:'Archivo',sans-serif;font-weight:600;font-size:19px;line-height:24px;letter-spacing:-.015em;margin:16px 0 0">{{ p.t }}</h3>
+          <p style="font-size:15px;line-height:23px;margin:8px 0 0;color:rgba(242,240,236,.72)">{{ p.b }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width:1320px;margin:0 auto;padding:0 clamp(20px,4vw,64px) clamp(72px,8vw,112px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(32px,4vw,72px);align-items:center">
+    <div>
+      <span style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#F0A93B;margin-bottom:18px;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.swK }}</span>
+      <h2 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(26px,3vw,42px);line-height:1.14;letter-spacing:-.03em;margin:0;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.swTitle }}</h2>
+      <div style="display:flex;flex-direction:column;margin-top:28px">
+        <sc-for list="{{ t.sw }}" as="s" hint-placeholder-count="3">
+          <div style="padding:20px 0;border-top:1px solid rgba(242,240,236,.14)">
+            <h3 style="font-family:'Archivo',sans-serif;font-weight:600;font-size:19px;line-height:24px;letter-spacing:-.015em;margin:0">{{ s.t }}</h3>
+            <p style="font-size:15px;line-height:23px;margin:8px 0 0;color:rgba(242,240,236,.72)">{{ s.b }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <image-slot id="v2-software" shape="rect" style="width:100%;aspect-ratio:4/3" placeholder="Yer kontrol istasyonu ekranı veya işlenmiş harita çıktısı"></image-slot>
+  </section>
+</div>
+</sc-if>
+
+<sc-if value="{{ isContact }}">
+<div>
+  <section style="position:relative;display:grid;min-height:min(56vh,480px)">
+    <image-slot id="v3-contact-hero" shape="rect" style="position:absolute;inset:0;width:100%;height:100%" placeholder="Ekip fotoğrafı: sahada brifing"></image-slot>
+    <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(11,13,15,.3) 0%,rgba(11,13,15,.92) 100%)"></div>
+  </section>
+
+  <section style="max-width:1320px;margin:0 auto;padding:clamp(48px,5vw,80px) clamp(20px,4vw,64px) clamp(56px,6vw,88px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(32px,4vw,72px);align-items:start">
+    <div>
+      <span style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#F0A93B;margin-bottom:18px;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.cpK }}</span>
+      <h1 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(34px,4.6vw,64px);line-height:1;letter-spacing:-.035em;margin:0;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.ctaTitle }}</h1>
+      <p style="font-size:17px;line-height:28px;max-width:44ch;margin:24px 0 0;color:rgba(242,240,236,.76)">{{ t.ctaBody }}</p>
+      <div style="margin-top:36px">
+        <span style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,240,236,.55);margin-bottom:10px">{{ t.officeTitle }}</span>
+        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column">
+          <sc-for list="{{ t.office }}" as="o" hint-placeholder-count="3">
+            <li style="padding:12px 0;border-top:1px solid rgba(242,240,236,.14);font-size:16px;line-height:24px">{{ o }}</li>
+          </sc-for>
+        </ul>
+      </div>
+      <div style="margin-top:36px">
+        <image-slot id="v2-contact" shape="rect" style="width:100%;aspect-ratio:16/9" placeholder="Ofis veya ekip fotoğrafı"></image-slot>
+      </div>
+    </div>
+    <div style="background:#14181C;padding:clamp(24px,3vw,36px)">
+      <sc-if value="{{ sent }}">
+        <div>
+          <h2 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:26px;line-height:1.2;letter-spacing:-.025em;margin:0;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.form.sentTitle }}</h2>
+          <p style="font-size:15px;line-height:24px;margin:14px 0 0;color:rgba(242,240,236,.74)">{{ t.form.sent }}</p>
+          <button type="button" onClick="{{ resetForm }}" style="cursor:pointer;margin-top:24px;border:1px solid rgba(242,240,236,.34);border-radius:999px;background:transparent;color:#F2F0EC;font-size:15px;padding:13px 24px" style-hover="{background:'rgba(242,240,236,.1)'}">{{ t.form.again }}</button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <label for="v2-ad" style="font-size:13px;letter-spacing:.04em;color:rgba(242,240,236,.7)">{{ t.form.ad }}</label>
+          <input id="v2-ad" type="text" value="{{ form.ad }}" onChange="{{ setAd }}" style="background:#0B0D0F;border:1px solid rgba(242,240,236,.22);color:#F2F0EC;font-size:16px;padding:13px 14px;border-radius:2px" />
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <label for="v2-kurum" style="font-size:13px;letter-spacing:.04em;color:rgba(242,240,236,.7)">{{ t.form.kurum }}</label>
+          <input id="v2-kurum" type="text" value="{{ form.kurum }}" onChange="{{ setKurum }}" style="background:#0B0D0F;border:1px solid rgba(242,240,236,.22);color:#F2F0EC;font-size:16px;padding:13px 14px;border-radius:2px" />
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <label for="v2-eposta" style="font-size:13px;letter-spacing:.04em;color:rgba(242,240,236,.7)">{{ t.form.eposta }}</label>
+          <input id="v2-eposta" type="email" value="{{ form.eposta }}" onChange="{{ setEposta }}" style="background:#0B0D0F;border:1px solid rgba(242,240,236,.22);color:#F2F0EC;font-size:16px;padding:13px 14px;border-radius:2px" />
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <label for="v4-telefon" style="font-size:13px;letter-spacing:.04em;color:rgba(242,240,236,.7)">{{ t.form.telefon }}</label>
+          <input id="v4-telefon" type="tel" value="{{ form.telefon }}" onChange="{{ setTelefon }}" style="background:#0B0D0F;border:1px solid rgba(242,240,236,.22);color:#F2F0EC;font-size:16px;padding:13px 14px;border-radius:2px" />
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <label for="v4-uni" style="font-size:13px;letter-spacing:.04em;color:rgba(242,240,236,.7)">{{ t.form.uni }}</label>
+          <input id="v4-uni" type="text" value="{{ form.uni }}" onChange="{{ setUni }}" style="background:#0B0D0F;border:1px solid rgba(242,240,236,.22);color:#F2F0EC;font-size:16px;padding:13px 14px;border-radius:2px" />
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <label for="v4-rol" style="font-size:13px;letter-spacing:.04em;color:rgba(242,240,236,.7)">{{ t.form.rol }}</label>
+          <select id="v4-rol" value="{{ form.rol }}" onChange="{{ setRol }}" style="background:#0B0D0F;border:1px solid rgba(242,240,236,.22);color:#F2F0EC;font-size:16px;padding:13px 14px;border-radius:2px">
+            <option value="">{{ t.form.pick }}</option>
+            <sc-for list="{{ t.roles }}" as="r" hint-placeholder-count="4">
+              <option value="{{ r }}">{{ r }}</option>
+            </sc-for>
+          </select>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <label for="v2-sektor" style="font-size:13px;letter-spacing:.04em;color:rgba(242,240,236,.7)">{{ t.form.sektor }}</label>
+          <select id="v2-sektor" value="{{ form.sektor }}" onChange="{{ setSektor }}" style="background:#0B0D0F;border:1px solid rgba(242,240,236,.22);color:#F2F0EC;font-size:16px;padding:13px 14px;border-radius:2px">
+            <option value="">{{ t.form.pick }}</option>
+            <sc-for list="{{ t.sectors }}" as="s" hint-placeholder-count="6">
+              <option value="{{ s }}">{{ s }}</option>
+            </sc-for>
+          </select>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <label for="v2-mesaj" style="font-size:13px;letter-spacing:.04em;color:rgba(242,240,236,.7)">{{ t.form.mesaj }}</label>
+          <textarea id="v2-mesaj" rows="4" value="{{ form.mesaj }}" onChange="{{ setMesaj }}" style="background:#0B0D0F;border:1px solid rgba(242,240,236,.22);color:#F2F0EC;font-size:16px;padding:13px 14px;border-radius:2px;resize:vertical"></textarea>
+        </div>
+        <sc-if value="{{ hasError }}">
+          <p style="margin:0;font-size:14px;line-height:21px;color:#FFC96B">{{ t.form.err }}</p>
+        </sc-if>
+        <button type="button" onClick="{{ submit }}" style="cursor:pointer;border:0;border-radius:999px;background:#F0A93B;color:#0B0D0F;font-size:15px;font-weight:500;padding:15px 26px" style-hover="{background:'#FFC96B'}">{{ t.form.send }}</button>
+      </div>
+      </sc-if>
+    </div>
+  </section>
+
+</div>
+</sc-if>
+
+<sc-if value="{{ isDoc }}">
+<div>
+  <section style="max-width:820px;margin:0 auto;padding:clamp(48px,6vw,88px) clamp(20px,4vw,64px) clamp(56px,7vw,96px)">
+    <a href="#" onClick="{{ goHome }}" style="cursor:pointer;display:inline-block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#F0A93B;margin-bottom:28px">{{ t.docBack }}</a>
+    <h1 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(30px,4.2vw,54px);line-height:1.14;letter-spacing:-.03em;margin:0;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ doc.t }}</h1>
+    <p style="font-size:13px;line-height:20px;margin:16px 0 0;color:rgba(242,240,236,.55)">{{ docStamp }}</p>
+    <div style="display:flex;flex-direction:column;margin-top:clamp(32px,4vw,48px)">
+      <sc-for list="{{ doc.s }}" as="sec" hint-placeholder-count="5">
+        <div style="padding:28px 0;border-top:1px solid rgba(242,240,236,.14)">
+          <h2 style="font-family:'Archivo',sans-serif;font-weight:600;font-size:21px;line-height:27px;letter-spacing:-.015em;margin:0">{{ sec.h }}</h2>
+          <div style="display:flex;flex-direction:column;gap:14px;margin-top:14px">
+            <sc-for list="{{ sec.p }}" as="para" hint-placeholder-count="2">
+              <p style="font-size:16px;line-height:27px;margin:0;color:rgba(242,240,236,.8)">{{ para }}</p>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="border-top:1px solid rgba(242,240,236,.14);padding-top:28px;display:flex;flex-wrap:wrap;gap:8px">
+      <sc-for list="{{ docNav }}" as="d" hint-placeholder-count="4">
+        <a href="#" onClick="{{ d.go }}" style="cursor:pointer;font-size:14px;padding:9px 16px;border-radius:999px;border:1px solid {{ d.border }};background:{{ d.bg }};color:{{ d.fg }}">{{ d.label }}</a>
+      </sc-for>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<footer style="border-top:1px solid rgba(242,240,236,.14);background:#14181C">
+  <div style="max-width:1320px;margin:0 auto;padding:clamp(40px,5vw,64px) clamp(20px,4vw,64px) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:32px clamp(32px,5vw,72px);align-items:start">
+    <div>
+      <h2 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:clamp(22px,2.4vw,30px);line-height:1.14;letter-spacing:-.025em;margin:0;max-width:24ch;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.ft.nlTitle }}</h2>
+      <p style="font-size:15px;line-height:24px;max-width:48ch;margin:14px 0 0;color:rgba(242,240,236,.7)">{{ t.ft.nlBody }}</p>
+    </div>
+    <div style="align-self:center">
+      <sc-if value="{{ nlSent }}">
+        <p style="margin:0;font-size:15px;line-height:24px;color:#F0A93B">{{ t.ft.nlOk }}</p>
+      </sc-if>
+      <sc-if value="{{ nlOpen }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <input type="email" placeholder="{{ t.ft.nlPh }}" value="{{ nlMail }}" onChange="{{ setNlMail }}" style="flex:1;min-width:220px;background:#0B0D0F;border:1px solid rgba(242,240,236,.22);color:#F2F0EC;font-size:15px;padding:13px 14px;border-radius:2px" />
+          <button type="button" onClick="{{ nlSubmit }}" style="cursor:pointer;border:0;border-radius:999px;background:#F0A93B;color:#0B0D0F;font-size:15px;font-weight:500;padding:13px 24px" style-hover="{background:'#FFC96B'}">{{ t.ft.nlBtn }}</button>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+
+  <div style="max-width:1320px;margin:0 auto;padding:clamp(40px,5vw,56px) clamp(20px,4vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:32px clamp(24px,3vw,48px);align-items:start;border-bottom:1px solid rgba(242,240,236,.14)">
+    <div>
+      <span style="display:flex;align-items:center;gap:9px">
+        <img src="assets/logo-white.png" alt="" style="height:17px;width:auto;display:block" />
+        <span style="font-family:'Archivo',sans-serif;font-weight:800;font-size:17px;letter-spacing:-.02em">Drone<span style="color:#F0A93B">Tek</span></span>
+      </span>
+      <p style="font-size:14px;line-height:22px;margin:16px 0 0;max-width:34ch;color:rgba(242,240,236,.6)">{{ t.ft.desc }}</p>
+      <span style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,240,236,.5);margin:24px 0 10px">{{ t.ft.contactTitle }}</span>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <a href="{{ waHref }}" target="_blank" rel="noopener" style="font-size:14px;padding:8px 14px;border-radius:999px;border:1px solid rgba(242,240,236,.24);color:#F2F0EC" style-hover="{background:'rgba(242,240,236,.1)',color:'#F2F0EC'}">{{ t.ft.wa }}</a>
+        <a href="tel:+905446943278" style="font-size:14px;padding:8px 14px;border-radius:999px;border:1px solid rgba(242,240,236,.24);color:#F2F0EC" style-hover="{background:'rgba(242,240,236,.1)',color:'#F2F0EC'}">{{ t.ft.call }}</a>
+        <a href="mailto:iletisim@dronetek.com.tr" style="font-size:14px;padding:8px 14px;border-radius:999px;border:1px solid rgba(242,240,236,.24);color:#F2F0EC" style-hover="{background:'rgba(242,240,236,.1)',color:'#F2F0EC'}">{{ t.ft.mail }}</a>
+      </div>
+    </div>
+    <div>
+      <span style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,240,236,.5);margin-bottom:14px">{{ t.ft.colAreas }}</span>
+      <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px">
+        <sc-for list="{{ footerAreas }}" as="a" hint-placeholder-count="5">
+          <li><a href="#" onClick="{{ a.go }}" style="cursor:pointer;font-size:14px;line-height:21px;color:rgba(242,240,236,.74)" style-hover="{color:'#F0A93B'}">{{ a.title }}</a></li>
+        </sc-for>
+      </ul>
+    </div>
+    <div>
+      <span style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,240,236,.5);margin-bottom:14px">{{ t.ft.colSupport }}</span>
+      <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px">
+        <sc-for list="{{ supportLinks }}" as="i" hint-placeholder-count="5">
+          <li><a href="#" onClick="{{ i.go }}" style="cursor:pointer;font-size:14px;line-height:21px;color:rgba(242,240,236,.74)" style-hover="{color:'#F0A93B'}">{{ i.label }}</a></li>
+        </sc-for>
+      </ul>
+    </div>
+    <div>
+      <span style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,240,236,.5);margin-bottom:14px">{{ t.ft.colGroup }}</span>
+      <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px">
+        <sc-for list="{{ t.ft.groupItems }}" as="g" hint-placeholder-count="3">
+          <li><a href="{{ g.h }}" target="_blank" rel="noopener" style="font-size:14px;line-height:21px;color:rgba(242,240,236,.74)" style-hover="{color:'#F0A93B'}">{{ g.l }}</a></li>
+        </sc-for>
+      </ul>
+      <span style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,240,236,.5);margin:24px 0 14px">{{ t.ft.colTrust }}</span>
+      <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px">
+        <sc-for list="{{ t.ft.trustItems }}" as="i" hint-placeholder-count="3">
+          <li style="font-size:14px;line-height:21px;color:rgba(242,240,236,.6)">{{ i }}</li>
+        </sc-for>
+      </ul>
+    </div>
+  </div>
+
+  <div style="max-width:1320px;margin:0 auto;padding:24px clamp(20px,4vw,64px) 40px;display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;justify-content:space-between">
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <span style="font-size:13px;line-height:20px;color:rgba(242,240,236,.6)">{{ t.ft.copy }}</span>
+      <span style="font-size:13px;line-height:20px;color:rgba(242,240,236,.6)">{{ t.ft.affilA }}<strong style="font-weight:500;color:rgba(242,240,236,.82)">{{ t.ft.affilB }}</strong>{{ t.ft.affilC }}</span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center">
+      <sc-for list="{{ legalLinks }}" as="l" hint-placeholder-count="4">
+        <a href="#" onClick="{{ l.go }}" style="cursor:pointer;font-size:13px;color:rgba(242,240,236,.74)" style-hover="{color:'#F0A93B'}">{{ l.label }}</a>
+      </sc-for>
+      <button type="button" onClick="{{ openCookiePanel }}" style="cursor:pointer;background:transparent;border:1px solid rgba(242,240,236,.24);border-radius:999px;color:#F2F0EC;font-size:13px;padding:7px 14px" style-hover="{background:'rgba(242,240,236,.1)'}">{{ t.ft.prefs }}</button>
+    </div>
+  </div>
+</footer>
+
+<sc-if value="{{ cookieBar }}" hint-placeholder-val="{{ true }}">
+<div style="position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(11,13,15,.96);backdrop-filter:blur(14px);border-top:1px solid rgba(240,169,59,.4)">
+  <div style="max-width:1320px;margin:0 auto;padding:20px clamp(20px,4vw,64px);display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between">
+    <div style="max-width:62ch">
+      <span style="display:block;font-family:'Archivo',sans-serif;font-weight:600;font-size:17px;line-height:22px;letter-spacing:-.015em">{{ t.ck.barTitle }}</span>
+      <p style="font-size:14px;line-height:21px;margin:8px 0 0;color:rgba(242,240,236,.72)">{{ t.ck.barBody }}</p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px">
+      <button type="button" onClick="{{ openCookiePanel }}" style="cursor:pointer;background:transparent;border:1px solid rgba(242,240,236,.28);border-radius:999px;color:#F2F0EC;font-size:14px;padding:11px 18px" style-hover="{background:'rgba(242,240,236,.1)'}">{{ t.ck.manage }}</button>
+      <button type="button" onClick="{{ rejectCookies }}" style="cursor:pointer;background:transparent;border:1px solid rgba(242,240,236,.28);border-radius:999px;color:#F2F0EC;font-size:14px;padding:11px 18px" style-hover="{background:'rgba(242,240,236,.1)'}">{{ t.ck.reject }}</button>
+      <button type="button" onClick="{{ acceptCookies }}" style="cursor:pointer;border:0;border-radius:999px;background:#F0A93B;color:#0B0D0F;font-size:14px;font-weight:500;padding:11px 20px" style-hover="{background:'#FFC96B'}">{{ t.ck.accept }}</button>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ cookiePanel }}">
+<div style="position:fixed;inset:0;z-index:70;background:rgba(11,13,15,.7);backdrop-filter:blur(6px);display:grid;place-items:center;padding:20px">
+  <div style="width:100%;max-width:560px;max-height:86vh;overflow-y:auto;background:#14181C;border:1px solid rgba(242,240,236,.16);padding:clamp(22px,3vw,32px)">
+    <h2 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:24px;line-height:1.14;letter-spacing:-.025em;margin:0;animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 6% cover 28%">{{ t.ck.panelTitle }}</h2>
+    <div style="display:flex;flex-direction:column;margin-top:20px">
+      <sc-for list="{{ cookieCats }}" as="c" hint-placeholder-count="3">
+        <div style="display:grid;grid-template-columns:1fr auto;gap:12px 20px;align-items:start;padding:18px 0;border-top:1px solid rgba(242,240,236,.14)">
+          <div>
+            <span style="display:block;font-size:16px;line-height:22px;font-weight:500">{{ c.t }}</span>
+            <p style="font-size:14px;line-height:21px;margin:6px 0 0;color:rgba(242,240,236,.7)">{{ c.b }}</p>
+          </div>
+          <sc-if value="{{ c.locked }}">
+            <span style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:rgba(242,240,236,.5);white-space:nowrap">{{ t.ck.locked }}</span>
+          </sc-if>
+          <sc-if value="{{ c.toggleable }}">
+            <label style="cursor:pointer;display:flex;align-items:center;gap:9px;font-size:13px;white-space:nowrap;color:{{ c.labelFg }}">
+              <input type="checkbox" checked="{{ c.on }}" onChange="{{ c.toggle }}" style="width:18px;height:18px;accent-color:#F0A93B;cursor:pointer" />{{ c.stateLabel }}
+            </label>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:24px">
+      <button type="button" onClick="{{ saveCookies }}" style="cursor:pointer;border:0;border-radius:999px;background:#F0A93B;color:#0B0D0F;font-size:15px;font-weight:500;padding:13px 22px" style-hover="{background:'#FFC96B'}">{{ t.ck.save }}</button>
+      <button type="button" onClick="{{ acceptCookies }}" style="cursor:pointer;background:transparent;border:1px solid rgba(242,240,236,.28);border-radius:999px;color:#F2F0EC;font-size:15px;padding:13px 22px" style-hover="{background:'rgba(242,240,236,.1)'}">{{ t.ck.accept }}</button>
+      <button type="button" onClick="{{ closeCookiePanel }}" style="cursor:pointer;background:transparent;border:0;color:rgba(242,240,236,.7);font-size:15px;padding:13px 10px" style-hover="{color:'#F2F0EC'}">{{ t.ck.close }}</button>
+      <a href="#" onClick="{{ goCookiePolicy }}" style="cursor:pointer;align-self:center;font-size:14px;color:#F0A93B;padding:13px 4px">{{ t.docs.cerez.t }}</a>
+    </div>
+  </div>
+</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;TR&quot;,&quot;EN&quot;],&quot;default&quot;:&quot;TR&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Site&quot;},&quot;defaultCategory&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;all&quot;,&quot;tarim&quot;,&quot;enerji&quot;,&quot;olcum&quot;,&quot;kamu&quot;,&quot;lojistik&quot;],&quot;default&quot;:&quot;all&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Site&quot;},&quot;defaultPlatform&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;VK-4&quot;,&quot;VK-7&quot;,&quot;VK-9&quot;],&quot;default&quot;:&quot;VK-4&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Site&quot;},&quot;showRegulation&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Bölümler&quot;},&quot;showNews&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Bölümler&quot;}}">
+class Component extends DCLogic {
+  emptyForm = { ad: '', kurum: '', eposta: '', telefon: '', uni: '', rol: '', sektor: '', mesaj: '' };
+  CK_KEY = 'dronetek-cookie-consent';
+  state = { page: 'home', doc: 'hakkimizda', navHover: null, lang: null, cat: null, platform: null, sent: false, err: false,
+    nlMail: '', nlSent: false, ckDecided: true, ckPanel: false, ckAnalytics: false, ckMarketing: false,
+    form: { ad: '', kurum: '', eposta: '', telefon: '', uni: '', rol: '', sektor: '', mesaj: '' } };
+
+  content = {
+    tr: {
+      nav: { home: 'Ana Sayfa', areas: 'Kullanım Alanları', tech: 'Teknoloji', contact: 'İletişim' },
+      nav3d: '3B Model',
+      cta: 'Talep oluştur',
+      hero: { l1: 'Paket, kargo ve insan taşımacılığı için', l2: 'drone tabanlı ulaşım sistemleri.',
+        sub: 'DroneTek; drone tabanlı ulaşım sistemleri alanında geliştirilen mühendislik çözümlerini, yenilikçi teknolojileri ve girişimci ekipleri bir araya getiren bir platformdur. Amacımız trafik yükünü azaltan, zaman ve enerji verimliliği sağlayan, güvenli ve sürdürülebilir hava taşımacılığı altyapılarını geliştirmek.',
+        b1: 'Talep oluştur', b2: 'Kullanım alanlarını gör' },
+      missionK: '02 · Platform',
+      missionTitle: 'Bu platform ne yapar',
+      missionItems: [
+        { t: 'Sistem geliştirir', b: 'Paket, kargo ve insan taşımacılığı için drone tabanlı sistemler geliştirir; bu sistemlerin test edilmesini, doğrulanmasını ve uygulanabilir hale gelmesini destekler.' },
+        { t: 'Yaygınlaştırır', b: 'Şehir içi ulaşım, lojistik ve acil durumlarda drone taşımacılığının yaygınlaşmasına katkı sağlar.' },
+        { t: 'Ürüne dönüştürür', b: 'Mühendislik bilgisini, girişimcilik ve sistem tasarımı bakış açısıyla ürün, platform ve operasyonel çözümlere dönüştürür.' }
+      ],
+      oppK: '07 · Fırsat',
+      oppTitle: 'Türkiye\u2019nin taşımacılık ve acil lojistik sorunlarına çözüm üretme fırsatı',
+      oppItems: [
+        'Paket, kargo ve insan taşımacılığını hızlı ve güvenli hale getirecek sistemler geliştir',
+        'Trafik ve gecikmeleri azaltacak yenilikçi hava taşımacılığı çözümleri tasarla',
+        'Pilot uygulamalar ve testlerle sistemlerin sahada çalışmasını sağla',
+        'Şehirlerin ve insanların günlük hayatını iyileştiren çözümler üret'
+      ],
+      oppNote: 'Burada yer almak, sadece teknoloji geliştirmek değil; gerçek bir ülke sorununa çözüm üretmek demektir.',
+      disasterA: 'Deprem ve benzeri afetlerde kara ulaşımı aksayabilir.',
+      disasterB: 'Drone teknolojisi, hayati yardımı en hızlı yoldan ulaştırır.',
+      joinK: '10 · Katılım',
+      joinTitle: 'Çözümün bir parçası olmak isteyen herkese açık',
+      joinItems: [
+        'Drone, yazılım veya mekanik mühendisliği bilenler veya ilgisi olanlar',
+        'Ulaşım, lojistik, otonom sistemler ve operasyon odaklı kişiler',
+        'Ürün geliştirme, iş modeli ve ölçeklenme süreçlerine katkı vermek isteyen girişimciler',
+        'Türkiye\u2019nin şehir içi ve acil taşımacılık problemlerine çözüm üretmek isteyen herkes'
+      ],
+      joinNote: 'Bilgin, deneyimin ve fikirlerin; drone teknolojileriyle geleceğin ulaşım, lojistik ve acil müdahale çözümlerini şekillendirebilir.',
+      statsK: '01 · Sayısal görünüm',
+      stats: [{ v: '18.400', l: 'Kayıtlı uçuş saati' }, { v: '8', l: 'Faaliyet alanı' }, { v: '±2 cm', l: 'Konum hassasiyeti (RTK)' }, { v: '42', l: 'İlde saha operasyonu' }],
+      areasK: '03 · Kullanım alanları',
+      areasTitle: 'Sekiz alan, tek platform ailesi',
+      areasLead: 'Aynı uçuş yazılımı, aynı veri hattı. Görevden göreve değişen tek şey sensör yükü ve uçuş planı.',
+      cats: [{ id: 'all', label: 'Tümü' }, { id: 'tarim', label: 'Tarım & Çevre' }, { id: 'enerji', label: 'Enerji & Altyapı' }, { id: 'olcum', label: 'Ölçüm & İnşaat' }, { id: 'kamu', label: 'Kamu Güvenliği' }, { id: 'lojistik', label: 'Lojistik' }],
+      areas: [
+        { cat: 'tarim', catLabel: 'Tarım & Çevre', title: 'Zirai ilaçlama', body: 'Değişken oranlı ilaçlama, sıra takipli püskürtme ve reçete dosyasına göre otonom uçuş. Altı kilogramlık tank ile hektar başına ortalama on iki dakika.', items: ['Uçuş bazlı ilaçlama raporu', 'Parsel sınırı ve engel haritası', 'İlaç tüketim dökümü'] },
+        { cat: 'olcum', catLabel: 'Ölçüm & İnşaat', title: 'Haritalama ve fotogrametri', body: 'Ortofoto, sayısal yükseklik modeli ve nokta bulutu üretimi. Yer kontrol noktası ile üç santimetre altı yatay doğruluk.', items: ['GeoTIFF ortofoto', 'Nokta bulutu (LAS)', 'Doğruluk raporu'] },
+        { cat: 'enerji', catLabel: 'Enerji & Altyapı', title: 'Enerji hattı denetimi', body: 'İletim hattı koridoru, izolatör, iletken ve trafo taraması. Termal ve görünür bant aynı uçuşta kaydedilir.', items: ['Arıza noktası listesi', 'Termal anomali görüntüleri', 'Koridor ağaçlanma analizi'] },
+        { cat: 'kamu', catLabel: 'Kamu Güvenliği', title: 'Arama-kurtarma ve afet', body: 'Termal tarama ile gece araması, enkaz sonrası hasar haritası ve ilk yirmi dört saat durum raporu.', items: ['Canlı görüntü aktarımı', 'Hasar sınıflandırma haritası', 'Koordinat listesi'] },
+        { cat: 'lojistik', catLabel: 'Lojistik', title: 'Kargo ve numune teslimi', body: 'Ada, yayla ve şantiye hatlarında dört kilograma kadar noktadan noktaya teslim; otonom iniş istasyonu ile.', items: ['Hat planı ve uçuş takvimi', 'Sıcaklık kayıtlı taşıma', 'Teslim doğrulama kaydı'] },
+        { cat: 'olcum', catLabel: 'Ölçüm & İnşaat', title: 'İnşaat ve madencilik', body: 'Hafriyat hacim hesabı, şev stabilite takibi ve haftalık ilerleme karşılaştırması.', items: ['Hacim raporu (kesme/dolgu)', 'Haftalık ilerleme kıyası', 'Şev kesit çizimleri'] },
+        { cat: 'kamu', catLabel: 'Kamu Güvenliği', title: 'Güvenlik ve gözetleme', body: 'Tesis çevresi devriye uçuşu, çit ihlali tespiti ve olay anında canlı görüntü aktarımı.', items: ['Devriye uçuş planı', 'İhlal olay kaydı', 'Gece görüş taraması'] },
+        { cat: 'tarim', catLabel: 'Tarım & Çevre', title: 'Orman ve çevre izleme', body: 'Yangın erken tespiti, sulak alan sınır takibi ve tür sayımı için düşük irtifa uçuşu.', items: ['Sıcaklık anomali uyarısı', 'Alan değişim karşılaştırması', 'Sayım raporu'] }
+      ],
+      techK: '04 · Teknik veri',
+      specTitle: 'Uçuş platformları — teknik veri',
+      matrixTitle: 'Platform karşılaştırma tablosu',
+      doc: 'DT-SER', rev: 'Rev 04', sheet: 'Sayfa 01 / 03', sheet2: 'Sayfa 02 / 03',
+      cols: { no: 'No', prop: 'Özellik', val: 'Değer', rem: 'Not' },
+      specLabels: [
+        { p: 'Havada kalış', r: 'Standart batarya seti ile' },
+        { p: 'Telemetri menzili', r: 'Görüş hattında' },
+        { p: 'Faydalı yük', r: 'Görev ekipmanı dahil' },
+        { p: 'Konum hassasiyeti', r: 'RTK düzeltmesi altında' },
+        { p: 'Rüzgâr dayanımı', r: 'Sürekli rüzgâr' }
+      ],
+      note: { a: 'Değerler ', b: ' platformu için standart konfigürasyonda, deniz seviyesinde ölçülmüştür.' },
+      stepsK: '05 · Süreç',
+      stepsTitle: 'Görevden teslime dört adım',
+      steps: [
+        { n: '01', t: 'Görev tanımı', b: 'Alanın sınırları, çözünürlük hedefi, teslim formatı ve takvim birlikte belirlenir.' },
+        { n: '02', t: 'İzin ve uçuş planı', b: 'SHGM kaydı, uçuşa yasak saha kontrolü ve bildirim süreci bizim tarafımızda yürür.' },
+        { n: '03', t: 'Veri toplama', b: 'Otonom hat uçuşu; RTK düzeltmesi ve yer kontrol noktaları ile ölçüm sahada doğrulanır.' },
+        { n: '04', t: 'İşleme ve teslim', b: 'Ortofoto, yükseklik modeli, nokta bulutu veya denetim raporu beş iş günü içinde teslim edilir.' }
+      ],
+      caseK: '06 · Vaka çalışması',
+      caseQuote: '“İki yüz kilometrelik iletim hattını üç günde taradık; iki kırık izolatör ve bir aşırı ısınan bağlantı bulduk. Ekip aynı işi iki haftada yapıyordu.”',
+      caseAuthor: '— M. Alkan, bakım şefi, bölgesel dağıtım şirketi',
+      caseMetrics: [{ v: '204 km', l: 'Taranan hat' }, { v: '3 gün', l: 'Saha süresi' }, { v: '%78', l: 'Zaman tasarrufu' }],
+      regK: '08 · Mevzuat',
+      regTitle: 'Uçuş izinleri bizim tarafımızda',
+      regBody: 'Ticari İHA operasyonu Sivil Havacılık Genel Müdürlüğü mevzuatına tabidir. Kayıt, izin ve sigorta süreçlerini görev başlamadan önce biz yürütüyoruz.',
+      regItems: ['İHA-2 / İHA-3 kayıt ve tescil', 'Ticari uçuş faaliyet izni', 'Uzaktan pilot lisansı ve sağlık raporu', 'Üçüncü şahıs mali sorumluluk sigortası'],
+      newsK: '09 · Haberler',
+      newsTitle: 'Sahadan notlar',
+      news: [
+        { d: '12.06.2026', tag: 'Ürün', t: 'VK-9 VTOL seri üretime geçti', b: 'Dikey kalkışlı sabit kanat platform, kırk kilometre menzil ve iki saat havada kalış ile teslim edilmeye başlandı.' },
+        { d: '28.04.2026', tag: 'Saha', t: 'Konya ovasında 12.000 hektar tarama', b: 'Bir sezonda dokuz kooperatif için bitki sağlığı haritası üretildi; sulama planları buna göre revize edildi.' },
+        { d: '05.03.2026', tag: 'Yazılım', t: 'Veri hattına otomatik rapor eklendi', b: 'Uçuş sonrası işleme, denetim bulgularını koordinatları ile birlikte tek dosyada topluyor.' }
+      ],
+      ctaK: '11 · İletişim',
+      ctaTitle: 'Talep oluşturun',
+      ctaBody: 'Mühendis ya da girişimci olarak katılmak, pilot uygulama önermek veya bir taşımacılık ihtiyacınızı iletmek için talebinizi oluşturun.',
+      form: { ad: 'Ad soyad', kurum: 'Kurum', eposta: 'E-posta', telefon: 'Telefon', uni: 'Üniversite / bölüm', rol: 'Mühendis / girişimci', sektor: 'İlgi alanı', mesaj: 'Kendiniz ve fikriniz hakkında', send: 'Talebi gönder', pick: 'Seçiniz',
+        sentTitle: 'Talebiniz alındı', sent: 'Talebinizi aldık; iki iş günü içinde dönüş yapacağız.', again: 'Yeni talep', err: 'Ad soyad, e-posta ve açıklama alanlarını doldurun.' },
+      roles: ['Mühendis', 'Girişimci', 'Öğrenci', 'Kurum temsilcisi'],
+      sectors: ['Tarım', 'Enerji & Altyapı', 'Ölçüm & İnşaat', 'Kamu Güvenliği', 'Lojistik', 'Diğer'],
+      apK: 'Kullanım alanları',
+      apTitle: 'Alan alan, ne teslim ediyoruz',
+      apLead: 'Her alanda uçuşun çıktısı bir dosyadır: harita, rapor veya koordinat listesi. Aşağıda alan başına teslim edilenler listelenmiştir.',
+      deliver: 'Teslim edilenler',
+      tpK: 'Teknoloji',
+      tpTitle: 'Platformlar, yükler, yazılım',
+      tpLead: 'Üç uçuş platformu, dört sensör yükü ve tek bir veri hattı. Görev profili hangi kombinasyonun uçacağını belirler.',
+      payloadK: 'Sensör yükleri',
+      payloadTitle: 'Dört yük, aynı gövde arayüzü',
+      payloads: [
+        { t: 'RGB ölçüm kamerası', b: '61 MP tam kare, mekanik shutter. Fotogrametri ve ilerleme takibi için standart yük.' },
+        { t: 'Multispektral sensör', b: 'Beş bant ve ışık referansı. NDVI ve bitki stresi haritaları için kullanılır.' },
+        { t: 'Termal kamera', b: '640×512, radyometrik. Hat denetimi, yangın tespiti ve gece aramasında.' },
+        { t: 'LiDAR', b: 'Çift dönüşlü tarayıcı, ağaç altı zemin modeli ve koridor kesiti üretir.' }
+      ],
+      swK: 'Yazılım',
+      swTitle: 'Veri hattı',
+      sw: [
+        { t: 'Uçuş planlama', b: 'Parsel veya koridor sınırından otonom hat planı; engel ve irtifa kısıtları plana işlenir.' },
+        { t: 'İşleme', b: 'Ortofoto, yükseklik modeli ve nokta bulutu üretimi; doğruluk raporu otomatik eklenir.' },
+        { t: 'Teslim ve arşiv', b: 'Çıktılar koordinat sistemi etiketiyle arşivlenir; önceki uçuşlarla karşılaştırılabilir.' }
+      ],
+      cpK: 'İletişim',
+      teamK: 'Ekip',
+      teamTitle: 'Görevi kuran ekip',
+      team: [
+        { i: 'SK', n: 'Selin Kaya', r: 'Operasyon direktörü' },
+        { i: 'ED', n: 'Emre Demir', r: 'Uçuş sistemleri, baş mühendis' },
+        { i: 'BA', n: 'Burak Aydın', r: 'Uzaktan pilot ekip lideri' },
+        { i: 'NY', n: 'Nihan Yılmaz', r: 'Coğrafi veri ve analiz' }
+      ],
+      officeTitle: 'Ofis',
+      office: ['Teknopark İzmir, Urla / İzmir', '+90 544 694 32 78', 'iletisim@dronetek.com.tr'],
+      footer: '© 2026 DroneTek İnsansız Hava Aracı Sistemleri A.Ş.',
+      docBack: 'Ana sayfaya dön',
+      docUpdated: 'Son güncelleme',
+      docs: {
+        hakkimizda: { t: 'Hakkımızda', u: '1 Eylül 2026', s: [
+          { h: 'Kimiz', p: ['DroneTek, paket, kargo ve insan taşımacılığı için drone tabanlı ulaşım sistemleri geliştiren bir mühendislik ve girişimcilik platformudur. Faaliyetlerimiz uçuş platformu geliştirme, sensör yükü entegrasyonu, uçuş yazılımı ve saha operasyonlarını kapsar.', 'Şirket, DEV YAPIMCILIK YAYINCILIK SAN. TİC. LTD. ŞTİ. iştirakidir ve Deprem Teknolojileri ile aynı grup içinde yer alır.'] },
+          { h: 'Ne yapıyoruz', p: ['Tarım, enerji altyapısı denetimi, haritalama, lojistik, arama-kurtarma, inşaat, güvenlik ve çevre izleme alanlarında insansız hava aracı ile veri toplama ve taşıma operasyonları yürütüyoruz. Her görev, görev profiline göre yapılandırılmış bir platform ve sensör yükü ile uçurulur.', 'Uçuşun çıktısı her zaman teslim edilebilir bir dosyadır: ortofoto, sayısal yükseklik modeli, nokta bulutu, denetim raporu veya koordinat listesi.'] },
+          { h: 'Neden bu alan', p: ['Türkiye\u2019de şehir içi ulaşım yükü, kırsal lojistik maliyetleri ve afet sonrası ilk müdahale süresi çözülmemiş problemlerdir. Kara ulaşımının aksadığı durumlarda hava yoluyla taşıma, hayati yardımın en hızlı ulaştırma yöntemidir.', 'Amacımız bu ihtiyacı karşılayan sistemleri yalnızca prototip düzeyinde değil, saha koşullarında doğrulanmış ve operasyonel hale getirilmiş biçimde geliştirmektir.'] },
+          { h: 'Ekip ve katılım', p: ['Platform; drone, yazılım ve mekanik mühendisliği bilen veya bu alana ilgi duyan kişilere, ulaşım ve otonom sistemler alanında çalışanlara ve ürün geliştirme ile ölçeklenme süreçlerine katkı vermek isteyen girişimcilere açıktır.', 'Katılmak için İletişim sayfasındaki talep formunu kullanabilirsiniz.'] },
+          { h: 'Şirket bilgileri', p: ['DroneTek İnsansız Hava Aracı Sistemleri A.Ş. — Teknopark İzmir, Urla / İzmir. E-posta: iletisim@dronetek.com.tr — Telefon: +90 544 694 32 78'] }
+        ] },
+        cerez: { t: 'Çerez Politikası', u: '1 Eylül 2026', s: [
+          { h: 'Çerez nedir', p: ['Çerez, bir web sitesini ziyaret ettiğinizde tarayıcınıza kaydedilen küçük bir metin dosyasıdır. Sitenin sizi hatırlamasını, tercihlerinizi korumasını ve kullanım istatistiği üretmesini sağlar.'] },
+          { h: 'Hangi çerezleri kullanıyoruz', p: ['Zorunlu çerezler: oturum yönetimi, dil tercihi ve form güvenliği için gereklidir. Bu çerezler olmadan site çalışmaz, bu nedenle kapatılamaz ve açık rıza gerektirmez.', 'Performans ve analitik çerezleri: hangi sayfaların ve kullanım alanlarının incelendiğini anonim biçimde ölçer. Yalnızca izniniz ile çalışır.', 'Pazarlama çerezleri: talep formu dönüşümlerini ve kampanya performansını ölçer. Yalnızca izniniz ile çalışır.'] },
+          { h: 'Tercihlerinizi nasıl yönetirsiniz', p: ['Siteye ilk girişinizde çerez bilgilendirme bandı görüntülenir. Tümünü kabul edebilir, yalnızca zorunlu çerezlerle devam edebilir veya kategori bazında seçim yapabilirsiniz.', 'Seçiminiz tarayıcınızda saklanır. Alt bilgideki Çerez Tercihleri düğmesi ile dilediğiniz zaman değiştirebilirsiniz. Tarayıcı ayarlarınızdan da çerezleri silebilir veya engelleyebilirsiniz; bu durumda sitenin bazı işlevleri çalışmayabilir.'] },
+          { h: 'Saklama süresi', p: ['Çerez tercihiniz on iki ay boyunca saklanır. Bu sürenin sonunda bilgilendirme bandı tekrar görüntülenir.'] }
+        ] },
+        kvkk: { t: 'KVKK Aydınlatma Metni', u: '1 Eylül 2026', s: [
+          { h: 'Veri sorumlusu', p: ['6698 sayılı Kişisel Verilerin Korunması Kanunu uyarınca veri sorumlusu DroneTek İnsansız Hava Aracı Sistemleri A.Ş.\u2019dir. Adres: Teknopark İzmir, Urla / İzmir. E-posta: kvkk@dronetek.com.tr'] },
+          { h: 'İşlenen kişisel veriler', p: ['Talep formu üzerinden: ad soyad, kurum, e-posta, telefon, üniversite ve bölüm bilgisi, rol seçimi ve iletmiş olduğunuz açıklama metni.', 'Bülten kaydı üzerinden: e-posta adresi.', 'Site kullanımı üzerinden: onay verdiyseniz anonim kullanım istatistikleri.'] },
+          { h: 'İşleme amacı ve hukuki sebep', p: ['Verileriniz; talebinizin değerlendirilmesi, size dönüş yapılması, uçuş operasyonlarının planlanması, sözleşme süreçlerinin yürütülmesi ve yasal yükümlülüklerin yerine getirilmesi amacıyla işlenir.', 'Hukuki sebep; sözleşmenin kurulması ve ifası, meşru menfaat ve açık rızanızdır. Bülten ve pazarlama çerezleri yalnızca açık rıza ile işlenir.'] },
+          { h: 'Aktarım', p: ['Kişisel verileriniz; barındırma ve e-posta hizmet sağlayıcılarımıza, yasal talep halinde yetkili kamu kurumlarına aktarılabilir. Uçuş operasyonu gerektiren durumlarda izin süreçleri için Sivil Havacılık Genel Müdürlüğü ile paylaşılabilir. Yurt dışına aktarım yapılmamaktadır.'] },
+          { h: 'Haklarınız', p: ['Kanunun 11. maddesi uyarınca; verilerinizin işlenip işlenmediğini öğrenme, bilgi talep etme, düzeltilmesini veya silinmesini isteme, işlemeye itiraz etme ve zararınızın giderilmesini talep etme hakkına sahipsiniz.', 'Başvurularınızı kvkk@dronetek.com.tr adresine iletebilirsiniz. Talebiniz en geç otuz gün içinde yanıtlanır.'] },
+          { h: 'Saklama süresi', p: ['Talep kayıtları, ilgili sürecin sona ermesinden itibaren üç yıl; sözleşme ilişkisi kurulan kayıtlar on yıl boyunca saklanır. Bülten kaydınızı iptal ettiğinizde e-posta adresiniz listeden çıkarılır.'] }
+        ] },
+        kosullar: { t: 'Kullanım Koşulları', u: '1 Eylül 2026', s: [
+          { h: 'Kapsam', p: ['Bu koşullar dronetek.com.tr sitesinin kullanımını düzenler. Siteyi kullanarak koşulları kabul etmiş sayılırsınız.'] },
+          { h: 'İçeriğin niteliği', p: ['Sitede yer alan teknik veriler, platform özellikleri ve süre-menzil değerleri standart konfigürasyon ve deniz seviyesi koşulları için verilmiştir. Gerçek performans; irtifa, sıcaklık, rüzgâr ve yük konfigürasyonuna göre değişir ve teklif aşamasında görev bazında teyit edilir.', 'Sitede yer alan bilgiler bağlayıcı bir teklif teşkil etmez.'] },
+          { h: 'Talep formu', p: ['Talep formu üzerinden ilettiğiniz bilgilerin doğru olması gerekir. Form gönderimi bir hizmet sözleşmesi kurmaz; talebiniz değerlendirildikten sonra tarafınıza uçuş planı, teslim listesi ve fiyat aralığı ile dönüş yapılır.'] },
+          { h: 'Fikri mülkiyet', p: ['Sitedeki metin, görsel, marka ve yazılım unsurları DroneTek\u2019e veya lisans verenlerine aittir. İzinsiz kopyalanamaz, çoğaltılamaz veya ticari amaçla kullanılamaz.'] },
+          { h: 'Sorumluluğun sınırı', p: ['Site kesintisiz ve hatasız çalışacağı garanti edilmez. Sitedeki bilgilere dayanılarak alınan kararlardan doğan dolaylı zararlardan DroneTek sorumlu tutulamaz.'] },
+          { h: 'Uygulanacak hukuk', p: ['Bu koşullar Türkiye Cumhuriyeti hukukuna tabidir. Uyuşmazlıklarda İzmir mahkemeleri yetkilidir.'] }
+        ] },
+        takip: { t: 'Talep Takibi', u: '1 Eylül 2026', s: [
+          { h: 'Talebiniz nasıl ilerler', p: ['Talep formunu gönderdiğinizde e-posta ile bir talep numarası iletilir. Bu numara ile süreci takip edebilirsiniz.', 'Birinci aşama: teknik değerlendirme — iki iş günü. İkinci aşama: uçuş planı, teslim listesi ve fiyat aralığı ile dönüş. Üçüncü aşama: izin süreçleri ve uçuş takvimi. Dördüncü aşama: saha operasyonu ve veri işleme. Beşinci aşama: teslim.'] },
+          { h: 'Teslim süresi', p: ['Standart görevlerde işlenmiş çıktı, saha çalışmasının tamamlanmasından itibaren beş iş günü içinde teslim edilir. LiDAR ve büyük alan projelerinde bu süre görev büyüklüğüne göre uzayabilir ve teklifte belirtilir.'] },
+          { h: 'Bilgi almak için', p: ['Talep numaranız ile iletisim@dronetek.com.tr adresine yazabilir veya +90 544 694 32 78 numaralı hattı arayabilirsiniz.'] }
+        ] },
+        sozlesme: { t: 'Hizmet Sözleşmesi', u: '1 Eylül 2026', s: [
+          { h: 'Sözleşmenin konusu', p: ['Sözleşme; DroneTek tarafından yürütülecek insansız hava aracı ile veri toplama, denetim veya taşıma hizmetinin kapsamını, teslim edilecek çıktıları, takvimi ve bedeli düzenler.'] },
+          { h: 'Tarafların yükümlülükleri', p: ['DroneTek; uçuş izinlerinin alınması, uçuşun mevzuata uygun yürütülmesi, sigorta kapsamının sağlanması ve kararlaştırılan çıktıların teslim edilmesinden sorumludur.', 'Müşteri; saha erişiminin sağlanması, alan sınırlarının ve bilinen engellerin bildirilmesi ve gerekli kurum izinlerinin kendi tarafında olan kısmının tamamlanmasından sorumludur.'] },
+          { h: 'Bedel ve ödeme', p: ['Bedel; görev alanı, çözünürlük hedefi, sensör yükü ve teslim formatına göre belirlenir ve teklifte sabitlenir. Ödeme, teklifte belirtilen takvime göre yapılır.'] },
+          { h: 'Hava koşulları ve erteleme', p: ['Uçuş güvenliğini etkileyen rüzgâr, yağış veya görüş koşullarında operasyon ertelenir. Erteleme ek bedel doğurmaz; yeni takvim karşılıklı olarak belirlenir.'] },
+          { h: 'Veri sahipliği ve gizlilik', p: ['Uçuş sonucu üretilen çıktıların kullanım hakkı müşteriye aittir. DroneTek, referans amaçlı kullanım için ayrıca yazılı izin alır. Saha verileri üçüncü taraflarla paylaşılmaz.'] },
+          { h: 'Fesih', p: ['Taraflar, operasyon başlamadan önce yazılı bildirimle sözleşmeyi feshedebilir. Başlamış operasyonlarda tamamlanan iş oranında bedel tahakkuk eder.'] }
+        ] },
+        shgm: { t: 'SHGM İzin ve Yetkiler', u: '1 Eylül 2026', s: [
+          { h: 'Yasal çerçeve', p: ['Türkiye\u2019de ticari insansız hava aracı operasyonu Sivil Havacılık Genel Müdürlüğü mevzuatına tabidir. Kayıt, izin, pilot lisansı ve sigorta yükümlülükleri operatörün sorumluluğundadır.'] },
+          { h: 'Sahip olduğumuz yetkiler', p: ['İHA-2 ve İHA-3 sınıfı araç kayıt ve tescili.', 'Ticari uçuş faaliyet izni.', 'Uzaktan pilot lisansı ve geçerli sağlık raporuna sahip pilot kadrosu.', 'Üçüncü şahıs mali sorumluluk sigortası.'] },
+          { h: 'Görev başına yürütülen süreçler', p: ['Uçuşa yasak ve kısıtlı saha kontrolü, gerekli hallerde bölgesel izin başvurusu, uçuş bildirimi ve hava sahası koordinasyonu her görev için ayrıca yürütülür.', 'Bu süreçler bizim tarafımızda tamamlanır; müşteriden ek bir izin işlemi beklenmez.'] },
+          { h: 'Uçuş kayıtları', p: ['Her uçuşun tarihi, süresi, platformu, pilotu ve rotası kayıt altına alınır ve talep halinde müşteriye veya yetkili kuruma sunulur.'] }
+        ] },
+        gizlilik: { t: 'Gizlilik ve Veri Güvenliği', u: '1 Eylül 2026', s: [
+          { h: 'Yaklaşımımız', p: ['Uçuş verisi çoğu zaman müşterinin sahasına, altyapısına veya arazisine ait hassas bilgi içerir. Bu veriyi müşteri mülkiyetinde kabul ediyor ve buna göre koruyoruz.'] },
+          { h: 'Saha verisi', p: ['Ham görüntü ve ölçüm verisi, işleme tamamlandıktan sonra erişimi kısıtlı arşivde tutulur. Arşiv erişimi görev ekibi ile sınırlıdır.', 'Müşteri talebi halinde ham veri teslim edilir ve sistemlerimizden silinir.'] },
+          { h: 'Teknik önlemler', p: ['Aktarımda TLS şifrelemesi, arşivde disk şifrelemesi, rol bazlı erişim yetkisi ve erişim kaydı tutulması uygulanır.'] },
+          { h: 'Görüntüde üçüncü kişiler', p: ['Uçuş sırasında istem dışı kaydedilen kişi görüntüleri işleme aşamasında maskelenir veya silinir; hiçbir durumda ayrı bir amaçla kullanılmaz.'] },
+          { h: 'İhlal bildirimi', p: ['Veri güvenliği ihlali tespit edilmesi halinde etkilenen müşteriler ve mevzuatın gerektirdiği hallerde Kişisel Verileri Koruma Kurulu yetmiş iki saat içinde bilgilendirilir.'] }
+        ] }
+      },
+      ft: {
+        desc: 'Paket, kargo ve insan taşımacılığı için drone tabanlı ulaşım sistemleri.',
+        nlTitle: 'Drone teknolojileri bültenine katılın',
+        nlBody: 'Yeni platformlar, saha uygulamaları, mevzuat değişiklikleri ve açık çağrılardan ilk siz haberdar olun. Dilediğiniz zaman çıkabilirsiniz.',
+        nlPh: 'E-posta adresiniz', nlBtn: 'Abone Ol', nlOk: 'Kaydınız alındı. Teşekkürler.',
+        colAreas: 'Kullanım Alanları',
+        colSupport: 'Destek & Bilgi',
+        supportItems: ['Talep Takibi', 'Hizmet Sözleşmesi', 'SHGM İzin ve Yetkiler', 'Gizlilik ve Veri Güvenliği', 'İletişim'],
+        colGroup: 'Drone Teknolojileri',
+        groupItems: [
+          { l: 'Hakkımızda', h: 'https://girisimciturk.com/ekyp/drone-teknolojileri/' },
+          { l: 'Girişimci Türk', h: 'https://girisimciturk.com' },
+          { l: 'İletişim', h: 'https://girisimciturk.com/iletisim/' }
+        ],
+        colTrust: 'Yetki ve Güvence',
+        trustItems: ['SHGM kayıtlı ticari İHA operatörü', 'Üçüncü şahıs mali sorumluluk sigortası', 'KVKK uyumlu veri işleme'],
+        contactTitle: 'Doğrudan iletişim',
+        wa: 'WhatsApp', call: 'Çağrı Merkezi', mail: 'E-posta',
+        copy: '© 2026 DroneTek. Tüm hakları saklıdır.',
+        affilA: 'Bu site bir ', affilB: 'DEV YAPIMCILIK YAYINCILIK SAN. TİC. LTD. ŞTİ.', affilC: ' iştirakidir.',
+        legal: ['Hakkımızda', 'Çerez Politikası', 'KVKK Aydınlatma Metni', 'Kullanım Koşulları'],
+        prefs: 'Çerez Tercihleri'
+      },
+      ck: {
+        barTitle: 'Çerez tercihleriniz',
+        barBody: 'Sitenin çalışması için zorunlu çerezleri kullanıyoruz. Performans ve pazarlama çerezleri yalnızca izniniz ile çalışır.',
+        accept: 'Tümünü kabul et', reject: 'Yalnızca zorunlu', manage: 'Tercihleri yönet',
+        panelTitle: 'Çerez tercihlerini yönet', save: 'Tercihleri kaydet', close: 'Kapat', locked: 'Zorunlu',
+        cats: [
+          { id: 'zorunlu', t: 'Zorunlu çerezler', b: 'Oturum, dil tercihi ve form güvenliği için gereklidir. Kapatılamaz.' },
+          { id: 'analitik', t: 'Performans ve analitik', b: 'Hangi sayfaların ve kullanım alanlarının incelendiğini anonim olarak ölçer.' },
+          { id: 'pazarlama', t: 'Pazarlama', b: 'Talep formu dönüşümlerini ve kampanya performansını ölçer.' }
+        ]
+      }
+    },
+    en: {
+      nav: { home: 'Home', areas: 'Applications', tech: 'Technology', contact: 'Contact' },
+      nav3d: '3D Model',
+      cta: 'Create a request',
+      hero: { l1: 'Drone-based transport systems for', l2: 'packages, cargo and people.',
+        sub: 'DroneTek is a platform bringing together the engineering solutions, emerging technologies and entrepreneurial teams working on drone-based transport systems. Our aim is to build air transport infrastructure that reduces traffic load, saves time and energy, and stays safe and sustainable.',
+        b1: 'Create a request', b2: 'See the applications' },
+      missionK: '02 · Platform',
+      missionTitle: 'What this platform does',
+      missionItems: [
+        { t: 'Builds systems', b: 'Develops drone-based systems for package, cargo and passenger transport, and supports their testing, validation and path to real deployment.' },
+        { t: 'Widens adoption', b: 'Contributes to the adoption of drone transport in urban mobility, logistics and emergency response.' },
+        { t: 'Turns it into product', b: 'Converts engineering knowledge into products, platforms and operational solutions through entrepreneurship and systems design.' }
+      ],
+      oppK: '07 · Opportunity',
+      oppTitle: 'A chance to solve Turkey\u2019s transport and emergency logistics problems',
+      oppItems: [
+        'Build systems that make package, cargo and passenger transport fast and safe',
+        'Design air transport solutions that cut traffic and delays',
+        'Prove the systems in the field through pilot projects and tests',
+        'Produce solutions that improve daily life in cities'
+      ],
+      oppNote: 'Taking part here is not only about developing technology; it is about solving a real national problem.',
+      disasterA: 'In earthquakes and similar disasters, ground transport can break down.',
+      disasterB: 'Drone technology delivers vital aid by the fastest route.',
+      joinK: '10 · Participation',
+      joinTitle: 'Open to anyone who wants to be part of the solution',
+      joinItems: [
+        'Anyone who knows or is drawn to drone, software or mechanical engineering',
+        'People focused on transport, logistics, autonomous systems and operations',
+        'Entrepreneurs who want to contribute to product, business model and scaling work',
+        'Anyone who wants to solve urban and emergency transport problems in Turkey'
+      ],
+      joinNote: 'Your knowledge, experience and ideas can shape the transport, logistics and emergency response solutions of the future.',
+      statsK: '01 · By the numbers',
+      stats: [{ v: '18,400', l: 'Logged flight hours' }, { v: '8', l: 'Application fields' }, { v: '±2 cm', l: 'Positional accuracy (RTK)' }, { v: '42', l: 'Provinces operated in' }],
+      areasK: '03 · Applications',
+      areasTitle: 'Eight fields, one platform family',
+      areasLead: 'The same flight software and the same data pipeline. Only the sensor payload and the flight plan change from mission to mission.',
+      cats: [{ id: 'all', label: 'All' }, { id: 'tarim', label: 'Agriculture & Environment' }, { id: 'enerji', label: 'Energy & Infrastructure' }, { id: 'olcum', label: 'Survey & Construction' }, { id: 'kamu', label: 'Public Safety' }, { id: 'lojistik', label: 'Logistics' }],
+      areas: [
+        { cat: 'tarim', catLabel: 'Agriculture & Environment', title: 'Crop spraying', body: 'Variable-rate spraying, row-following application and autonomous flight from a prescription file. Twelve minutes per hectare on average with a six-kilogram tank.', items: ['Per-flight application report', 'Field boundary and obstacle map', 'Chemical usage breakdown'] },
+        { cat: 'olcum', catLabel: 'Survey & Construction', title: 'Mapping and photogrammetry', body: 'Orthophoto, digital elevation model and point cloud production. Sub-three-centimetre horizontal accuracy with ground control points.', items: ['GeoTIFF orthophoto', 'Point cloud (LAS)', 'Accuracy report'] },
+        { cat: 'enerji', catLabel: 'Energy & Infrastructure', title: 'Power line inspection', body: 'Transmission corridor, insulator, conductor and transformer scanning. Thermal and visible bands are recorded on the same flight.', items: ['Fault location list', 'Thermal anomaly imagery', 'Corridor vegetation analysis'] },
+        { cat: 'kamu', catLabel: 'Public Safety', title: 'Search, rescue and disaster', body: 'Night search with thermal scanning, post-collapse damage mapping and a first twenty-four-hour situation report.', items: ['Live video downlink', 'Damage classification map', 'Coordinate list'] },
+        { cat: 'lojistik', catLabel: 'Logistics', title: 'Cargo and sample delivery', body: 'Point-to-point delivery up to four kilograms on island, highland and construction routes, with an autonomous landing station.', items: ['Route plan and flight schedule', 'Temperature-logged transport', 'Delivery confirmation record'] },
+        { cat: 'olcum', catLabel: 'Survey & Construction', title: 'Construction and mining', body: 'Earthwork volume calculation, slope stability monitoring and weekly progress comparison.', items: ['Volume report (cut/fill)', 'Weekly progress comparison', 'Slope cross-sections'] },
+        { cat: 'kamu', catLabel: 'Public Safety', title: 'Security and surveillance', body: 'Perimeter patrol flights, fence breach detection and live video during an incident.', items: ['Patrol flight plan', 'Breach event log', 'Night vision sweep'] },
+        { cat: 'tarim', catLabel: 'Agriculture & Environment', title: 'Forest and environmental monitoring', body: 'Low-altitude flights for early fire detection, wetland boundary tracking and species counts.', items: ['Temperature anomaly alert', 'Area change comparison', 'Count report'] }
+      ],
+      techK: '04 · Technical data',
+      specTitle: 'Flight platforms — technical data',
+      matrixTitle: 'Platform comparison table',
+      doc: 'DT-SER', rev: 'Rev 04', sheet: 'Sheet 01 / 03', sheet2: 'Sheet 02 / 03',
+      cols: { no: 'No.', prop: 'Property', val: 'Value', rem: 'Remark' },
+      specLabels: [
+        { p: 'Endurance', r: 'With the standard battery set' },
+        { p: 'Telemetry range', r: 'Within line of sight' },
+        { p: 'Payload', r: 'Mission equipment included' },
+        { p: 'Positional accuracy', r: 'Under RTK correction' },
+        { p: 'Wind tolerance', r: 'Sustained wind' }
+      ],
+      note: { a: 'Values measured for the ', b: ' platform in its standard configuration at sea level.' },
+      stepsK: '05 · Process',
+      stepsTitle: 'Four steps from mission to delivery',
+      steps: [
+        { n: '01', t: 'Mission definition', b: 'Area boundaries, resolution target, delivery format and schedule are set together.' },
+        { n: '02', t: 'Permits and flight plan', b: 'Registration, restricted airspace checks and notification run on our side.' },
+        { n: '03', t: 'Data collection', b: 'Autonomous line flights; measurements are verified on site with RTK and ground control points.' },
+        { n: '04', t: 'Processing and delivery', b: 'Orthophoto, elevation model, point cloud or inspection report delivered within five working days.' }
+      ],
+      caseK: '06 · Case study',
+      caseQuote: '“We scanned two hundred kilometres of transmission line in three days and found two cracked insulators and one overheating joint. The crew used to need two weeks.”',
+      caseAuthor: '— M. Alkan, maintenance chief, regional distribution utility',
+      caseMetrics: [{ v: '204 km', l: 'Line scanned' }, { v: '3 days', l: 'Time on site' }, { v: '78%', l: 'Time saved' }],
+      regK: '08 · Regulation',
+      regTitle: 'Flight permits are on our side',
+      regBody: 'Commercial UAV operation is regulated by the Turkish Directorate General of Civil Aviation. Registration, permits and insurance are handled by us before the mission starts.',
+      regItems: ['UAV-2 / UAV-3 registration', 'Commercial operating permit', 'Remote pilot licence and medical', 'Third-party liability insurance'],
+      newsK: '09 · News',
+      newsTitle: 'Notes from the field',
+      news: [
+        { d: '12.06.2026', tag: 'Product', t: 'VK-9 VTOL enters series production', b: 'The vertical take-off fixed-wing platform now ships with forty kilometres of range and two hours of endurance.' },
+        { d: '28.04.2026', tag: 'Field', t: '12,000 hectares scanned on the Konya plain', b: 'Crop health maps were produced for nine cooperatives in one season and irrigation plans were revised accordingly.' },
+        { d: '05.03.2026', tag: 'Software', t: 'Automatic reporting added to the pipeline', b: 'Post-flight processing now collects inspection findings with their coordinates in a single file.' }
+      ],
+      ctaK: '11 · Contact',
+      ctaTitle: 'Create a request',
+      ctaBody: 'Create a request to join as an engineer or entrepreneur, propose a pilot project, or tell us about a transport need.',
+      form: { ad: 'Full name', kurum: 'Organisation', eposta: 'Email', telefon: 'Phone', uni: 'University / department', rol: 'Engineer / entrepreneur', sektor: 'Area of interest', mesaj: 'About you and your idea', send: 'Send the request', pick: 'Select',
+        sentTitle: 'Request received', sent: 'We have your request and will come back within two working days.', again: 'New request', err: 'Please fill in name, email and the description.' },
+      roles: ['Engineer', 'Entrepreneur', 'Student', 'Organisation representative'],
+      sectors: ['Agriculture', 'Energy & Infrastructure', 'Survey & Construction', 'Public Safety', 'Logistics', 'Other'],
+      apK: 'Applications',
+      apTitle: 'Field by field, what we deliver',
+      apLead: 'In every field the output of a flight is a file: a map, a report or a coordinate list. Deliverables per field are listed below.',
+      deliver: 'Deliverables',
+      tpK: 'Technology',
+      tpTitle: 'Platforms, payloads, software',
+      tpLead: 'Three flight platforms, four sensor payloads and a single data pipeline. The mission profile decides which combination flies.',
+      payloadK: 'Sensor payloads',
+      payloadTitle: 'Four payloads, one airframe interface',
+      payloads: [
+        { t: 'RGB survey camera', b: '61 MP full frame with mechanical shutter. The standard payload for photogrammetry and progress tracking.' },
+        { t: 'Multispectral sensor', b: 'Five bands with an irradiance reference. Used for NDVI and crop stress maps.' },
+        { t: 'Thermal camera', b: '640×512, radiometric. For line inspection, fire detection and night search.' },
+        { t: 'LiDAR', b: 'Dual-return scanner producing below-canopy terrain models and corridor cross-sections.' }
+      ],
+      swK: 'Software',
+      swTitle: 'The data pipeline',
+      sw: [
+        { t: 'Flight planning', b: 'Autonomous line plans from a field or corridor boundary, with obstacle and altitude constraints written into the plan.' },
+        { t: 'Processing', b: 'Orthophoto, elevation model and point cloud production, with an accuracy report attached automatically.' },
+        { t: 'Delivery and archive', b: 'Outputs are archived with their coordinate system so they can be compared against earlier flights.' }
+      ],
+      cpK: 'Contact',
+      teamK: 'Team',
+      teamTitle: 'The team behind the mission',
+      team: [
+        { i: 'SK', n: 'Selin Kaya', r: 'Director of operations' },
+        { i: 'ED', n: 'Emre Demir', r: 'Lead engineer, flight systems' },
+        { i: 'BA', n: 'Burak Aydın', r: 'Remote pilot team lead' },
+        { i: 'NY', n: 'Nihan Yılmaz', r: 'Geospatial data and analysis' }
+      ],
+      officeTitle: 'Office',
+      office: ['Teknopark İzmir, Urla / İzmir', '+90 544 694 32 78', 'iletisim@dronetek.com.tr'],
+      footer: '© 2026 DroneTek Unmanned Aircraft Systems',
+      docBack: 'Back to home',
+      docUpdated: 'Last updated',
+      docs: {
+        hakkimizda: { t: 'About us', u: '1 September 2026', s: [
+          { h: 'Who we are', p: ['DroneTek is an engineering and entrepreneurship platform developing drone-based transport systems for packages, cargo and passengers. Our work covers flight platform development, sensor payload integration, flight software and field operations.', 'The company is an affiliate of DEV YAPIMCILIK YAYINCILIK SAN. TİC. LTD. ŞTİ. and sits in the same group as Deprem Teknolojileri.'] },
+          { h: 'What we do', p: ['We run unmanned aircraft data collection and transport operations in agriculture, energy infrastructure inspection, mapping, logistics, search and rescue, construction, security and environmental monitoring. Each mission flies a platform and payload configured to its mission profile.', 'The output of a flight is always a deliverable file: an orthophoto, an elevation model, a point cloud, an inspection report or a coordinate list.'] },
+          { h: 'Why this field', p: ['Urban transport load, rural logistics cost and post-disaster response time remain unsolved problems in Turkey. Where ground transport breaks down, air transport is the fastest way to deliver vital aid.', 'Our aim is to develop the systems that answer this need not as prototypes but as field-validated, operational solutions.'] },
+          { h: 'Team and participation', p: ['The platform is open to people who know or are drawn to drone, software and mechanical engineering, to those working in transport and autonomous systems, and to entrepreneurs who want to contribute to product development and scaling.', 'Use the request form on the Contact page to join.'] },
+          { h: 'Company details', p: ['DroneTek Unmanned Aircraft Systems — Teknopark İzmir, Urla / İzmir. Email: iletisim@dronetek.com.tr — Phone: +90 544 694 32 78'] }
+        ] },
+        cerez: { t: 'Cookie Policy', u: '1 September 2026', s: [
+          { h: 'What a cookie is', p: ['A cookie is a small text file stored in your browser when you visit a website. It lets the site remember you, keep your preferences and produce usage statistics.'] },
+          { h: 'Which cookies we use', p: ['Strictly necessary cookies: required for session management, language preference and form security. The site does not work without them, so they cannot be disabled and do not require consent.', 'Performance and analytics cookies: measure anonymously which pages and application areas are viewed. They run only with your consent.', 'Marketing cookies: measure request form conversions and campaign performance. They run only with your consent.'] },
+          { h: 'Managing your preferences', p: ['A cookie notice appears on your first visit. You can accept all, continue with strictly necessary cookies only, or choose per category.', 'Your choice is stored in your browser. You can change it at any time with the Cookie Preferences button in the footer. You can also delete or block cookies in your browser settings; some site functions may then stop working.'] },
+          { h: 'Retention', p: ['Your cookie choice is stored for twelve months. After that the notice appears again.'] }
+        ] },
+        kvkk: { t: 'Privacy Notice', u: '1 September 2026', s: [
+          { h: 'Data controller', p: ['Under Turkish Personal Data Protection Law no. 6698 the data controller is DroneTek Unmanned Aircraft Systems. Address: Teknopark İzmir, Urla / İzmir. Email: kvkk@dronetek.com.tr'] },
+          { h: 'Personal data processed', p: ['Through the request form: full name, organisation, email, phone, university and department, role selection and the description you submit.', 'Through newsletter signup: email address.', 'Through site usage: anonymous usage statistics, if you have consented.'] },
+          { h: 'Purpose and legal basis', p: ['Your data is processed to evaluate your request, respond to you, plan flight operations, run contract processes and meet legal obligations.', 'The legal basis is the formation and performance of a contract, legitimate interest and your explicit consent. Newsletter and marketing cookies are processed on explicit consent only.'] },
+          { h: 'Transfers', p: ['Your data may be transferred to our hosting and email service providers, and to competent public authorities upon lawful request. Where a flight operation requires it, data may be shared with the Directorate General of Civil Aviation for permit processes. No transfers are made outside Turkey.'] },
+          { h: 'Your rights', p: ['Under article 11 of the law you may learn whether your data is processed, request information, request correction or deletion, object to processing and claim compensation for damage.', 'Send requests to kvkk@dronetek.com.tr. Requests are answered within thirty days at the latest.'] },
+          { h: 'Retention', p: ['Request records are kept for three years after the relevant process ends; records under a contractual relationship are kept for ten years. When you unsubscribe, your email address is removed from the list.'] }
+        ] },
+        kosullar: { t: 'Terms of Use', u: '1 September 2026', s: [
+          { h: 'Scope', p: ['These terms govern the use of dronetek.com.tr. By using the site you accept them.'] },
+          { h: 'Nature of the content', p: ['Technical data, platform specifications and endurance-range values on this site are given for the standard configuration at sea level. Real performance varies with altitude, temperature, wind and payload configuration, and is confirmed per mission at the quotation stage.', 'Information on the site does not constitute a binding offer.'] },
+          { h: 'Request form', p: ['The information you submit through the request form must be accurate. Submitting the form does not create a service contract; once your request is evaluated you receive a flight plan, a delivery list and a price range.'] },
+          { h: 'Intellectual property', p: ['Text, imagery, trademarks and software on this site belong to DroneTek or its licensors. They may not be copied, reproduced or used commercially without permission.'] },
+          { h: 'Limitation of liability', p: ['The site is not guaranteed to run uninterrupted or error-free. DroneTek is not liable for indirect damages arising from decisions based on information on the site.'] },
+          { h: 'Governing law', p: ['These terms are governed by the laws of the Republic of Turkey. The courts of İzmir have jurisdiction over disputes.'] }
+        ] },
+        takip: { t: 'Request Tracking', u: '1 September 2026', s: [
+          { h: 'How your request progresses', p: ['When you submit the request form you receive a request number by email. You can track the process with this number.', 'Stage one: technical evaluation — two working days. Stage two: response with flight plan, delivery list and price range. Stage three: permit processes and flight schedule. Stage four: field operation and data processing. Stage five: delivery.'] },
+          { h: 'Delivery time', p: ['For standard missions the processed output is delivered within five working days of completing the field work. For LiDAR and large-area projects this may extend with mission size and is stated in the quotation.'] },
+          { h: 'Getting in touch', p: ['Write to iletisim@dronetek.com.tr with your request number, or call +90 544 694 32 78.'] }
+        ] },
+        sozlesme: { t: 'Service Agreement', u: '1 September 2026', s: [
+          { h: 'Subject', p: ['The agreement sets out the scope of the unmanned aircraft data collection, inspection or transport service to be performed by DroneTek, the deliverables, the schedule and the price.'] },
+          { h: 'Obligations of the parties', p: ['DroneTek is responsible for obtaining flight permits, conducting the flight in line with regulation, maintaining insurance cover and delivering the agreed outputs.', 'The client is responsible for providing site access, declaring area boundaries and known obstacles, and completing any institutional permissions that fall on their side.'] },
+          { h: 'Price and payment', p: ['The price is set by mission area, resolution target, sensor payload and delivery format, and is fixed in the quotation. Payment follows the schedule stated there.'] },
+          { h: 'Weather and postponement', p: ['Operations are postponed in wind, precipitation or visibility conditions affecting flight safety. Postponement carries no additional charge; a new schedule is agreed mutually.'] },
+          { h: 'Data ownership and confidentiality', p: ['The right to use the outputs produced by the flight belongs to the client. DroneTek obtains separate written permission for any reference use. Field data is not shared with third parties.'] },
+          { h: 'Termination', p: ['Either party may terminate by written notice before the operation starts. For operations already begun, the price accrues in proportion to work completed.'] }
+        ] },
+        shgm: { t: 'Civil Aviation Permits', u: '1 September 2026', s: [
+          { h: 'Legal framework', p: ['Commercial unmanned aircraft operation in Turkey is regulated by the Directorate General of Civil Aviation. Registration, permits, pilot licensing and insurance are the operator\u2019s responsibility.'] },
+          { h: 'Authorisations we hold', p: ['UAV-2 and UAV-3 class aircraft registration.', 'Commercial flight operating permit.', 'Pilot roster holding remote pilot licences and valid medical certificates.', 'Third-party liability insurance.'] },
+          { h: 'Processes run per mission', p: ['Restricted and prohibited airspace checks, regional permit applications where required, flight notification and airspace coordination are handled separately for every mission.', 'These processes are completed on our side; no additional permit work is expected from the client.'] },
+          { h: 'Flight records', p: ['The date, duration, platform, pilot and route of every flight are recorded and made available to the client or the competent authority on request.'] }
+        ] },
+        gizlilik: { t: 'Privacy and Data Security', u: '1 September 2026', s: [
+          { h: 'Our approach', p: ['Flight data often contains sensitive information about a client\u2019s site, infrastructure or land. We treat that data as the client\u2019s property and protect it accordingly.'] },
+          { h: 'Field data', p: ['Raw imagery and measurement data is held in a restricted archive once processing is complete. Archive access is limited to the mission team.', 'On client request the raw data is delivered and deleted from our systems.'] },
+          { h: 'Technical measures', p: ['TLS encryption in transit, disk encryption at rest, role-based access rights and access logging are applied.'] },
+          { h: 'Third parties in imagery', p: ['Images of people captured incidentally during a flight are masked or deleted at the processing stage and are never used for a separate purpose.'] },
+          { h: 'Breach notification', p: ['If a data security breach is detected, affected clients and, where regulation requires, the Personal Data Protection Authority are informed within seventy-two hours.'] }
+        ] }
+      },
+      ft: {
+        desc: 'Drone-based transport systems for packages, cargo and people.',
+        nlTitle: 'Join the drone technologies newsletter',
+        nlBody: 'Be first to hear about new platforms, field deployments, regulatory changes and open calls. You can unsubscribe at any time.',
+        nlPh: 'Your email address', nlBtn: 'Subscribe', nlOk: 'You are on the list. Thank you.',
+        colAreas: 'Applications',
+        colSupport: 'Support & Information',
+        supportItems: ['Request Tracking', 'Service Agreement', 'Civil Aviation Permits', 'Privacy and Data Security', 'Contact'],
+        colGroup: 'Drone Technologies',
+        groupItems: [
+          { l: 'About us', h: 'https://girisimciturk.com/ekyp/drone-teknolojileri/' },
+          { l: 'Girişimci Türk', h: 'https://girisimciturk.com' },
+          { l: 'Contact', h: 'https://girisimciturk.com/iletisim/' }
+        ],
+        colTrust: 'Authorisation and Assurance',
+        trustItems: ['Registered commercial UAV operator', 'Third-party liability insurance', 'GDPR/KVKK compliant data processing'],
+        contactTitle: 'Direct contact',
+        wa: 'WhatsApp', call: 'Call centre', mail: 'Email',
+        copy: '© 2026 DroneTek. All rights reserved.',
+        affilA: 'This site is an affiliate of ', affilB: 'DEV YAPIMCILIK YAYINCILIK SAN. TİC. LTD. ŞTİ.', affilC: '.',
+        legal: ['About us', 'Cookie Policy', 'Privacy Notice', 'Terms of Use'],
+        prefs: 'Cookie Preferences'
+      },
+      ck: {
+        barTitle: 'Your cookie preferences',
+        barBody: 'We use strictly necessary cookies to run the site. Performance and marketing cookies run only with your consent.',
+        accept: 'Accept all', reject: 'Necessary only', manage: 'Manage preferences',
+        panelTitle: 'Manage cookie preferences', save: 'Save preferences', close: 'Close', locked: 'Required',
+        cats: [
+          { id: 'zorunlu', t: 'Strictly necessary', b: 'Required for sessions, language preference and form security. Cannot be disabled.' },
+          { id: 'analitik', t: 'Performance and analytics', b: 'Measures anonymously which pages and application areas are viewed.' },
+          { id: 'pazarlama', t: 'Marketing', b: 'Measures request form conversions and campaign performance.' }
+        ]
+      }
+    }
+  };
+
+  platformData = [
+    { id: 'VK-4', type: { tr: 'Çok rotorlu', en: 'Multirotor' }, values: ['42 dk / 42 min', '8 km', '6,0 kg', '±2 cm', '12 m/s'] },
+    { id: 'VK-7', type: { tr: 'Sabit kanat', en: 'Fixed wing' }, values: ['180 dk / 180 min', '60 km', '2,5 kg', '±3 cm', '14 m/s'] },
+    { id: 'VK-9', type: { tr: 'VTOL', en: 'VTOL' }, values: ['120 dk / 120 min', '40 km', '4,0 kg', '±2 cm', '16 m/s'] }
+  ];
+
+  syncLang() {
+    const lang = this.state.lang || (this.props.defaultLang === 'EN' ? 'en' : 'tr');
+    if (typeof document !== 'undefined') document.documentElement.lang = lang;
+  }
+
+  componentDidUpdate() { this.syncLang(); }
+
+  componentDidMount() {
+    this.syncLang();
+    try {
+      const raw = window.localStorage.getItem(this.CK_KEY);
+      if (raw) {
+        const v = JSON.parse(raw);
+        this.setState({ ckDecided: true, ckAnalytics: !!v.analitik, ckMarketing: !!v.pazarlama });
+      } else {
+        this.setState({ ckDecided: false });
+      }
+    } catch (e) { this.setState({ ckDecided: false }); }
+  }
+
+  writeConsent(analitik, pazarlama) {
+    try {
+      window.localStorage.setItem(this.CK_KEY, JSON.stringify({ analitik: analitik, pazarlama: pazarlama, ts: Date.now() }));
+    } catch (e) {}
+    this.setState({ ckDecided: true, ckPanel: false, ckAnalytics: analitik, ckMarketing: pazarlama });
+  }
+
+  goDoc(id) {
+    return (e) => {
+      if (e && e.preventDefault) e.preventDefault();
+      this.setState({ page: 'doc', doc: id, ckPanel: false, ckDecided: true });
+      if (typeof window !== 'undefined') window.scrollTo(0, 0);
+    };
+  }
+
+  go(page) {
+    return (e) => {
+      if (e && e.preventDefault) e.preventDefault();
+      this.setState({ page: page });
+      if (typeof window !== 'undefined') window.scrollTo(0, 0);
+    };
+  }
+
+  dur(v, lang) {
+    const parts = String(v).split(' / ');
+    return parts.length > 1 ? (lang === 'en' ? parts[1] : parts[0]) : v;
+  }
+
+  setField(key) {
+    return (e) => {
+      const v = e.target.value;
+      this.setState((s) => ({ form: Object.assign({}, s.form, { [key]: v }), err: false }));
+    };
+  }
+
+  renderVals() {
+    const lang = this.state.lang || (this.props.defaultLang === 'EN' ? 'en' : 'tr');
+    const t = this.content[lang];
+    const cat = this.state.cat || this.props.defaultCategory || 'all';
+    const platform = this.state.platform || this.props.defaultPlatform || 'VK-4';
+    const page = this.state.page;
+    const pd = this.platformData.find((p) => p.id === platform) || this.platformData[0];
+
+    const navKeys = ['home', 'areas', 'tech', 'contact'];
+    const hovered = this.state.navHover;
+    const navItems = navKeys.map((k) => {
+      const active = page === k;
+      const show = hovered ? hovered === k : active;
+      return {
+        label: t.nav[k], current: active ? 'page' : null, go: this.go(k),
+        markOn: show ? 1 : 0,
+        markY: show ? '0px' : '5px',
+        labelOpacity: active || hovered === k ? 1 : 0.72,
+        enter: () => this.setState({ navHover: k }),
+        leave: () => this.setState({ navHover: null })
+      };
+    });
+
+    const catIds = t.cats.map((c) => c.id);
+    const chip = (on) => ({
+      chipBg: on ? '#F0A93B' : 'transparent',
+      chipFg: on ? '#0B0D0F' : 'rgba(242,240,236,.78)',
+      chipBorder: on ? '#F0A93B' : 'rgba(242,240,236,.24)'
+    });
+
+    const catOpts = t.cats.map((c) => Object.assign({
+      label: c.label, checked: cat === c.id,
+      select: () => this.setState({ cat: c.id })
+    }, chip(cat === c.id)));
+    const activeCat = catIds.indexOf(cat) === -1 ? 'all' : cat;
+
+    const allIdx = {};
+    t.areas.forEach((a, i) => { allIdx[a.cat + '-' + i] = i; });
+    const visibleAreas = t.areas
+      .map((a, i) => Object.assign({}, a, {
+        key: a.cat + i, slotId: 'v2-area-' + i, detailSlotId: 'v2-area-detail-' + i,
+        detailRatio: i % 2 === 0 ? '4/3' : '3/2'
+      }))
+      .filter((a) => activeCat === 'all' || a.cat === activeCat);
+
+    const stepItems = t.steps.map((s, i) => Object.assign({}, s, { slotId: 'v3-step-' + i }));
+    const missionCards = t.missionItems.map((m, i) => Object.assign({}, m, { slotId: 'v4-mission-' + i }));
+    const mosaicPh = lang === 'en'
+      ? ['Spray flight over a field', 'Thermal line inspection', 'Ground control station', 'Cargo drop-off', 'Night search flight']
+      : ['Tarlada ilaçlama uçuşu', 'Termal hat denetimi', 'Yer kontrol istasyonu', 'Kargo teslim noktası', 'Gece arama uçuşu'];
+    const mosaic = mosaicPh.map((ph, i) => ({
+      slotId: 'v3-mosaic-' + i, ph: ph, ratio: i % 2 === 0 ? '3/4' : '1/1'
+    }));
+
+    const platformOpts = this.platformData.map((p) => Object.assign({
+      label: p.id + ' · ' + p.type[lang], checked: platform === p.id,
+      select: () => this.setState({ platform: p.id })
+    }, chip(platform === p.id)));
+
+    const platformCards = this.platformData.map((p, i) => ({
+      id: p.id, type: p.type[lang], head: p.id + ' · ' + p.type[lang], slotId: 'v2-plat-' + i
+    }));
+    const payloadItems = t.payloads.map((p, i) => Object.assign({}, p, { slotId: 'v2-payload-' + i }));
+    const newsItems = t.news.map((n, i) => Object.assign({}, n, { slotId: 'v2-news-' + i }));
+
+    const specRows = t.specLabels.map((s, i) => ({
+      no: String(i + 1).padStart(2, '0'), prop: s.p, val: this.dur(pd.values[i], lang), rem: s.r
+    }));
+
+    const platforms = this.platformData.map((p) => ({ head: p.id + ' · ' + p.type[lang] }));
+    const matrixRows = t.specLabels.map((s, i) => ({
+      prop: s.p,
+      cells: this.platformData.map((p) => ({ v: this.dur(p.values[i], lang) }))
+    }));
+
+    const f = this.state.form;
+    const submit = () => {
+      const ok = f.ad.trim() && /.+@.+\..+/.test(f.eposta) && f.mesaj.trim();
+      if (ok) this.setState({ sent: true, err: false });
+      else this.setState({ err: true });
+    };
+
+    return {
+      t, navItems, catOpts, platformOpts, platforms, matrixRows, specRows, visibleAreas,
+      platformCards, payloadItems, newsItems, stepItems, mosaic, missionCards,
+      footerAreas: t.areas.slice(0, 5).map((a) => ({
+        title: a.title,
+        go: (e) => {
+          if (e && e.preventDefault) e.preventDefault();
+          this.setState({ page: 'areas', cat: a.cat });
+          if (typeof window !== 'undefined') window.scrollTo(0, 0);
+        }
+      })),
+      waHref: lang === 'en'
+        ? 'https://wa.me/905446943278?text=' + encodeURIComponent('Hello, I would like information about drone-based transport systems.')
+        : 'https://wa.me/905446943278?text=' + encodeURIComponent('Merhaba, drone tabanlı ulaşım sistemleri hakkında bilgi almak istiyorum.'),
+      nlMail: this.state.nlMail, nlSent: this.state.nlSent, nlOpen: !this.state.nlSent,
+      setNlMail: (e) => this.setState({ nlMail: e.target.value }),
+      nlSubmit: () => { if (/.+@.+\..+/.test(this.state.nlMail)) this.setState({ nlSent: true }); },
+      cookieBar: !this.state.ckDecided && !this.state.ckPanel,
+      cookiePanel: this.state.ckPanel,
+      openCookiePanel: () => this.setState({ ckPanel: true }),
+      closeCookiePanel: () => this.setState({ ckPanel: false, ckDecided: true }),
+      acceptCookies: () => this.writeConsent(true, true),
+      rejectCookies: () => this.writeConsent(false, false),
+      saveCookies: () => this.writeConsent(this.state.ckAnalytics, this.state.ckMarketing),
+      cookieCats: t.ck.cats.map((c) => {
+        const locked = c.id === 'zorunlu';
+        const on = c.id === 'analitik' ? this.state.ckAnalytics : c.id === 'pazarlama' ? this.state.ckMarketing : true;
+        return {
+          t: c.t, b: c.b, locked: locked, toggleable: !locked, on: on,
+          stateLabel: on ? (lang === 'en' ? 'On' : 'Açık') : (lang === 'en' ? 'Off' : 'Kapalı'),
+          labelFg: on ? '#F0A93B' : 'rgba(242,240,236,.6)',
+          toggle: () => {
+            if (c.id === 'analitik') this.setState((st) => ({ ckAnalytics: !st.ckAnalytics }));
+            if (c.id === 'pazarlama') this.setState((st) => ({ ckMarketing: !st.ckMarketing }));
+          }
+        };
+      }),
+      isHome: page === 'home', isAreas: page === 'areas', isTech: page === 'tech', isContact: page === 'contact',
+      isDoc: page === 'doc', goHome: this.go('home'),
+      doc: t.docs[this.state.doc] || t.docs.hakkimizda,
+      docStamp: t.docUpdated + ': ' + ((t.docs[this.state.doc] || t.docs.hakkimizda).u),
+      docNav: ['hakkimizda', 'cerez', 'kvkk', 'kosullar'].map((id) => {
+        const on = this.state.doc === id;
+        return {
+          label: t.docs[id].t, go: this.goDoc(id),
+          bg: on ? '#F0A93B' : 'transparent',
+          fg: on ? '#0B0D0F' : 'rgba(242,240,236,.78)',
+          border: on ? '#F0A93B' : 'rgba(242,240,236,.24)'
+        };
+      }),
+      supportLinks: ['takip', 'sozlesme', 'shgm', 'gizlilik'].map((id) => ({ label: t.docs[id].t, go: this.goDoc(id) }))
+        .concat([{ label: t.nav.contact, go: this.go('contact') }]),
+      legalLinks: ['hakkimizda', 'cerez', 'kvkk', 'kosullar'].map((id) => ({ label: t.docs[id].t, go: this.goDoc(id) })),
+      goCookiePolicy: this.goDoc('cerez'),
+      goContact: this.go('contact'), goAreas: this.go('areas'),
+      sheetNote: t.note.a + pd.id + t.note.b,
+      showRegulation: this.props.showRegulation !== false,
+      showNews: this.props.showNews !== false,
+      langOpts: ['tr', 'en'].map((code) => ({
+        label: code.toUpperCase(), checked: lang === code,
+        pillBg: lang === code ? '#F0A93B' : 'transparent',
+        pillFg: lang === code ? '#0B0D0F' : 'rgba(242,240,236,.7)',
+        select: () => this.setState({ lang: code })
+      })),
+      form: f, sent: this.state.sent, notSent: !this.state.sent, hasError: this.state.err,
+      setAd: this.setField('ad'), setKurum: this.setField('kurum'), setEposta: this.setField('eposta'),
+      setSektor: this.setField('sektor'), setMesaj: this.setField('mesaj'),
+      setTelefon: this.setField('telefon'), setUni: this.setField('uni'), setRol: this.setField('rol'),
+      submit, resetForm: () => this.setState({ sent: false, form: Object.assign({}, this.emptyForm) })
+    };
+  }
+}
+</script>
+</body>
+</html>

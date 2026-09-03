@@ -1,0 +1,39 @@
+# Derleme bağlamını küçük tutar ve gizli değerlerin imaja sızmasını engeller.
+
+# Bağımlılıklar ve derleme çıktıları — imajın içinde yeniden üretilir
+node_modules
+.next
+out
+build
+dist
+*.tsbuildinfo
+next-env.d.ts
+
+# Sürüm kontrolü ve düzenleyici dosyaları
+.git
+.gitignore
+.github
+.vscode
+.idea
+*.swp
+.DS_Store
+
+# Gizli değerler (SMTP parolası vb.) — konteynere env_file ile geçilir
+.env
+.env.*
+!.env.example
+
+# Yalnızca sunucu tarafında lazım olan dağıtım dosyaları
+deploy
+docker-compose.yml
+Dockerfile
+.dockerignore
+
+# Belgeler (README derleme günlüğünde işe yarasın diye hariç tutulmuyor)
+*.md
+!README.md
+
+# Yerel geçici çıktılar
+coverage
+*.log
+npm-debug.log*

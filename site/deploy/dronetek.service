@@ -1,0 +1,71 @@
+# DroneTek — Docker kullanmadan çalıştırma (systemd)
+#
+#   sudo cp deploy/dronetek.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now dronetek
+#   journalctl -u dronetek -f
+#
+# Ön koşul: /var/www/dronetek içinde `npm ci && npm run build` çalıştırılmış,
+# public/ ve .next/static klasörleri .next/standalone içine kopyalanmış olmalı
+# (adımlar README'de). Uygulama yalnızca localhost'u dinler; 80/443'ü nginx karşılar.
+
+[Unit]
+Description=DroneTek kurumsal sitesi (Next.js standalone)
+Documentation=https://dronetek.com.tr
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=dronetek
+Group=dronetek
+WorkingDirectory=/var/www/dronetek
+
+# NEXT_PUBLIC_* değerleri derleme anında gömülür; burada okunanlar SMTP gibi
+# çalışma anı ayarlarıdır. Dosya yoksa servis başlamaz — "-" ile isteğe bağlı.
+EnvironmentFile=-/var/www/dronetek/.env
+Environment=NODE_ENV=production
+Environment=NEXT_TELEMETRY_DISABLED=1
+Environment=PORT=3000
+Environment=HOSTNAME=127.0.0.1
+
+# standalone sunucusu kendi klasörüne geçer; statik dosyaları oradan okur.
+ExecStart=/usr/bin/node .next/standalone/server.js
+
+Restart=always
+RestartSec=5
+KillSignal=SIGTERM
+TimeoutStopSec=20
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=dronetek
+
+# --- Güvenlik sıkılaştırmaları ---------------------------------------------
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+ProtectClock=true
+ProtectHostname=true
+RestrictNamespaces=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+LockPersonality=true
+SystemCallArchitectures=native
+CapabilityBoundingSet=
+AmbientCapabilities=
+# Node'un JIT'i çalıştırılabilir bellek yazar; bu kısıt açılırsa süreç çöker.
+MemoryDenyWriteExecute=false
+
+# ProtectSystem=strict tüm dosya sistemini salt okunur yapar; next/image
+# önbelleğinin yazabilmesi için yalnızca bu klasör açılır (önceden oluşturun).
+ReadWritePaths=/var/www/dronetek/.next/standalone/.next/cache
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>DroneTek — VK-7 Sabit Kanat 3B Model</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.184.0/build/three.module.js",
+    "three/addons/controls/OrbitControls.js": "https://unpkg.com/three@0.184.0/examples/jsm/controls/OrbitControls.js",
+    "three/addons/exporters/OBJExporter.js": "https://unpkg.com/three@0.184.0/examples/jsm/exporters/OBJExporter.js",
+    "three/addons/exporters/GLTFExporter.js": "https://unpkg.com/three@0.184.0/examples/jsm/exporters/GLTFExporter.js"
+  },
+  "integrity": {
+    "https://unpkg.com/three@0.184.0/build/three.module.js": "sha384-8FCZ1eVO6it4+pbec2aDtnTrwjWXZLJRC+MAGCIPDgsYnUrl/E0A2YlF8ioMKI/J",
+    "https://unpkg.com/three@0.184.0/build/three.core.js": "sha384-dw2ooPewaEIrAgl6oFDBmmBWCE9oW9LxRGcfwZ0hLvEprzo202wXl7vCYHRlSnOT",
+    "https://unpkg.com/three@0.184.0/examples/jsm/controls/OrbitControls.js": "sha384-4rziNxOBZKQ69i+w+f89KJ55TCYquwchVbByQwmaOeIOXdOU2PLDn3kOfXHwIJC9",
+    "https://unpkg.com/three@0.184.0/examples/jsm/exporters/OBJExporter.js": "sha384-nbwtoZENJD3Vq+ACK0CuGQdPMuDWHkamC2KJD70EV5nfg6jQjfppKOea07YJN+N3",
+    "https://unpkg.com/three@0.184.0/examples/jsm/exporters/GLTFExporter.js": "sha384-VofkvpG6HERhFCYbsUOHeNXBCqID2nfqkQqnVzE1jc/oPcz+qJ13ADdXH08hE+cQ"
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&family=Instrument+Sans:wght@400;500&display=swap">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: #0B0D0F; color: #F2F0EC; font-family: 'Instrument Sans', system-ui, sans-serif; }
+  a { color: #F0A93B; text-decoration: none; }
+  a:hover { color: #FFC96B; }
+  three-d-stage:not(:defined) { visibility: hidden; }
+  three-d-stage { display: block; width: 100%; height: calc(100vh - 66px); min-height: 420px; }
+</style>
+</head>
+<body>
+<nav style="position:sticky;top:0;z-index:30;display:flex;flex-wrap:wrap;align-items:center;gap:24px;padding:16px clamp(20px,4vw,64px);background:rgba(11,13,15,.86);backdrop-filter:blur(14px);border-bottom:1px solid rgba(242,240,236,.12)">
+  <a href="DroneTek v4.dc.html" style="display:flex;align-items:center;gap:10px;margin-right:auto;color:#F2F0EC">
+    <img src="assets/logo-white.png" alt="" style="height:22px;width:auto;display:block">
+    <span style="font-family:'Archivo',sans-serif;font-weight:800;font-size:21px;letter-spacing:-.02em">Drone<span style="color:#F0A93B">Tek</span></span>
+  </a>
+  <span style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,240,236,.55)">VK-7 · Sabit Kanat</span>
+  <a href="DroneTek v4.dc.html" style="font-size:14px;padding:9px 16px;border-radius:999px;border:1px solid rgba(242,240,236,.24);color:#F2F0EC">Siteye dön</a>
+</nav>
+
+<three-d-stage name="dronetek-vk7" background="#FFFFFF" autorotate></three-d-stage>
+
+<div style="display:flex;flex-wrap:wrap;gap:8px 28px;align-items:center;padding:14px clamp(20px,4vw,64px) 28px;border-top:1px solid rgba(242,240,236,.12);font-size:14px;color:rgba(242,240,236,.62)">
+  <span>Döndürmek için sürükleyin</span>
+  <span>Yakınlaşmak için tekerleği kullanın</span>
+  <span>Kaydırmak için sağ tuşla sürükleyin</span>
+</div>
+
+<script src="three-d-stage.js"></script>
+<script type="module">
+const stage = document.querySelector('three-d-stage');
+const { THREE } = await stage.ready;
+
+const mat = {
+  shell: new THREE.MeshStandardMaterial({ name: 'shell', color: 0xE7E3D9, roughness: 0.52, metalness: 0.14 }),
+  panel: new THREE.MeshStandardMaterial({ name: 'panel', color: 0x2A2E33, roughness: 0.62, metalness: 0.22 }),
+  accent: new THREE.MeshStandardMaterial({ name: 'accent', color: 0xF0A93B, roughness: 0.44, metalness: 0.18 }),
+  glass: new THREE.MeshStandardMaterial({ name: 'glass', color: 0x14181C, roughness: 0.16, metalness: 0.32 }),
+  rubber: new THREE.MeshStandardMaterial({ name: 'rubber', color: 0x1A1D20, roughness: 0.86, metalness: 0.04 })
+};
+
+const drone = new THREE.Group();
+drone.name = 'VK7';
+const add = (name, geo, material, pos, rot) => {
+  const m = new THREE.Mesh(geo, material);
+  m.name = name;
+  if (pos) m.position.set(pos[0], pos[1], pos[2]);
+  if (rot) m.rotation.set(rot[0], rot[1], rot[2]);
+  m.castShadow = true;
+  m.receiveShadow = true;
+  drone.add(m);
+  return m;
+};
+
+// fuselage — lathe profile, nose at -Z
+const profile = [[0.000,0.000],[0.020,0.052],[0.060,0.082],[0.120,0.098],[0.300,0.104],
+                 [0.600,0.100],[0.850,0.086],[1.050,0.062],[1.190,0.043],[1.250,0.034]]
+  .map(([y, r]) => new THREE.Vector2(r, y));
+const fuse = new THREE.LatheGeometry(profile, 40);
+fuse.rotateX(Math.PI / 2);
+fuse.translate(0, 0, -0.6);
+add('fuselage', fuse, mat.shell);
+
+// nose cap
+const nose = new THREE.SphereGeometry(0.052, 32, 20, 0, Math.PI * 2, 0, Math.PI / 2);
+nose.rotateX(-Math.PI / 2);
+add('noseCap', nose, mat.panel, [0, 0, -0.601]);
+
+// wing — one swept, tapered planform
+const plan = new THREE.Shape();
+plan.moveTo(-1.20, 0.050);
+plan.lineTo(0, 0.170);
+plan.lineTo(1.20, 0.050);
+plan.lineTo(1.20, -0.100);
+plan.lineTo(0, -0.165);
+plan.lineTo(-1.20, -0.100);
+plan.closePath();
+const wing = new THREE.ExtrudeGeometry(plan, { depth: 0.036, bevelEnabled: true, bevelThickness: 0.008, bevelSize: 0.01, bevelSegments: 2 });
+wing.rotateX(-Math.PI / 2);
+add('wing', wing, mat.shell, [0, 0.095, -0.19]);
+
+// wing accent stripes
+[-1, 1].forEach((sx, i) => {
+  const stripe = new THREE.BoxGeometry(0.34, 0.006, 0.10);
+  add('wingStripe' + (i + 1), stripe, mat.accent, [sx * 0.80, 0.116, -0.20]);
+});
+
+// winglets
+[-1, 1].forEach((sx, i) => {
+  const wl = new THREE.BoxGeometry(0.020, 0.150, 0.135);
+  add('winglet' + (i + 1), wl, mat.panel, [sx * 1.198, 0.163, -0.215], [0, 0, sx * 0.12]);
+});
+
+// twin tail booms
+[-1, 1].forEach((sx, i) => {
+  const boom = new THREE.CylinderGeometry(0.021, 0.019, 0.86, 20);
+  boom.rotateX(Math.PI / 2);
+  add('tailBoom' + (i + 1), boom, mat.panel, [sx * 0.335, 0.095, 0.22]);
+});
+
+// horizontal stabiliser
+const hstab = new THREE.BoxGeometry(0.760, 0.020, 0.185);
+add('hStabiliser', hstab, mat.shell, [0, 0.095, 0.615]);
+const elevator = new THREE.BoxGeometry(0.760, 0.014, 0.055);
+add('elevator', elevator, mat.panel, [0, 0.095, 0.726]);
+
+// vertical fins
+[-1, 1].forEach((sx, i) => {
+  const fin = new THREE.BoxGeometry(0.020, 0.230, 0.155);
+  add('vFin' + (i + 1), fin, mat.shell, [sx * 0.335, 0.208, 0.590]);
+  const tip = new THREE.BoxGeometry(0.022, 0.030, 0.155);
+  add('vFinTip' + (i + 1), tip, mat.accent, [sx * 0.335, 0.331, 0.590]);
+});
+
+// pusher propeller
+const hub = new THREE.CylinderGeometry(0.038, 0.030, 0.070, 24);
+hub.rotateX(Math.PI / 2);
+add('propHub', hub, mat.panel, [0, 0, 0.680]);
+const blade = new THREE.BoxGeometry(0.470, 0.013, 0.058);
+add('propBlade', blade, mat.rubber, [0, 0, 0.712], [0.22, 0, 0]);
+
+// camera gimbal
+add('gimbalBall', new THREE.SphereGeometry(0.072, 28, 20), mat.panel, [0, -0.062, -0.400]);
+const lens = new THREE.CylinderGeometry(0.036, 0.036, 0.052, 28);
+lens.rotateX(Math.PI / 2);
+add('lensBarrel', lens, mat.panel, [0, -0.062, -0.455]);
+const glass = new THREE.CylinderGeometry(0.031, 0.031, 0.008, 28);
+glass.rotateX(Math.PI / 2);
+add('lensGlass', glass, mat.glass, [0, -0.062, -0.484]);
+
+// landing skids
+[-1, 1].forEach((sx, i) => {
+  const skid = new THREE.CylinderGeometry(0.013, 0.013, 0.420, 16);
+  skid.rotateX(Math.PI / 2);
+  add('skid' + (i + 1), skid, mat.rubber, [sx * 0.135, -0.190, -0.120]);
+  [-0.150, 0.070].forEach((dz, j) => {
+    const strut = new THREE.CylinderGeometry(0.010, 0.010, 0.150, 12);
+    add('skidStrut' + (i + 1) + (j + 1), strut, mat.panel, [sx * 0.135, -0.118, -0.120 + dz], [0, 0, sx * 0.30]);
+  });
+});
+
+// antenna
+const ant = new THREE.CylinderGeometry(0.005, 0.005, 0.190, 10);
+add('antenna', ant, mat.panel, [0, 0.190, 0.230]);
+add('antennaTip', new THREE.SphereGeometry(0.011, 14, 10), mat.accent, [0, 0.288, 0.230]);
+
+// nose accent ring
+const ring = new THREE.TorusGeometry(0.099, 0.007, 12, 40);
+add('noseRing', ring, mat.accent, [0, 0, -0.360]);
+
+drone.position.y = 0.203;
+stage.setObject(drone);
+</script>
+</body>
+</html>

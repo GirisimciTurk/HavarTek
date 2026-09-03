@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/industry-24d8c3ad-b487-4806-9db7-15526b543584/styles.css">
+<script src="_ds/industry-24d8c3ad-b487-4806-9db7-15526b543584/_ds_bundle.js"></script>
+<script src="./image-slot.js"></script>
+<style>
+  body { margin: 0; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); text-wrap: pretty; }
+  a { color: var(--color-accent-700); text-decoration: none; }
+  a:hover { color: var(--color-accent); }
+</style>
+</helmet>
+
+<nav class="nav" style="position:sticky;top:0;z-index:20;gap:24px;background:var(--color-bg);border-bottom:1px solid var(--color-divider);padding:14px clamp(20px,5vw,72px)">
+  <span class="nav-brand" style="letter-spacing:.04em;text-transform:uppercase;font-size:20px">DroneTek</span>
+  <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
+    <a href="#" onClick="{{ n.go }}" aria-current="{{ n.current }}" style="cursor:pointer;white-space:nowrap;letter-spacing:.02em">{{ n.label }}</a>
+  </sc-for>
+  <div class="seg" style="margin-left:8px">
+    <sc-for list="{{ langOpts }}" as="l" hint-placeholder-count="2">
+      <label class="seg-opt" style="letter-spacing:.06em"><input type="radio" name="dt-lang" checked="{{ l.checked }}" onChange="{{ l.select }}" />{{ l.label }}</label>
+    </sc-for>
+  </div>
+  <button type="button" class="btn btn-primary" onClick="{{ goContact }}" style="letter-spacing:.04em">{{ t.cta }}</button>
+</nav>
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<div>
+  <section style="max-width:1200px;margin:0 auto;padding:96px clamp(20px,5vw,72px) 72px">
+    <h1 style="font-family:var(--font-heading);font-weight:600;font-size:clamp(48px,7vw,92px);line-height:1.04;letter-spacing:.01em;text-transform:uppercase;margin:0 0 0 -.052em">
+      <span style="display:block">{{ t.hero.l1 }}</span>
+      <span style="display:block">{{ t.hero.l2 }}</span>
+    </h1>
+    <p style="font-size:17px;line-height:28px;max-width:62ch;margin:32px 0 0;color:color-mix(in srgb,var(--color-text) 82%,transparent)">{{ t.hero.sub }}</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:32px">
+      <button type="button" class="btn btn-primary" onClick="{{ goContact }}" style="letter-spacing:.04em">{{ t.hero.b1 }}</button>
+      <button type="button" class="btn btn-secondary" onClick="{{ goAreas }}" style="letter-spacing:.04em">{{ t.hero.b2 }}</button>
+    </div>
+  </section>
+
+  <section style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,72px) 72px">
+    <span style="display:block;font-size:13px;line-height:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700);margin:0 0 12px">{{ t.statsK }}</span>
+    <hr style="height:1px;border:0;margin:0 0 24px;background:var(--color-divider)" />
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--color-divider)">
+      <sc-for list="{{ t.stats }}" as="s" hint-placeholder-count="4">
+        <div style="background:var(--color-bg);padding:24px 24px 24px 0">
+          <div style="font-family:var(--font-heading);font-weight:600;font-size:clamp(34px,4vw,48px);line-height:1;letter-spacing:.01em;font-feature-settings:'tnum' 1">{{ s.v }}</div>
+          <div style="font-size:13px;line-height:20px;letter-spacing:.04em;text-transform:uppercase;margin-top:12px;color:color-mix(in srgb,var(--color-text) 70%,transparent)">{{ s.l }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width:1200px;margin:0 auto;padding:24px clamp(20px,5vw,72px) 72px">
+    <span style="display:block;font-size:13px;line-height:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700);margin:0 0 12px">{{ t.areasK }}</span>
+    <hr style="height:1px;border:0;margin:0 0 24px;background:var(--color-divider)" />
+    <h2 style="font-family:var(--font-heading);font-weight:600;font-size:clamp(30px,3.4vw,44px);line-height:1.05;letter-spacing:.02em;text-transform:uppercase;margin:0">{{ t.areasTitle }}</h2>
+    <p style="font-size:15px;line-height:24px;max-width:56ch;margin:20px 0 0;color:color-mix(in srgb,var(--color-text) 78%,transparent)">{{ t.areasLead }}</p>
+    <div class="seg" style="margin-top:32px;flex-wrap:wrap">
+      <sc-for list="{{ catOpts }}" as="c" hint-placeholder-count="6">
+        <label class="seg-opt" style="letter-spacing:.04em"><input type="radio" name="dt-cat" checked="{{ c.checked }}" onChange="{{ c.select }}" />{{ c.label }}</label>
+      </sc-for>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,3vw,48px);margin-top:40px">
+      <sc-for list="{{ visibleAreas }}" as="a" hint-placeholder-count="6">
+        <div class="blueprint" style="padding:24px;display:flex;flex-direction:column;gap:12px">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          <span style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700)">{{ a.catLabel }}</span>
+          <h3 style="font-family:var(--font-heading);font-weight:600;font-size:22px;line-height:26px;letter-spacing:.02em;text-transform:uppercase;margin:0">{{ a.title }}</h3>
+          <p style="font-size:15px;line-height:24px;margin:0;color:color-mix(in srgb,var(--color-text) 78%,transparent)">{{ a.body }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width:1200px;margin:0 auto;padding:24px clamp(20px,5vw,72px) 72px">
+    <span style="display:block;font-size:13px;line-height:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700);margin:0 0 12px">{{ t.techK }}</span>
+    <hr style="height:1px;border:0;margin:0 0 24px;background:var(--color-divider)" />
+    <div class="seg" style="margin-bottom:32px;flex-wrap:wrap">
+      <sc-for list="{{ platformOpts }}" as="p" hint-placeholder-count="3">
+        <label class="seg-opt" style="letter-spacing:.04em"><input type="radio" name="dt-platform" checked="{{ p.checked }}" onChange="{{ p.select }}" />{{ p.label }}</label>
+      </sc-for>
+    </div>
+    <div class="blueprint">
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <header style="display:flex;flex-wrap:wrap;align-items:stretch;border-bottom:1px solid var(--color-divider)">
+        <span style="flex:1;min-width:16ch;padding:12px 24px;font-size:13px;line-height:24px;letter-spacing:.08em;text-transform:uppercase;font-weight:600">{{ t.specTitle }}</span>
+        <span style="padding:12px 24px;font-size:13px;line-height:24px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;white-space:nowrap;border-left:1px solid var(--color-divider);color:color-mix(in srgb,var(--color-text) 70%,transparent)">{{ t.doc }}</span>
+        <span style="padding:12px 24px;font-size:13px;line-height:24px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;white-space:nowrap;border-left:1px solid var(--color-divider);color:color-mix(in srgb,var(--color-text) 70%,transparent)">{{ t.rev }}</span>
+        <span style="padding:12px 24px;font-size:13px;line-height:24px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;white-space:nowrap;border-left:1px solid var(--color-divider);color:color-mix(in srgb,var(--color-text) 70%,transparent)">{{ t.sheet }}</span>
+      </header>
+      <table class="table" style="table-layout:fixed">
+        <thead>
+          <tr>
+            <th scope="col" style="width:72px;padding:12px 24px;font-size:13px;font-weight:600">{{ t.cols.no }}</th>
+            <th scope="col" style="width:32%;padding:12px 24px 12px 0;font-size:13px;font-weight:600">{{ t.cols.prop }}</th>
+            <th scope="col" style="width:22%;padding:12px 24px 12px 0;font-size:13px;font-weight:600">{{ t.cols.val }}</th>
+            <th scope="col" style="padding:12px 24px 12px 0;font-size:13px;font-weight:600">{{ t.cols.rem }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <sc-for list="{{ specRows }}" as="r" hint-placeholder-count="5">
+            <tr>
+              <td style="padding:12px 24px;font-size:13px;font-weight:600;letter-spacing:.08em;color:var(--color-accent-700)">{{ r.no }}</td>
+              <td style="padding:12px 24px 12px 0;font-size:15px;line-height:24px">{{ r.prop }}</td>
+              <td style="padding:12px 24px 12px 0;font-family:var(--font-heading);font-weight:600;font-size:24px;line-height:24px;letter-spacing:.02em;white-space:nowrap;font-feature-settings:'tnum' 1">{{ r.val }}</td>
+              <td style="padding:12px 24px 12px 0;font-size:15px;line-height:24px;color:color-mix(in srgb,var(--color-text) 78%,transparent)">{{ r.rem }}</td>
+            </tr>
+          </sc-for>
+        </tbody>
+      </table>
+      <p style="margin:0;padding:12px 24px;border-top:1px solid var(--color-divider);font-size:13px;line-height:24px;color:color-mix(in srgb,var(--color-text) 70%,transparent)">{{ sheetNote }}</p>
+    </div>
+  </section>
+
+  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px clamp(28px,5vw,88px);align-items:center;max-width:1200px;margin:0 auto;padding:24px clamp(20px,5vw,72px) 72px">
+    <div>
+      <span style="display:block;font-size:13px;line-height:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700);margin:0 0 12px">{{ t.stepsK }}</span>
+      <hr style="height:1px;border:0;margin:0 0 24px;background:var(--color-divider)" />
+      <h2 style="font-family:var(--font-heading);font-weight:600;font-size:clamp(28px,3vw,38px);line-height:1.06;letter-spacing:.02em;text-transform:uppercase;margin:0">{{ t.stepsTitle }}</h2>
+      <div style="display:flex;flex-direction:column;margin-top:32px">
+        <sc-for list="{{ t.steps }}" as="s" hint-placeholder-count="4">
+          <div style="display:grid;grid-template-columns:56px 1fr;gap:16px;padding:20px 0;border-top:1px solid var(--color-divider)">
+            <span style="font-family:var(--font-heading);font-weight:600;font-size:28px;line-height:26px;color:var(--color-accent);font-feature-settings:'tnum' 1">{{ s.n }}</span>
+            <div>
+              <h3 style="font-family:var(--font-heading);font-weight:600;font-size:20px;line-height:24px;letter-spacing:.02em;text-transform:uppercase;margin:0">{{ s.t }}</h3>
+              <p style="font-size:15px;line-height:24px;margin:8px 0 0;color:color-mix(in srgb,var(--color-text) 78%,transparent)">{{ s.b }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <figure class="blueprint duotone" style="margin:0">
+      <image-slot id="dt-home-figure" shape="rect" style="width:100%;aspect-ratio:4/3" placeholder="Saha fotoğrafı: ilaçlama veya hat denetimi uçuşu"></image-slot>
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+    </figure>
+  </section>
+
+  <section style="max-width:1200px;margin:0 auto;padding:24px clamp(20px,5vw,72px) 88px">
+    <span style="display:block;font-size:13px;line-height:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700);margin:0 0 12px">{{ t.caseK }}</span>
+    <hr style="height:1px;border:0;margin:0 0 24px;background:var(--color-divider)" />
+    <figure style="margin:0">
+      <blockquote style="font-family:var(--font-heading);font-weight:600;font-size:clamp(26px,2.8vw,36px);line-height:1.25;max-width:40ch;margin:0">{{ t.caseQuote }}</blockquote>
+      <figcaption style="font-size:15px;line-height:24px;margin:32px 0 0;color:color-mix(in srgb,var(--color-text) 70%,transparent)">{{ t.caseAuthor }}</figcaption>
+    </figure>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:24px;margin-top:40px">
+      <sc-for list="{{ t.caseMetrics }}" as="m" hint-placeholder-count="3">
+        <div style="border-top:1px solid var(--color-divider);padding-top:16px">
+          <div style="font-family:var(--font-heading);font-weight:600;font-size:32px;line-height:1;font-feature-settings:'tnum' 1">{{ m.v }}</div>
+          <div style="font-size:13px;line-height:20px;letter-spacing:.04em;text-transform:uppercase;margin-top:10px;color:color-mix(in srgb,var(--color-text) 70%,transparent)">{{ m.l }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <sc-if value="{{ showRegulation }}" hint-placeholder-val="{{ true }}">
+  <section style="background:var(--color-accent-900);color:var(--color-bg)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:32px clamp(28px,5vw,88px);max-width:1200px;margin:0 auto;padding:72px clamp(20px,5vw,72px)">
+      <div>
+        <span style="display:block;font-size:13px;line-height:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--color-accent-300);margin:0 0 12px">{{ t.regK }}</span>
+        <hr style="height:1px;border:0;margin:0 0 24px;background:color-mix(in srgb,var(--color-bg) 30%,transparent)" />
+        <h2 style="font-family:var(--font-heading);font-weight:600;font-size:clamp(28px,3vw,38px);line-height:1.06;letter-spacing:.02em;text-transform:uppercase;margin:0">{{ t.regTitle }}</h2>
+        <p style="font-size:15px;line-height:24px;max-width:46ch;margin:20px 0 0;color:color-mix(in srgb,var(--color-bg) 82%,transparent)">{{ t.regBody }}</p>
+      </div>
+      <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column">
+        <sc-for list="{{ t.regItems }}" as="r" hint-placeholder-count="4">
+          <li style="display:grid;grid-template-columns:24px 1fr;gap:12px;padding:16px 0;border-bottom:1px solid color-mix(in srgb,var(--color-bg) 22%,transparent);font-size:15px;line-height:24px">
+            <span style="color:var(--color-accent-300)">+</span>
+            <span>{{ r }}</span>
+          </li>
+        </sc-for>
+      </ul>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ showNews }}" hint-placeholder-val="{{ true }}">
+  <section style="max-width:1200px;margin:0 auto;padding:72px clamp(20px,5vw,72px) 40px">
+    <span style="display:block;font-size:13px;line-height:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700);margin:0 0 12px">{{ t.newsK }}</span>
+    <hr style="height:1px;border:0;margin:0 0 24px;background:var(--color-divider)" />
+    <h2 style="font-family:var(--font-heading);font-weight:600;font-size:clamp(28px,3vw,38px);line-height:1.06;letter-spacing:.02em;text-transform:uppercase;margin:0">{{ t.newsTitle }}</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(28px,3vw,48px);margin-top:40px">
+      <sc-for list="{{ t.news }}" as="n" hint-placeholder-count="3">
+        <article style="border-top:1px solid var(--color-divider);padding-top:20px">
+          <div style="display:flex;gap:12px;align-items:center">
+            <span style="font-size:13px;letter-spacing:.06em;font-feature-settings:'tnum' 1;color:color-mix(in srgb,var(--color-text) 70%,transparent)">{{ n.d }}</span>
+            <span class="tag tag-outline">{{ n.tag }}</span>
+          </div>
+          <h3 style="font-family:var(--font-heading);font-weight:600;font-size:22px;line-height:26px;letter-spacing:.02em;text-transform:uppercase;margin:16px 0 0">{{ n.t }}</h3>
+          <p style="font-size:15px;line-height:24px;margin:12px 0 0;color:color-mix(in srgb,var(--color-text) 78%,transparent)">{{ n.b }}</p>
+        </article>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <section style="max-width:1200px;margin:0 auto;padding:56px clamp(20px,5vw,72px) 88px">
+    <span style="display:block;font-size:13px;line-height:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700);margin:0 0 12px">{{ t.ctaK }}</span>
+    <hr style="height:1px;border:0;margin:0 0 24px;background:var(--color-divider)" />
+    <h2 style="font-family:var(--font-heading);font-weight:600;font-size:clamp(28px,3vw,38px);line-height:1.06;letter-spacing:.02em;text-transform:uppercase;margin:0">{{ t.ctaTitle }}</h2>
+    <p style="font-size:15px;line-height:24px;max-width:54ch;margin:20px 0 0;color:color-mix(in srgb,var(--color-text) 78%,transparent)">{{ t.ctaBody }}</p>
+    <button type="button" class="btn btn-primary" onClick="{{ goContact }}" style="margin-top:32px;letter-spacing:.04em">{{ t.form.send }}</button>
+  </section>
+</div>
+</sc-if>
+
+<sc-if value="{{ isAreas }}">
+<div>
+  <section style="max-width:1200px;margin:0 auto;padding:72px clamp(20px,5vw,72px) 40px">
+    <span style="display:block;font-size:13px;line-height:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700);margin:0 0 12px">{{ t.apK }}</span>
+    <hr style="height:1px;border:0;margin:0 0 24px;background:var(--color-divider)" />
+    <h1 style="font-family:var(--font-heading);font-weight:600;font-size:clamp(38px,5vw,68px);line-height:1.04;letter-spacing:.01em;text-transform:uppercase;margin:0 0 0 -.052em">{{ t.apTitle }}</h1>
+    <p style="font-size:17px;line-height:28px;max-width:58ch;margin:28px 0 0;color:color-mix(in srgb,var(--color-text) 82%,transparent)">{{ t.apLead }}</p>
+    <div class="seg" style="margin-top:32px;flex-wrap:wrap">
+      <sc-for list="{{ catOpts }}" as="c" hint-placeholder-count="6">
+        <label class="seg-opt" style="letter-spacing:.04em"><input type="radio" name="dt-cat-2" checked="{{ c.checked }}" onChange="{{ c.select }}" />{{ c.label }}</label>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,72px) 32px">
+    <figure class="blueprint duotone" style="margin:0">
+      <image-slot id="dt-areas-hero" shape="rect" style="width:100%;aspect-ratio:21/9" placeholder="Geniş saha görseli: uçuş halinde platform"></image-slot>
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+    </figure>
+  </section>
+
+  <section style="max-width:1200px;margin:0 auto;padding:40px clamp(20px,5vw,72px) 88px;display:flex;flex-direction:column;gap:clamp(28px,3vw,40px)">
+    <sc-for list="{{ visibleAreas }}" as="a" hint-placeholder-count="8">
+      <div class="blueprint" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px clamp(24px,4vw,64px);padding:32px">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div>
+          <span style="display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700);margin-bottom:12px">{{ a.catLabel }}</span>
+          <h2 style="font-family:var(--font-heading);font-weight:600;font-size:28px;line-height:30px;letter-spacing:.02em;text-transform:uppercase;margin:0">{{ a.title }}</h2>
+          <p style="font-size:15px;line-height:24px;margin:16px 0 0;max-width:46ch;color:color-mix(in srgb,var(--color-text) 78%,transparent)">{{ a.body }}</p>
+        </div>
+        <div>
+          <span style="display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:color-mix(in srgb,var(--color-text) 70%,transparent);margin-bottom:12px">{{ t.deliver }}</span>
+          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column">
+            <sc-for list="{{ a.items }}" as="it" hint-placeholder-count="3">
+              <li style="display:grid;grid-template-columns:20px 1fr;gap:10px;padding:10px 0;border-top:1px solid var(--color-divider);font-size:15px;line-height:24px">
+                <span style="color:var(--color-accent)">+</span>
+                <span>{{ it }}</span>
+              </li>
+            </sc-for>
+          </ul>
+        </div>
+      </div>
+    </sc-for>
+  </section>
+</div>
+</sc-if>
+
+<sc-if value="{{ isTech }}">
+<div>
+  <section style="max-width:1200px;margin:0 auto;padding:72px clamp(20px,5vw,72px) 48px">
+    <span style="display:block;font-size:13px;line-height:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700);margin:0 0 12px">{{ t.tpK }}</span>
+    <hr style="height:1px;border:0;margin:0 0 24px;background:var(--color-divider)" />
+    <h1 style="font-family:var(--font-heading);font-weight:600;font-size:clamp(38px,5vw,68px);line-height:1.04;letter-spacing:.01em;text-transform:uppercase;margin:0 0 0 -.052em">{{ t.tpTitle }}</h1>
+    <p style="font-size:17px;line-height:28px;max-width:58ch;margin:28px 0 0;color:color-mix(in srgb,var(--color-text) 82%,transparent)">{{ t.tpLead }}</p>
+  </section>
+
+  <section style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,72px) 72px">
+    <div class="blueprint">
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <header style="display:flex;flex-wrap:wrap;align-items:stretch;border-bottom:1px solid var(--color-divider)">
+        <span style="flex:1;min-width:16ch;padding:12px 24px;font-size:13px;line-height:24px;letter-spacing:.08em;text-transform:uppercase;font-weight:600">{{ t.matrixTitle }}</span>
+        <span style="padding:12px 24px;font-size:13px;line-height:24px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;white-space:nowrap;border-left:1px solid var(--color-divider);color:color-mix(in srgb,var(--color-text) 70%,transparent)">{{ t.doc }}</span>
+        <span style="padding:12px 24px;font-size:13px;line-height:24px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;white-space:nowrap;border-left:1px solid var(--color-divider);color:color-mix(in srgb,var(--color-text) 70%,transparent)">{{ t.sheet2 }}</span>
+      </header>
+      <div style="overflow-x:auto">
+      <table class="table" style="min-width:640px">
+        <thead>
+          <tr>
+            <th scope="col" style="padding:12px 24px;font-size:13px;font-weight:600">{{ t.cols.prop }}</th>
+            <sc-for list="{{ platforms }}" as="p" hint-placeholder-count="3">
+              <th scope="col" style="padding:12px 24px 12px 0;font-size:13px;font-weight:600">{{ p.head }}</th>
+            </sc-for>
+          </tr>
+        </thead>
+        <tbody>
+          <sc-for list="{{ matrixRows }}" as="r" hint-placeholder-count="5">
+            <tr>
+              <td style="padding:12px 24px;font-size:15px;line-height:24px">{{ r.prop }}</td>
+              <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="3">
+                <td style="padding:12px 24px 12px 0;font-family:var(--font-heading);font-weight:600;font-size:22px;line-height:24px;letter-spacing:.02em;white-space:nowrap;font-feature-settings:'tnum' 1">{{ c.v }}</td>
+              </sc-for>
+            </tr>
+          </sc-for>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,72px) 72px">
+    <span style="display:block;font-size:13px;line-height:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700);margin:0 0 12px">{{ t.payloadK }}</span>
+    <hr style="height:1px;border:0;margin:0 0 24px;background:var(--color-divider)" />
+    <h2 style="font-family:var(--font-heading);font-weight:600;font-size:clamp(28px,3vw,38px);line-height:1.06;letter-spacing:.02em;text-transform:uppercase;margin:0">{{ t.payloadTitle }}</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(28px,3vw,48px);margin-top:40px">
+      <sc-for list="{{ t.payloads }}" as="p" hint-placeholder-count="4">
+        <div class="blueprint" style="padding:24px">
+          <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+          <h3 style="font-family:var(--font-heading);font-weight:600;font-size:20px;line-height:24px;letter-spacing:.02em;text-transform:uppercase;margin:0">{{ p.t }}</h3>
+          <p style="font-size:15px;line-height:24px;margin:12px 0 0;color:color-mix(in srgb,var(--color-text) 78%,transparent)">{{ p.b }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:32px clamp(28px,5vw,88px);align-items:center;max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,72px) 88px">
+    <div>
+      <span style="display:block;font-size:13px;line-height:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700);margin:0 0 12px">{{ t.swK }}</span>
+      <hr style="height:1px;border:0;margin:0 0 24px;background:var(--color-divider)" />
+      <h2 style="font-family:var(--font-heading);font-weight:600;font-size:clamp(28px,3vw,38px);line-height:1.06;letter-spacing:.02em;text-transform:uppercase;margin:0">{{ t.swTitle }}</h2>
+      <div style="display:flex;flex-direction:column;margin-top:32px">
+        <sc-for list="{{ t.sw }}" as="s" hint-placeholder-count="3">
+          <div style="padding:20px 0;border-top:1px solid var(--color-divider)">
+            <h3 style="font-family:var(--font-heading);font-weight:600;font-size:20px;line-height:24px;letter-spacing:.02em;text-transform:uppercase;margin:0">{{ s.t }}</h3>
+            <p style="font-size:15px;line-height:24px;margin:8px 0 0;color:color-mix(in srgb,var(--color-text) 78%,transparent)">{{ s.b }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <figure class="blueprint duotone" style="margin:0">
+      <image-slot id="dt-tech-figure" shape="rect" style="width:100%;aspect-ratio:4/3" placeholder="Sensör yükü veya yer kontrol istasyonu fotoğrafı"></image-slot>
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+    </figure>
+  </section>
+</div>
+</sc-if>
+
+<sc-if value="{{ isContact }}">
+<div>
+  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:48px clamp(28px,5vw,88px);max-width:1200px;margin:0 auto;padding:72px clamp(20px,5vw,72px) 72px">
+    <div>
+      <span style="display:block;font-size:13px;line-height:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700);margin:0 0 12px">{{ t.cpK }}</span>
+      <hr style="height:1px;border:0;margin:0 0 24px;background:var(--color-divider)" />
+      <h1 style="font-family:var(--font-heading);font-weight:600;font-size:clamp(38px,5vw,60px);line-height:1.04;letter-spacing:.01em;text-transform:uppercase;margin:0 0 0 -.052em">{{ t.ctaTitle }}</h1>
+      <p style="font-size:17px;line-height:28px;max-width:46ch;margin:28px 0 0;color:color-mix(in srgb,var(--color-text) 82%,transparent)">{{ t.ctaBody }}</p>
+      <div style="margin-top:40px">
+        <span style="display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:color-mix(in srgb,var(--color-text) 70%,transparent);margin-bottom:12px">{{ t.officeTitle }}</span>
+        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column">
+          <sc-for list="{{ t.office }}" as="o" hint-placeholder-count="3">
+            <li style="padding:12px 0;border-top:1px solid var(--color-divider);font-size:15px;line-height:24px">{{ o }}</li>
+          </sc-for>
+        </ul>
+      </div>
+    </div>
+    <div class="blueprint" style="padding:32px;align-self:start">
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <sc-if value="{{ sent }}">
+        <div>
+          <h2 style="font-family:var(--font-heading);font-weight:600;font-size:24px;line-height:28px;letter-spacing:.02em;text-transform:uppercase;margin:0">{{ t.form.sentTitle }}</h2>
+          <p style="font-size:15px;line-height:24px;margin:16px 0 0;color:color-mix(in srgb,var(--color-text) 78%,transparent)">{{ t.form.sent }}</p>
+          <button type="button" class="btn btn-secondary" onClick="{{ resetForm }}" style="margin-top:24px;letter-spacing:.04em">{{ t.form.again }}</button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="field">
+          <label for="dt-ad">{{ t.form.ad }}</label>
+          <input class="input" id="dt-ad" type="text" value="{{ form.ad }}" onChange="{{ setAd }}" />
+        </div>
+        <div class="field">
+          <label for="dt-kurum">{{ t.form.kurum }}</label>
+          <input class="input" id="dt-kurum" type="text" value="{{ form.kurum }}" onChange="{{ setKurum }}" />
+        </div>
+        <div class="field">
+          <label for="dt-eposta">{{ t.form.eposta }}</label>
+          <input class="input" id="dt-eposta" type="email" value="{{ form.eposta }}" onChange="{{ setEposta }}" />
+        </div>
+        <div class="field">
+          <label for="dt-sektor">{{ t.form.sektor }}</label>
+          <select class="input" id="dt-sektor" value="{{ form.sektor }}" onChange="{{ setSektor }}">
+            <option value="">{{ t.form.pick }}</option>
+            <sc-for list="{{ t.sectors }}" as="s" hint-placeholder-count="6">
+              <option value="{{ s }}">{{ s }}</option>
+            </sc-for>
+          </select>
+        </div>
+        <div class="field">
+          <label for="dt-mesaj">{{ t.form.mesaj }}</label>
+          <textarea class="input" id="dt-mesaj" value="{{ form.mesaj }}" onChange="{{ setMesaj }}"></textarea>
+        </div>
+        <sc-if value="{{ hasError }}">
+          <p style="margin:0;font-size:13px;line-height:20px;color:var(--color-accent-800)">{{ t.form.err }}</p>
+        </sc-if>
+        <button type="button" class="btn btn-primary" onClick="{{ submit }}" style="letter-spacing:.04em">{{ t.form.send }}</button>
+      </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <section style="max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,72px) 88px">
+    <span style="display:block;font-size:13px;line-height:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--color-accent-700);margin:0 0 12px">{{ t.teamK }}</span>
+    <hr style="height:1px;border:0;margin:0 0 24px;background:var(--color-divider)" />
+    <h2 style="font-family:var(--font-heading);font-weight:600;font-size:clamp(28px,3vw,38px);line-height:1.06;letter-spacing:.02em;text-transform:uppercase;margin:0">{{ t.teamTitle }}</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:clamp(28px,3vw,48px);margin-top:40px">
+      <sc-for list="{{ t.team }}" as="m" hint-placeholder-count="4">
+        <div style="border-top:1px solid var(--color-divider);padding-top:20px">
+          <div style="font-family:var(--font-heading);font-weight:600;font-size:32px;line-height:1;color:var(--color-accent)">{{ m.i }}</div>
+          <h3 style="font-family:var(--font-heading);font-weight:600;font-size:20px;line-height:24px;letter-spacing:.02em;text-transform:uppercase;margin:16px 0 0">{{ m.n }}</h3>
+          <p style="font-size:14px;line-height:22px;margin:6px 0 0;color:color-mix(in srgb,var(--color-text) 70%,transparent)">{{ m.r }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<footer style="border-top:1px solid var(--color-divider)">
+  <div style="display:flex;flex-wrap:wrap;gap:16px 32px;align-items:baseline;max-width:1200px;margin:0 auto;padding:32px clamp(20px,5vw,72px)">
+    <span style="font-family:var(--font-heading);font-weight:600;font-size:16px;letter-spacing:.06em;text-transform:uppercase">DroneTek</span>
+    <span style="font-size:13px;line-height:24px;color:color-mix(in srgb,var(--color-text) 70%,transparent)">{{ t.footer }}</span>
+  </div>
+</footer>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;TR&quot;,&quot;EN&quot;],&quot;default&quot;:&quot;TR&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Site&quot;},&quot;defaultCategory&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;all&quot;,&quot;tarim&quot;,&quot;enerji&quot;,&quot;olcum&quot;,&quot;kamu&quot;,&quot;lojistik&quot;],&quot;default&quot;:&quot;all&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Site&quot;},&quot;defaultPlatform&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;VK-4&quot;,&quot;VK-7&quot;,&quot;VK-9&quot;],&quot;default&quot;:&quot;VK-4&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Site&quot;},&quot;showRegulation&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Bölümler&quot;},&quot;showNews&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Bölümler&quot;}}">
+class Component extends DCLogic {
+  state = { page: 'home', lang: null, cat: null, platform: null, sent: false, err: false,
+    form: { ad: '', kurum: '', eposta: '', sektor: '', mesaj: '' } };
+
+  content = {
+    tr: {
+      nav: { home: 'Ana Sayfa', areas: 'Kullanım Alanları', tech: 'Teknoloji', contact: 'İletişim' },
+      cta: 'Demo talebi',
+      hero: { l1: 'Havadan toplanan veri,', l2: 'sahada alınan karar.',
+        sub: 'DroneTek; tarım, enerji altyapısı, haritalama, lojistik ve afet müdahalesi için insansız hava aracı platformları, sensör yükleri ve veri işleme yazılımı geliştirir. Her platform görev profiline göre yapılandırılır ve teslimden önce sahada test edilir.',
+        b1: 'Demo uçuşu planla', b2: 'Kullanım alanlarını gör' },
+      statsK: '01 · Sayısal görünüm',
+      stats: [{ v: '18.400', l: 'Kayıtlı uçuş saati' }, { v: '8', l: 'Faaliyet alanı' }, { v: '±2 cm', l: 'Konum hassasiyeti (RTK)' }, { v: '42', l: 'İlde saha operasyonu' }],
+      areasK: '02 · Kullanım alanları',
+      areasTitle: 'Sekiz alan, tek platform ailesi',
+      areasLead: 'Aynı uçuş yazılımı, aynı veri hattı. Görevden göreve değişen tek şey sensör yükü ve uçuş planı.',
+      cats: [{ id: 'all', label: 'Tümü' }, { id: 'tarim', label: 'Tarım & Çevre' }, { id: 'enerji', label: 'Enerji & Altyapı' }, { id: 'olcum', label: 'Ölçüm & İnşaat' }, { id: 'kamu', label: 'Kamu Güvenliği' }, { id: 'lojistik', label: 'Lojistik' }],
+      areas: [
+        { cat: 'tarim', catLabel: 'Tarım & Çevre', title: 'Zirai ilaçlama', body: 'Değişken oranlı ilaçlama, sıra takipli püskürtme ve reçete dosyasına göre otonom uçuş. Altı kilogramlık tank ile hektar başına ortalama on iki dakika.', items: ['Uçuş bazlı ilaçlama raporu', 'Parsel sınırı ve engel haritası', 'İlaç tüketim dökümü'] },
+        { cat: 'olcum', catLabel: 'Ölçüm & İnşaat', title: 'Haritalama ve fotogrametri', body: 'Ortofoto, sayısal yükseklik modeli ve nokta bulutu üretimi. Yer kontrol noktası ile üç santimetre altı yatay doğruluk.', items: ['GeoTIFF ortofoto', 'Nokta bulutu (LAS)', 'Doğruluk raporu'] },
+        { cat: 'enerji', catLabel: 'Enerji & Altyapı', title: 'Enerji hattı denetimi', body: 'İletim hattı koridoru, izolatör, iletken ve trafo taraması. Termal ve görünür bant aynı uçuşta kaydedilir.', items: ['Arıza noktası listesi', 'Termal anomali görüntüleri', 'Koridor ağaçlanma analizi'] },
+        { cat: 'kamu', catLabel: 'Kamu Güvenliği', title: 'Arama-kurtarma ve afet', body: 'Termal tarama ile gece araması, enkaz sonrası hasar haritası ve ilk yirmi dört saat durum raporu.', items: ['Canlı görüntü aktarımı', 'Hasar sınıflandırma haritası', 'Koordinat listesi'] },
+        { cat: 'lojistik', catLabel: 'Lojistik', title: 'Kargo ve numune teslimi', body: 'Ada, yayla ve şantiye hatlarında dört kilograma kadar noktadan noktaya teslim; otonom iniş istasyonu ile.', items: ['Hat planı ve uçuş takvimi', 'Sıcaklık kayıtlı taşıma', 'Teslim doğrulama kaydı'] },
+        { cat: 'olcum', catLabel: 'Ölçüm & İnşaat', title: 'İnşaat ve madencilik', body: 'Hafriyat hacim hesabı, şev stabilite takibi ve haftalık ilerleme karşılaştırması.', items: ['Hacim raporu (kesme/dolgu)', 'Haftalık ilerleme kıyası', 'Şev kesit çizimleri'] },
+        { cat: 'kamu', catLabel: 'Kamu Güvenliği', title: 'Güvenlik ve gözetleme', body: 'Tesis çevresi devriye uçuşu, çit ihlali tespiti ve olay anında canlı görüntü aktarımı.', items: ['Devriye uçuş planı', 'İhlal olay kaydı', 'Gece görüş taraması'] },
+        { cat: 'tarim', catLabel: 'Tarım & Çevre', title: 'Orman ve çevre izleme', body: 'Yangın erken tespiti, sulak alan sınır takibi ve tür sayımı için düşük irtifa uçuşu.', items: ['Sıcaklık anomali uyarısı', 'Alan değişim karşılaştırması', 'Sayım raporu'] }
+      ],
+      techK: '03 · Teknik veri',
+      specTitle: 'Uçuş platformları — teknik veri',
+      matrixTitle: 'Platform karşılaştırma tablosu',
+      doc: 'DT-SER', rev: 'Rev 04', sheet: 'Sayfa 01 / 03', sheet2: 'Sayfa 02 / 03',
+      cols: { no: 'No', prop: 'Özellik', val: 'Değer', rem: 'Not' },
+      specLabels: [
+        { p: 'Havada kalış', r: 'Standart batarya seti ile' },
+        { p: 'Telemetri menzili', r: 'Görüş hattında' },
+        { p: 'Faydalı yük', r: 'Görev ekipmanı dahil' },
+        { p: 'Konum hassasiyeti', r: 'RTK düzeltmesi altında' },
+        { p: 'Rüzgâr dayanımı', r: 'Sürekli rüzgâr' }
+      ],
+      note: { a: 'Değerler ', b: ' platformu için standart konfigürasyonda, deniz seviyesinde ölçülmüştür.' },
+      stepsK: '04 · Süreç',
+      stepsTitle: 'Görevden teslime dört adım',
+      steps: [
+        { n: '01', t: 'Görev tanımı', b: 'Alanın sınırları, çözünürlük hedefi, teslim formatı ve takvim birlikte belirlenir.' },
+        { n: '02', t: 'İzin ve uçuş planı', b: 'SHGM kaydı, uçuşa yasak saha kontrolü ve bildirim süreci bizim tarafımızda yürür.' },
+        { n: '03', t: 'Veri toplama', b: 'Otonom hat uçuşu; RTK düzeltmesi ve yer kontrol noktaları ile ölçüm sahada doğrulanır.' },
+        { n: '04', t: 'İşleme ve teslim', b: 'Ortofoto, yükseklik modeli, nokta bulutu veya denetim raporu beş iş günü içinde teslim edilir.' }
+      ],
+      caseK: '05 · Vaka çalışması',
+      caseQuote: '“İki yüz kilometrelik iletim hattını üç günde taradık; iki kırık izolatör ve bir aşırı ısınan bağlantı bulduk. Ekip aynı işi iki haftada yapıyordu.”',
+      caseAuthor: '— M. Alkan, bakım şefi, bölgesel dağıtım şirketi',
+      caseMetrics: [{ v: '204 km', l: 'Taranan hat' }, { v: '3 gün', l: 'Saha süresi' }, { v: '%78', l: 'Zaman tasarrufu' }],
+      regK: '06 · Mevzuat',
+      regTitle: 'Uçuş izinleri bizim tarafımızda',
+      regBody: 'Ticari İHA operasyonu Sivil Havacılık Genel Müdürlüğü mevzuatına tabidir. Kayıt, izin ve sigorta süreçlerini görev başlamadan önce biz yürütüyoruz.',
+      regItems: ['İHA-2 / İHA-3 kayıt ve tescil', 'Ticari uçuş faaliyet izni', 'Uzaktan pilot lisansı ve sağlık raporu', 'Üçüncü şahıs mali sorumluluk sigortası'],
+      newsK: '07 · Haberler',
+      newsTitle: 'Sahadan notlar',
+      news: [
+        { d: '12.06.2026', tag: 'Ürün', t: 'VK-9 VTOL seri üretime geçti', b: 'Dikey kalkışlı sabit kanat platform, kırk kilometre menzil ve iki saat havada kalış ile teslim edilmeye başlandı.' },
+        { d: '28.04.2026', tag: 'Saha', t: 'Konya ovasında 12.000 hektar tarama', b: 'Bir sezonda dokuz kooperatif için bitki sağlığı haritası üretildi; sulama planları buna göre revize edildi.' },
+        { d: '05.03.2026', tag: 'Yazılım', t: 'Veri hattına otomatik rapor eklendi', b: 'Uçuş sonrası işleme, denetim bulgularını koordinatları ile birlikte tek dosyada topluyor.' }
+      ],
+      ctaK: '08 · İletişim',
+      ctaTitle: 'Demo uçuşu planlayın',
+      ctaBody: 'Alanınızı ve hedefinizi yazın; iki iş günü içinde uçuş planı, teslim listesi ve fiyat aralığı ile dönüyoruz.',
+      form: { ad: 'Ad soyad', kurum: 'Kurum', eposta: 'E-posta', sektor: 'Sektör', mesaj: 'Görev tanımı', send: 'Talebi gönder', pick: 'Seçiniz',
+        sentTitle: 'Talebiniz alındı', sent: 'İki iş günü içinde uçuş planı ve fiyat aralığı ile dönüş yapacağız.', again: 'Yeni talep', err: 'Ad soyad, e-posta ve görev tanımı alanlarını doldurun.' },
+      sectors: ['Tarım', 'Enerji & Altyapı', 'Ölçüm & İnşaat', 'Kamu Güvenliği', 'Lojistik', 'Diğer'],
+      apK: 'Kullanım alanları',
+      apTitle: 'Alan alan, ne teslim ediyoruz',
+      apLead: 'Her alanda uçuşun çıktısı bir dosyadır: harita, rapor veya koordinat listesi. Aşağıda alan başına teslim edilenler listelenmiştir.',
+      deliver: 'Teslim edilenler',
+      tpK: 'Teknoloji',
+      tpTitle: 'Platformlar, yükler, yazılım',
+      tpLead: 'Üç uçuş platformu, dört sensör yükü ve tek bir veri hattı. Görev profili hangi kombinasyonun uçacağını belirler.',
+      payloadK: 'Sensör yükleri',
+      payloadTitle: 'Dört yük, aynı gövde arayüzü',
+      payloads: [
+        { t: 'RGB ölçüm kamerası', b: '61 MP tam kare, mekanik shutter. Fotogrametri ve ilerleme takibi için standart yük.' },
+        { t: 'Multispektral sensör', b: 'Beş bant ve ışık referansı. NDVI ve bitki stresi haritaları için kullanılır.' },
+        { t: 'Termal kamera', b: '640×512, radyometrik. Hat denetimi, yangın tespiti ve gece aramasında.' },
+        { t: 'LiDAR', b: 'Çift dönüşlü tarayıcı, ağaç altı zemin modeli ve koridor kesiti üretir.' }
+      ],
+      swK: 'Yazılım',
+      swTitle: 'Veri hattı',
+      sw: [
+        { t: 'Uçuş planlama', b: 'Parsel veya koridor sınırından otonom hat planı; engel ve irtifa kısıtları plana işlenir.' },
+        { t: 'İşleme', b: 'Ortofoto, yükseklik modeli ve nokta bulutu üretimi; doğruluk raporu otomatik eklenir.' },
+        { t: 'Teslim ve arşiv', b: 'Çıktılar koordinat sistemi etiketiyle arşivlenir; önceki uçuşlarla karşılaştırılabilir.' }
+      ],
+      cpK: 'İletişim',
+      teamK: 'Ekip',
+      teamTitle: 'Görevi kuran ekip',
+      team: [
+        { i: 'SK', n: 'Selin Kaya', r: 'Operasyon direktörü' },
+        { i: 'ED', n: 'Emre Demir', r: 'Uçuş sistemleri, baş mühendis' },
+        { i: 'BA', n: 'Burak Aydın', r: 'Uzaktan pilot ekip lideri' },
+        { i: 'NY', n: 'Nihan Yılmaz', r: 'Coğrafi veri ve analiz' }
+      ],
+      officeTitle: 'Ofis',
+      office: ['Teknopark İzmir, Urla / İzmir', '+90 232 000 00 00', 'iletisim@dronetek.com.tr'],
+      footer: '© 2026 DroneTek İnsansız Hava Aracı Sistemleri A.Ş.'
+    },
+    en: {
+      nav: { home: 'Home', areas: 'Applications', tech: 'Technology', contact: 'Contact' },
+      cta: 'Request a demo',
+      hero: { l1: 'Data collected in the air,', l2: 'decisions made in the field.',
+        sub: 'DroneTek builds unmanned aircraft platforms, sensor payloads and data processing software for agriculture, energy infrastructure, mapping, logistics and disaster response. Every platform is configured to its mission profile and field-tested before delivery.',
+        b1: 'Book a demo flight', b2: 'See the applications' },
+      statsK: '01 · By the numbers',
+      stats: [{ v: '18,400', l: 'Logged flight hours' }, { v: '8', l: 'Application fields' }, { v: '±2 cm', l: 'Positional accuracy (RTK)' }, { v: '42', l: 'Provinces operated in' }],
+      areasK: '02 · Applications',
+      areasTitle: 'Eight fields, one platform family',
+      areasLead: 'The same flight software and the same data pipeline. Only the sensor payload and the flight plan change from mission to mission.',
+      cats: [{ id: 'all', label: 'All' }, { id: 'tarim', label: 'Agriculture & Environment' }, { id: 'enerji', label: 'Energy & Infrastructure' }, { id: 'olcum', label: 'Survey & Construction' }, { id: 'kamu', label: 'Public Safety' }, { id: 'lojistik', label: 'Logistics' }],
+      areas: [
+        { cat: 'tarim', catLabel: 'Agriculture & Environment', title: 'Crop spraying', body: 'Variable-rate spraying, row-following application and autonomous flight from a prescription file. Twelve minutes per hectare on average with a six-kilogram tank.', items: ['Per-flight application report', 'Field boundary and obstacle map', 'Chemical usage breakdown'] },
+        { cat: 'olcum', catLabel: 'Survey & Construction', title: 'Mapping and photogrammetry', body: 'Orthophoto, digital elevation model and point cloud production. Sub-three-centimetre horizontal accuracy with ground control points.', items: ['GeoTIFF orthophoto', 'Point cloud (LAS)', 'Accuracy report'] },
+        { cat: 'enerji', catLabel: 'Energy & Infrastructure', title: 'Power line inspection', body: 'Transmission corridor, insulator, conductor and transformer scanning. Thermal and visible bands are recorded on the same flight.', items: ['Fault location list', 'Thermal anomaly imagery', 'Corridor vegetation analysis'] },
+        { cat: 'kamu', catLabel: 'Public Safety', title: 'Search, rescue and disaster', body: 'Night search with thermal scanning, post-collapse damage mapping and a first twenty-four-hour situation report.', items: ['Live video downlink', 'Damage classification map', 'Coordinate list'] },
+        { cat: 'lojistik', catLabel: 'Logistics', title: 'Cargo and sample delivery', body: 'Point-to-point delivery up to four kilograms on island, highland and construction routes, with an autonomous landing station.', items: ['Route plan and flight schedule', 'Temperature-logged transport', 'Delivery confirmation record'] },
+        { cat: 'olcum', catLabel: 'Survey & Construction', title: 'Construction and mining', body: 'Earthwork volume calculation, slope stability monitoring and weekly progress comparison.', items: ['Volume report (cut/fill)', 'Weekly progress comparison', 'Slope cross-sections'] },
+        { cat: 'kamu', catLabel: 'Public Safety', title: 'Security and surveillance', body: 'Perimeter patrol flights, fence breach detection and live video during an incident.', items: ['Patrol flight plan', 'Breach event log', 'Night vision sweep'] },
+        { cat: 'tarim', catLabel: 'Agriculture & Environment', title: 'Forest and environmental monitoring', body: 'Low-altitude flights for early fire detection, wetland boundary tracking and species counts.', items: ['Temperature anomaly alert', 'Area change comparison', 'Count report'] }
+      ],
+      techK: '03 · Technical data',
+      specTitle: 'Flight platforms — technical data',
+      matrixTitle: 'Platform comparison table',
+      doc: 'DT-SER', rev: 'Rev 04', sheet: 'Sheet 01 / 03', sheet2: 'Sheet 02 / 03',
+      cols: { no: 'No.', prop: 'Property', val: 'Value', rem: 'Remark' },
+      specLabels: [
+        { p: 'Endurance', r: 'With the standard battery set' },
+        { p: 'Telemetry range', r: 'Within line of sight' },
+        { p: 'Payload', r: 'Mission equipment included' },
+        { p: 'Positional accuracy', r: 'Under RTK correction' },
+        { p: 'Wind tolerance', r: 'Sustained wind' }
+      ],
+      note: { a: 'Values measured for the ', b: ' platform in its standard configuration at sea level.' },
+      stepsK: '04 · Process',
+      stepsTitle: 'Four steps from mission to delivery',
+      steps: [
+        { n: '01', t: 'Mission definition', b: 'Area boundaries, resolution target, delivery format and schedule are set together.' },
+        { n: '02', t: 'Permits and flight plan', b: 'Registration, restricted airspace checks and notification run on our side.' },
+        { n: '03', t: 'Data collection', b: 'Autonomous line flights; measurements are verified on site with RTK and ground control points.' },
+        { n: '04', t: 'Processing and delivery', b: 'Orthophoto, elevation model, point cloud or inspection report delivered within five working days.' }
+      ],
+      caseK: '05 · Case study',
+      caseQuote: '“We scanned two hundred kilometres of transmission line in three days and found two cracked insulators and one overheating joint. The crew used to need two weeks.”',
+      caseAuthor: '— M. Alkan, maintenance chief, regional distribution utility',
+      caseMetrics: [{ v: '204 km', l: 'Line scanned' }, { v: '3 days', l: 'Time on site' }, { v: '78%', l: 'Time saved' }],
+      regK: '06 · Regulation',
+      regTitle: 'Flight permits are on our side',
+      regBody: 'Commercial UAV operation is regulated by the Turkish Directorate General of Civil Aviation. Registration, permits and insurance are handled by us before the mission starts.',
+      regItems: ['UAV-2 / UAV-3 registration', 'Commercial operating permit', 'Remote pilot licence and medical', 'Third-party liability insurance'],
+      newsK: '07 · News',
+      newsTitle: 'Notes from the field',
+      news: [
+        { d: '12.06.2026', tag: 'Product', t: 'VK-9 VTOL enters series production', b: 'The vertical take-off fixed-wing platform now ships with forty kilometres of range and two hours of endurance.' },
+        { d: '28.04.2026', tag: 'Field', t: '12,000 hectares scanned on the Konya plain', b: 'Crop health maps were produced for nine cooperatives in one season and irrigation plans were revised accordingly.' },
+        { d: '05.03.2026', tag: 'Software', t: 'Automatic reporting added to the pipeline', b: 'Post-flight processing now collects inspection findings with their coordinates in a single file.' }
+      ],
+      ctaK: '08 · Contact',
+      ctaTitle: 'Book a demo flight',
+      ctaBody: 'Tell us your area and your objective; within two working days we come back with a flight plan, a delivery list and a price range.',
+      form: { ad: 'Full name', kurum: 'Organisation', eposta: 'Email', sektor: 'Sector', mesaj: 'Mission description', send: 'Send the request', pick: 'Select',
+        sentTitle: 'Request received', sent: 'We will come back within two working days with a flight plan and a price range.', again: 'New request', err: 'Please fill in name, email and mission description.' },
+      sectors: ['Agriculture', 'Energy & Infrastructure', 'Survey & Construction', 'Public Safety', 'Logistics', 'Other'],
+      apK: 'Applications',
+      apTitle: 'Field by field, what we deliver',
+      apLead: 'In every field the output of a flight is a file: a map, a report or a coordinate list. Deliverables per field are listed below.',
+      deliver: 'Deliverables',
+      tpK: 'Technology',
+      tpTitle: 'Platforms, payloads, software',
+      tpLead: 'Three flight platforms, four sensor payloads and a single data pipeline. The mission profile decides which combination flies.',
+      payloadK: 'Sensor payloads',
+      payloadTitle: 'Four payloads, one airframe interface',
+      payloads: [
+        { t: 'RGB survey camera', b: '61 MP full frame with mechanical shutter. The standard payload for photogrammetry and progress tracking.' },
+        { t: 'Multispectral sensor', b: 'Five bands with an irradiance reference. Used for NDVI and crop stress maps.' },
+        { t: 'Thermal camera', b: '640×512, radiometric. For line inspection, fire detection and night search.' },
+        { t: 'LiDAR', b: 'Dual-return scanner producing below-canopy terrain models and corridor cross-sections.' }
+      ],
+      swK: 'Software',
+      swTitle: 'The data pipeline',
+      sw: [
+        { t: 'Flight planning', b: 'Autonomous line plans from a field or corridor boundary, with obstacle and altitude constraints written into the plan.' },
+        { t: 'Processing', b: 'Orthophoto, elevation model and point cloud production, with an accuracy report attached automatically.' },
+        { t: 'Delivery and archive', b: 'Outputs are archived with their coordinate system so they can be compared against earlier flights.' }
+      ],
+      cpK: 'Contact',
+      teamK: 'Team',
+      teamTitle: 'The team behind the mission',
+      team: [
+        { i: 'SK', n: 'Selin Kaya', r: 'Director of operations' },
+        { i: 'ED', n: 'Emre Demir', r: 'Lead engineer, flight systems' },
+        { i: 'BA', n: 'Burak Aydın', r: 'Remote pilot team lead' },
+        { i: 'NY', n: 'Nihan Yılmaz', r: 'Geospatial data and analysis' }
+      ],
+      officeTitle: 'Office',
+      office: ['Teknopark İzmir, Urla / İzmir', '+90 232 000 00 00', 'iletisim@dronetek.com.tr'],
+      footer: '© 2026 DroneTek Unmanned Aircraft Systems'
+    }
+  };
+
+  platformData = [
+    { id: 'VK-4', type: { tr: 'Çok rotorlu', en: 'Multirotor' }, values: ['42 dk / 42 min', '8 km', '6,0 kg', '±2 cm', '12 m/s'] },
+    { id: 'VK-7', type: { tr: 'Sabit kanat', en: 'Fixed wing' }, values: ['180 dk / 180 min', '60 km', '2,5 kg', '±3 cm', '14 m/s'] },
+    { id: 'VK-9', type: { tr: 'VTOL', en: 'VTOL' }, values: ['120 dk / 120 min', '40 km', '4,0 kg', '±2 cm', '16 m/s'] }
+  ];
+
+  go(page) {
+    return (e) => {
+      if (e && e.preventDefault) e.preventDefault();
+      this.setState({ page: page });
+      if (typeof window !== 'undefined') window.scrollTo(0, 0);
+    };
+  }
+
+  dur(v, lang) {
+    const parts = String(v).split(' / ');
+    return parts.length > 1 ? (lang === 'en' ? parts[1] : parts[0]) : v;
+  }
+
+  setField(key) {
+    return (e) => {
+      const v = e.target.value;
+      this.setState((s) => ({ form: Object.assign({}, s.form, { [key]: v }), err: false }));
+    };
+  }
+
+  renderVals() {
+    const lang = this.state.lang || (this.props.defaultLang === 'EN' ? 'en' : 'tr');
+    const t = this.content[lang];
+    const cat = this.state.cat || this.props.defaultCategory || 'all';
+    const platform = this.state.platform || this.props.defaultPlatform || 'VK-4';
+    const page = this.state.page;
+    const pd = this.platformData.find((p) => p.id === platform) || this.platformData[0];
+
+    const navKeys = ['home', 'areas', 'tech', 'contact'];
+    const navItems = navKeys.map((k) => ({
+      label: t.nav[k], current: page === k ? 'page' : null, go: this.go(k)
+    }));
+
+    const catIds = t.cats.map((c) => c.id);
+    const catOpts = t.cats.map((c) => ({
+      label: c.label, checked: cat === c.id,
+      select: () => this.setState({ cat: c.id })
+    }));
+    const activeCat = catIds.indexOf(cat) === -1 ? 'all' : cat;
+
+    const visibleAreas = t.areas
+      .filter((a) => activeCat === 'all' || a.cat === activeCat)
+      .map((a, i) => Object.assign({}, a, { key: a.title + i }));
+
+    const platformOpts = this.platformData.map((p) => ({
+      label: p.id + ' · ' + p.type[lang], checked: platform === p.id,
+      select: () => this.setState({ platform: p.id })
+    }));
+
+    const specRows = t.specLabels.map((s, i) => ({
+      no: String(i + 1).padStart(2, '0'), prop: s.p, val: this.dur(pd.values[i], lang), rem: s.r
+    }));
+
+    const platforms = this.platformData.map((p) => ({ head: p.id + ' · ' + p.type[lang] }));
+    const matrixRows = t.specLabels.map((s, i) => ({
+      prop: s.p,
+      cells: this.platformData.map((p) => ({ v: this.dur(p.values[i], lang) }))
+    }));
+
+    const f = this.state.form;
+    const submit = () => {
+      const ok = f.ad.trim() && /.+@.+\..+/.test(f.eposta) && f.mesaj.trim();
+      if (ok) this.setState({ sent: true, err: false });
+      else this.setState({ err: true });
+    };
+
+    return {
+      t, navItems, catOpts, platformOpts, platforms, matrixRows, specRows, visibleAreas,
+      isHome: page === 'home', isAreas: page === 'areas', isTech: page === 'tech', isContact: page === 'contact',
+      goContact: this.go('contact'), goAreas: this.go('areas'),
+      sheetNote: t.note.a + pd.id + t.note.b,
+      showRegulation: this.props.showRegulation !== false,
+      showNews: this.props.showNews !== false,
+      langOpts: [
+        { label: 'TR', checked: lang === 'tr', select: () => this.setState({ lang: 'tr' }) },
+        { label: 'EN', checked: lang === 'en', select: () => this.setState({ lang: 'en' }) }
+      ],
+      form: f, sent: this.state.sent, notSent: !this.state.sent, hasError: this.state.err,
+      setAd: this.setField('ad'), setKurum: this.setField('kurum'), setEposta: this.setField('eposta'),
+      setSektor: this.setField('sektor'), setMesaj: this.setField('mesaj'),
+      submit, resetForm: () => this.setState({ sent: false, form: { ad: '', kurum: '', eposta: '', sektor: '', mesaj: '' } })
+    };
+  }
+}
+</script>
+</body>
+</html>

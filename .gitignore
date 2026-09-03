@@ -1,0 +1,31 @@
+# Bağımlılıklar ve derleme çıktıları
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# Gizli değerler
+.env
+.env.*
+!.env.example
+
+# --- Tasarım kaynağı ---
+# Tasarım dosyalarının kendisi (*.dc.html + çalıştıran betikler) depoda tutuluyor;
+# içindeki gömülü/kopya görseller tutulmuyor. Fotoğrafların depodaki tek kopyası
+# site/src/assets/photos altında.
+DroneTek site tasarımı.zip
+design-src/uploads/
+design-src/assets/photos/
+design-src/slot-images/
+design-src/.image-slots.state.json
+design-src/.thumbnail
+
+# gorseller/ — site/src/assets/photos ile aynı fotoğrafların ham kopyası
+gorseller/
+
+# İşletim sistemi / düzenleyici
+.DS_Store
+*.swp
+.idea/
+.vscode/

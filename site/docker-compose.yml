@@ -1,0 +1,30 @@
+# DroneTek kurumsal sitesi — tek servisli üretim kurulumu.
+#
+#   cp .env.example .env      # değerleri doldurun
+#   docker compose up -d --build
+#
+# Konteyner yalnızca 127.0.0.1'e bağlanır: 80/443'ü sunucudaki nginx karşılar
+# (deploy/nginx.conf) ve istekleri http://127.0.0.1:3000 adresine iletir.
+# Böylece uygulama doğrudan internete açık olmaz, TLS tek yerde biter.
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Kanonik adres derleme anında gömülür; .env içindeki değer kullanılır.
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://dronetek.com.tr}
+    image: dronetek-site:latest
+    container_name: dronetek-site
+    restart: unless-stopped
+    # SMTP bilgileri gibi çalışma anı değerleri buradan gelir.
+    env_file:
+      - .env
+    ports:
+      - "127.0.0.1:3000:3000"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

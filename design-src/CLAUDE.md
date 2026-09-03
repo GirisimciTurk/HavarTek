@@ -1,0 +1,3 @@
+- Aktif DroneTek tasarımı: `DroneTek v4.dc.html` (koyu, fotoğraf ağırlıklı; amber #F0A93B / #0B0D0F; Archivo + Instrument Sans). Bağlı "Industry" tasarım sistemi kullanılmıyor — kullanıcı o temayı istemedi.
+- Diğer sürümler (`DroneTek.dc.html`, `v2`, `v3`) eski iterasyonlar, referans için tutuluyor.
+- Logo: `assets/logo.png`, üst menü ve alt bilgide marka yazısının solunda.
