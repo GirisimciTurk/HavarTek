@@ -4,6 +4,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { CategoryChips, type Category } from '@/components/CategoryChips';
 import { PhotoFrame } from '@/components/Photo';
+import { face } from '@/components/ui';
 import { cn } from '@/lib/cn';
 import type { SlotId } from '@/lib/photos';
 
@@ -24,13 +25,6 @@ export type AreaDetailProps = {
   legend: string;
   deliver: string;
 };
-
-/**
- * Tasarımdaki bu başlık `display.sectionSm`den bir tık küçük (üst sınır 42 değil
- * 38px), bu yüzden ölçek burada birebir yazılıyor.
- */
-const detailTitle =
-  'font-display font-extrabold text-[clamp(26px,2.8vw,38px)] leading-[1.14] tracking-[-0.03em]';
 
 function AreaDetailView({
   cats,
@@ -65,19 +59,23 @@ function AreaDetailView({
               slot={area.slot}
               alt={area.title}
               sizes="(max-width: 900px) 100vw, 50vw"
+              frameClassName="rounded-2xl"
             />
             <div>
-              <span className="kicker-sm mb-3.5 text-amber">{area.catLabel}</span>
-              <h2 className={cn(detailTitle, 'rise m-0')}>{area.title}</h2>
-              <p className="m-0 mt-4 max-w-[48ch] text-[16px] leading-[26px] text-paper/76">
+              <span className="kicker-sm mb-3.5 text-blue">{area.catLabel}</span>
+              {/* Bu başlık display.sectionSm'den bir tık küçük (tavan 38px); punto yerinde verildi. */}
+              <h2 className={cn(face.bold, 'rise m-0 text-[clamp(26px,2.8vw,38px)]')}>
+                {area.title}
+              </h2>
+              <p className="m-0 mt-4 max-w-[48ch] text-[16px] leading-[26px] text-muted">
                 {area.body}
               </p>
-              <span className="kicker-sm mt-7 mb-2.5 text-paper/55">{deliver}</span>
+              <span className="kicker-sm mt-7 mb-2.5 text-faint">{deliver}</span>
               <ul className="m-0 flex list-none flex-col p-0">
                 {area.items.map((item) => (
                   <li
                     key={item}
-                    className="border-t border-paper/14 py-[11px] text-[15px] leading-[23px]"
+                    className="border-t border-line py-[11px] text-[15px] leading-[23px] text-slate"
                   >
                     {item}
                   </li>
@@ -93,7 +91,7 @@ function AreaDetailView({
 
 /**
  * Kategori filtresi. Seçim adres çubuğunda tutulur: alt bilgideki
- * `?kategori=tarim` bağlantıları doğrudan ilgili filtreyi açar ve seçili
+ * `?kategori=lojistik` bağlantıları doğrudan ilgili filtreyi açar ve seçili
  * görünüm paylaşılabilir olur.
  */
 export function AreaDetailList({

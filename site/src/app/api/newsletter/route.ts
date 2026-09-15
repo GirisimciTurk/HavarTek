@@ -38,7 +38,7 @@ export async function POST(request: Request) {
 
   const locale = raw.locale === 'en' ? 'en' : 'tr';
   const text = [
-    'DroneTek web sitesi — bülten kaydı',
+    'HavarTek web sitesi — bülten kaydı',
     '',
     `E-posta   : ${email}`,
     `Site dili : ${locale}`,
@@ -46,7 +46,7 @@ export async function POST(request: Request) {
   ].join('\n');
 
   try {
-    await sendMail({ subject: `DroneTek bülten kaydı (${locale}) — ${email}`, text, replyTo: email });
+    await sendMail({ subject: `HavarTek bülten kaydı (${locale}) — ${email}`, text, replyTo: email });
   } catch (error) {
     console.error('[newsletter] gönderilemedi', error, text);
     return NextResponse.json({ ok: false, error: 'send_failed' }, { status: 500 });

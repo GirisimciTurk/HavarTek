@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Archivo, Instrument_Sans } from 'next/font/google';
+import { Poppins } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
 
@@ -13,23 +13,16 @@ import { getUi } from '@/content/ui';
 import { docHref, htmlLang, isLocale, locales, type Locale } from '@/lib/i18n';
 import { organizationJsonLd, siteUrl } from '@/lib/site';
 
-const archivo = Archivo({
+const poppins = Poppins({
   subsets: ['latin', 'latin-ext'],
-  weight: ['400', '500', '600', '800'],
-  variable: '--font-archivo',
-  display: 'swap',
-});
-
-const instrumentSans = Instrument_Sans({
-  subsets: ['latin', 'latin-ext'],
-  weight: ['400', '500'],
-  variable: '--font-instrument',
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-poppins',
   display: 'swap',
 });
 
 export const viewport: Viewport = {
-  themeColor: '#0B0D0F',
-  colorScheme: 'dark',
+  themeColor: '#F4F7FB',
+  colorScheme: 'light',
 };
 
 export function generateStaticParams() {
@@ -78,11 +71,11 @@ export default async function LocaleLayout({
   const ui = getUi(locale);
 
   return (
-    <html lang={htmlLang[locale]} className={`${archivo.variable} ${instrumentSans.variable}`}>
+    <html lang={htmlLang[locale]} className={poppins.variable} data-scroll-behavior="smooth">
       <body>
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[80] focus:rounded-full focus:bg-amber focus:px-5 focus:py-3 focus:text-[15px] focus:font-medium focus:text-ink"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[80] focus:rounded-full focus:bg-blue focus:px-5 focus:py-3 focus:text-[15px] focus:font-medium focus:text-white"
         >
           {ui.skipToContent}
         </a>
@@ -90,7 +83,6 @@ export default async function LocaleLayout({
         <SiteHeader
           locale={locale}
           nav={t.nav}
-          model3dLabel={t.nav3d}
           ctaLabel={t.cta}
           menuLabel={ui.menu}
           closeLabel={ui.close}

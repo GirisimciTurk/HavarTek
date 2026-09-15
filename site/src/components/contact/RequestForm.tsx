@@ -1,27 +1,34 @@
 'use client';
 
-import { useId, useState } from 'react';
+import { useId, useState, type ReactNode } from 'react';
 
 import { buttonStyles } from '@/components/ui';
 import { cn } from '@/lib/cn';
 import type { Locale } from '@/lib/i18n';
 
-/** Tasarımdaki `t.form` alanları — sözlük istemci paketine girmesin diye elle yazıldı. */
+/** Sözlükteki `t.form` alanları — site.json istemci paketine girmesin diye elle yazıldı. */
 export type RequestFormLabels = {
   ad: string;
   kurum: string;
   eposta: string;
   telefon: string;
-  uni: string;
   rol: string;
-  sektor: string;
+  alan: string;
   mesaj: string;
-  send: string;
+  mesajPh: string;
+  onay: string;
   pick: string;
+  send: string;
+  sending: string;
+  note: string;
   sentTitle: string;
   sent: string;
   again: string;
-  err: string;
+  errName: string;
+  errEmail: string;
+  errMessage: string;
+  errConsent: string;
+  errNetwork: string;
 };
 
 /** `getUi(locale).form` */
@@ -32,38 +39,74 @@ export type RequestFormUi = {
   optional: string;
 };
 
+// Tasarımdaki EMAIL_RE; mesaj için en az 20 karakter kuralı da oradan.
 const EMAIL_PATTERN = /.+@.+\..+/;
+const MESSAGE_MIN = 20;
 
-const FIELD_CLASS =
-  'rounded-[2px] border border-paper/22 bg-ink px-3.5 py-[13px] text-[16px] text-paper';
-const LABEL_CLASS = 'text-[13px] tracking-[0.04em] text-paper/70';
-const GROUP_CLASS = 'flex flex-col gap-2';
+const LABEL_CLASS = 'text-[13px] tracking-[0.03em] text-muted';
+const GROUP_CLASS = 'flex min-w-0 flex-col gap-[7px]';
 
 const EMPTY = {
   ad: '',
   kurum: '',
   eposta: '',
   telefon: '',
-  uni: '',
   rol: '',
-  sektor: '',
+  alan: '',
   mesaj: '',
+  onay: false,
 };
 
 type Values = typeof EMPTY;
 type State = 'idle' | 'sending' | 'sent';
 
+/** Etiket + alan; zorunlularda görünür yıldız ve ekran okuyucu için "(zorunlu)". */
+function Field({
+  id,
+  label,
+  required,
+  requiredText,
+  className,
+  children,
+}: {
+  id: string;
+  label: string;
+  required?: boolean;
+  requiredText: string;
+  className?: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className={cn(GROUP_CLASS, className)}>
+      <label htmlFor={id} className={LABEL_CLASS}>
+        {label}
+        {required ? (
+          <>
+            <span aria-hidden="true"> *</span>
+            <span className="sr-only"> ({requiredText})</span>
+          </>
+        ) : null}
+      </label>
+      {children}
+    </div>
+  );
+}
+
+/**
+ * Talep formu — tasarım "HavarTek Aydınlık Tema.dc.html", 349–410. satırlar
+ * ve script bloğundaki `submit` doğrulaması (sıra: ad → e-posta → mesaj → onay).
+ */
 export function RequestForm({
   locale,
   labels,
   roles,
-  sectors,
+  interests,
   ui,
 }: {
   locale: Locale;
   labels: RequestFormLabels;
   roles: readonly string[];
-  sectors: readonly string[];
+  interests: readonly string[];
   ui: RequestFormUi;
 }) {
   const uid = useId();
@@ -74,18 +117,29 @@ export function RequestForm({
   const [state, setState] = useState<State>('idle');
   const [error, setError] = useState('');
 
-  function update(field: keyof Values, value: string) {
+  function update<K extends keyof Values>(field: K, value: Values[K]) {
     setValues((current) => ({ ...current, [field]: value }));
     if (error) setError('');
+  }
+
+  function reset() {
+    setValues(EMPTY);
+    setWebsite('');
+    setError('');
+    setState('idle');
   }
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (state === 'sending') return;
 
-    // Tasarımdaki kural: ad, e-posta ve mesaj zorunlu.
-    if (!values.ad.trim() || !EMAIL_PATTERN.test(values.eposta) || !values.mesaj.trim()) {
-      setError(labels.err);
+    let message = '';
+    if (!values.ad.trim()) message = labels.errName;
+    else if (!EMAIL_PATTERN.test(values.eposta.trim())) message = labels.errEmail;
+    else if (values.mesaj.trim().length < MESSAGE_MIN) message = labels.errMessage;
+    else if (!values.onay) message = labels.errConsent;
+    if (message) {
+      setError(message);
       return;
     }
 
@@ -101,25 +155,20 @@ export function RequestForm({
       setState('sent');
     } catch {
       setState('idle');
-      setError(ui.networkError);
+      setError(labels.errNetwork);
     }
   }
 
   if (state === 'sent') {
     return (
       <div role="status">
-        <h2 className="rise m-0 font-display text-[26px] leading-[1.2] font-extrabold tracking-[-0.025em]">
+        <h3 className="m-0 font-display text-[26px] leading-[1.2] font-extrabold tracking-[-0.015em]">
           {labels.sentTitle}
-        </h2>
-        <p className="m-0 mt-3.5 text-[15px] leading-6 text-paper/74">{labels.sent}</p>
+        </h3>
+        <p className="m-0 mt-3.5 text-[15px] leading-6 text-muted">{labels.sent}</p>
         <button
           type="button"
-          onClick={() => {
-            setValues(EMPTY);
-            setWebsite('');
-            setError('');
-            setState('idle');
-          }}
+          onClick={reset}
           className={cn(buttonStyles.ghost, 'mt-6 px-6 py-[13px] text-[15px]')}
         >
           {labels.again}
@@ -131,148 +180,125 @@ export function RequestForm({
   const sending = state === 'sending';
 
   return (
-    <form
-      onSubmit={onSubmit}
-      noValidate
-      aria-describedby={error ? errorId : undefined}
-      className="flex flex-col gap-[18px]"
-    >
-      <div className={GROUP_CLASS}>
-        <label htmlFor={`${uid}-ad`} className={LABEL_CLASS}>
-          {labels.ad}
-          <span className="sr-only"> ({ui.required})</span>
-        </label>
-        <input
-          id={`${uid}-ad`}
-          name="ad"
-          type="text"
-          autoComplete="name"
-          required
-          aria-required="true"
-          value={values.ad}
-          onChange={(event) => update('ad', event.target.value)}
-          className={FIELD_CLASS}
-        />
+    <form onSubmit={onSubmit} noValidate aria-describedby={error ? errorId : undefined}>
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(min(220px,100%),1fr))] gap-4">
+        <Field id={`${uid}-ad`} label={labels.ad} required requiredText={ui.required}>
+          <input
+            id={`${uid}-ad`}
+            name="ad"
+            type="text"
+            autoComplete="name"
+            required
+            aria-required="true"
+            value={values.ad}
+            onChange={(event) => update('ad', event.target.value)}
+            className="field"
+          />
+        </Field>
+
+        <Field id={`${uid}-kurum`} label={labels.kurum} requiredText={ui.required}>
+          <input
+            id={`${uid}-kurum`}
+            name="kurum"
+            type="text"
+            autoComplete="organization"
+            value={values.kurum}
+            onChange={(event) => update('kurum', event.target.value)}
+            className="field"
+          />
+        </Field>
+
+        <Field id={`${uid}-eposta`} label={labels.eposta} required requiredText={ui.required}>
+          <input
+            id={`${uid}-eposta`}
+            name="eposta"
+            type="email"
+            autoComplete="email"
+            required
+            aria-required="true"
+            value={values.eposta}
+            onChange={(event) => update('eposta', event.target.value)}
+            className="field"
+          />
+        </Field>
+
+        <Field id={`${uid}-telefon`} label={labels.telefon} requiredText={ui.required}>
+          <input
+            id={`${uid}-telefon`}
+            name="telefon"
+            type="tel"
+            autoComplete="tel"
+            value={values.telefon}
+            onChange={(event) => update('telefon', event.target.value)}
+            className="field"
+          />
+        </Field>
+
+        <Field id={`${uid}-rol`} label={labels.rol} requiredText={ui.required}>
+          <select
+            id={`${uid}-rol`}
+            name="rol"
+            value={values.rol}
+            onChange={(event) => update('rol', event.target.value)}
+            className="field"
+          >
+            <option value="">{labels.pick}</option>
+            {roles.map((role) => (
+              <option key={role} value={role}>
+                {role}
+              </option>
+            ))}
+          </select>
+        </Field>
+
+        <Field id={`${uid}-alan`} label={labels.alan} requiredText={ui.required}>
+          <select
+            id={`${uid}-alan`}
+            name="alan"
+            value={values.alan}
+            onChange={(event) => update('alan', event.target.value)}
+            className="field"
+          >
+            <option value="">{labels.pick}</option>
+            {interests.map((interest) => (
+              <option key={interest} value={interest}>
+                {interest}
+              </option>
+            ))}
+          </select>
+        </Field>
       </div>
 
-      <div className={GROUP_CLASS}>
-        <label htmlFor={`${uid}-kurum`} className={LABEL_CLASS}>
-          {labels.kurum}
-        </label>
-        <input
-          id={`${uid}-kurum`}
-          name="kurum"
-          type="text"
-          autoComplete="organization"
-          value={values.kurum}
-          onChange={(event) => update('kurum', event.target.value)}
-          className={FIELD_CLASS}
-        />
-      </div>
-
-      <div className={GROUP_CLASS}>
-        <label htmlFor={`${uid}-eposta`} className={LABEL_CLASS}>
-          {labels.eposta}
-          <span className="sr-only"> ({ui.required})</span>
-        </label>
-        <input
-          id={`${uid}-eposta`}
-          name="eposta"
-          type="email"
-          autoComplete="email"
-          required
-          aria-required="true"
-          value={values.eposta}
-          onChange={(event) => update('eposta', event.target.value)}
-          className={FIELD_CLASS}
-        />
-      </div>
-
-      <div className={GROUP_CLASS}>
-        <label htmlFor={`${uid}-telefon`} className={LABEL_CLASS}>
-          {labels.telefon}
-        </label>
-        <input
-          id={`${uid}-telefon`}
-          name="telefon"
-          type="tel"
-          autoComplete="tel"
-          value={values.telefon}
-          onChange={(event) => update('telefon', event.target.value)}
-          className={FIELD_CLASS}
-        />
-      </div>
-
-      <div className={GROUP_CLASS}>
-        <label htmlFor={`${uid}-uni`} className={LABEL_CLASS}>
-          {labels.uni}
-        </label>
-        <input
-          id={`${uid}-uni`}
-          name="uni"
-          type="text"
-          value={values.uni}
-          onChange={(event) => update('uni', event.target.value)}
-          className={FIELD_CLASS}
-        />
-      </div>
-
-      <div className={GROUP_CLASS}>
-        <label htmlFor={`${uid}-rol`} className={LABEL_CLASS}>
-          {labels.rol}
-        </label>
-        <select
-          id={`${uid}-rol`}
-          name="rol"
-          value={values.rol}
-          onChange={(event) => update('rol', event.target.value)}
-          className={FIELD_CLASS}
-        >
-          <option value="">{labels.pick}</option>
-          {roles.map((role) => (
-            <option key={role} value={role}>
-              {role}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div className={GROUP_CLASS}>
-        <label htmlFor={`${uid}-sektor`} className={LABEL_CLASS}>
-          {labels.sektor}
-        </label>
-        <select
-          id={`${uid}-sektor`}
-          name="sektor"
-          value={values.sektor}
-          onChange={(event) => update('sektor', event.target.value)}
-          className={FIELD_CLASS}
-        >
-          <option value="">{labels.pick}</option>
-          {sectors.map((sector) => (
-            <option key={sector} value={sector}>
-              {sector}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div className={GROUP_CLASS}>
-        <label htmlFor={`${uid}-mesaj`} className={LABEL_CLASS}>
-          {labels.mesaj}
-          <span className="sr-only"> ({ui.required})</span>
-        </label>
+      <Field
+        id={`${uid}-mesaj`}
+        label={labels.mesaj}
+        required
+        requiredText={ui.required}
+        className="mt-4"
+      >
         <textarea
           id={`${uid}-mesaj`}
           name="mesaj"
-          rows={4}
+          rows={5}
           required
           aria-required="true"
+          placeholder={labels.mesajPh}
           value={values.mesaj}
           onChange={(event) => update('mesaj', event.target.value)}
-          className={cn(FIELD_CLASS, 'resize-y')}
+          className="field resize-y leading-6"
         />
-      </div>
+      </Field>
+
+      <label className="mt-[18px] flex items-start gap-2.5 text-[14px] leading-[22px] text-muted">
+        <input
+          name="onay"
+          type="checkbox"
+          checked={values.onay}
+          onChange={(event) => update('onay', event.target.checked)}
+          className="mt-[3px] h-[17px] w-[17px] flex-none accent-blue"
+        />
+        <span>{labels.onay}</span>
+      </label>
 
       {/* Bot tuzağı: gerçek kullanıcı göremez, doluysa sunucu sessizce yutar. */}
       <div aria-hidden="true" className="absolute h-0 w-0 overflow-hidden opacity-0">
@@ -289,7 +315,11 @@ export function RequestForm({
       </div>
 
       {error ? (
-        <p id={errorId} role="alert" className="m-0 text-[14px] leading-[21px] text-amber-lift">
+        <p
+          id={errorId}
+          role="alert"
+          className="m-0 mt-4 rounded-[10px] border border-error-line bg-error-bg px-3.5 py-3 text-[14px] leading-[21px] text-error"
+        >
           {error}
         </p>
       ) : null}
@@ -297,10 +327,14 @@ export function RequestForm({
       <button
         type="submit"
         disabled={sending}
-        className={cn(buttonStyles.primary, 'px-[26px] py-[15px] text-[15px]')}
+        className={cn(
+          'mt-[22px] w-full rounded-full border-0 px-[26px] py-[15px] text-[15px] font-medium text-white transition-colors duration-200',
+          sending ? 'cursor-default bg-blue-soft' : 'cursor-pointer bg-blue',
+        )}
       >
-        {sending ? ui.sending : labels.send}
+        {sending ? labels.sending : labels.send}
       </button>
+      <p className="m-0 mt-3.5 text-[13px] leading-5 text-faint">{labels.note}</p>
     </form>
   );
 }

@@ -20,10 +20,12 @@ type Props = {
 };
 
 /**
- * Kategori filtresi + kullanım alanı kartları — tasarım 120–134. satırlar.
+ * Kategori filtresi + kullanım alanı kartları — tasarım "HavarTek Aydınlık
+ * Tema.dc.html", 172–191. satırlar (etiket stilleri script'teki CHIP_*).
  *
- * Metinler prop olarak geliyor; `@/content` istemciye inmesin diye burada
- * yalnızca tip olarak import ediliyor.
+ * Kart: fotoğraf tam kaplıyor, alttan beyaza dönen perde ile metin fotoğrafın
+ * üstünde okunuyor. Metinler prop olarak geliyor; `@/content` istemciye
+ * inmesin diye burada yalnızca tip olarak import ediliyor.
  */
 export function AreaCardGrid({ cats, areas, legend, areasHref, categoryParam }: Props) {
   const [cat, setCat] = useState('all');
@@ -46,34 +48,32 @@ export function AreaCardGrid({ cats, areas, legend, areasHref, categoryParam }: 
       />
 
       {/* minmax'in alt sınırı min() ile sarıldı: 460px dar ekranda yatay taşma yapıyordu */}
-      <div className="mt-11 grid grid-cols-[repeat(auto-fit,minmax(min(460px,100%),1fr))] gap-0.5">
+      <div className="mt-11 grid grid-cols-[repeat(auto-fit,minmax(min(460px,100%),1fr))] gap-5">
         {visible.map(({ area, index }) => (
           <article
             key={index}
-            className="fade-in relative grid min-h-[min(72vh,620px)] overflow-hidden bg-surface"
+            className="relative grid min-h-[min(72vh,600px)] overflow-hidden rounded-[18px] border border-line-soft bg-white"
           >
             <Photo
               slot={`area-${index}` as SlotId}
               alt={area.title}
               sizes="(max-width: 900px) 100vw, 50vw"
             />
-            <Scrim gradient={scrims.card} />
+            <Scrim gradient={scrims.areaCard} />
             {/* Izgara öğesinde z-index `position` olmadan da çalışır. Kap
                 konumlandırılmadığı için başlıktaki bağlantının `after`ı
                 <article>'a göre yayılıp tüm kartı tıklanabilir yapıyor. */}
             <div className="z-10 self-end px-8 pt-8 pb-9">
-              <span className="kicker-sm mb-3 text-amber">{area.catLabel}</span>
+              <span className="kicker-sm mb-3 text-blue">{area.catLabel}</span>
               <h3 className="m-0 font-display text-[26px] leading-[1.2] font-semibold tracking-[-0.02em]">
                 <Link
                   href={`${areasHref}?${categoryParam}=${area.cat}`}
-                  className="text-paper transition-colors after:absolute after:inset-0 after:content-[''] hover:text-amber-lift"
+                  className="text-ink transition-colors after:absolute after:inset-0 after:content-[''] hover:text-blue"
                 >
                   {area.title}
                 </Link>
               </h3>
-              <p className="m-0 mt-3 max-w-[46ch] text-[15px] leading-6 text-paper/82">
-                {area.body}
-              </p>
+              <p className="m-0 mt-3 max-w-[46ch] text-[15px] leading-6 text-muted">{area.body}</p>
             </div>
           </article>
         ))}

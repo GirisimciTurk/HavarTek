@@ -1,4 +1,4 @@
-# DroneTek kurumsal sitesi — tek servisli üretim kurulumu.
+# HavarTek kurumsal sitesi — tek servisli üretim kurulumu.
 #
 #   cp .env.example .env      # değerleri doldurun
 #   docker compose up -d --build
@@ -14,9 +14,9 @@ services:
       dockerfile: Dockerfile
       args:
         # Kanonik adres derleme anında gömülür; .env içindeki değer kullanılır.
-        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://dronetek.com.tr}
-    image: dronetek-site:latest
-    container_name: dronetek-site
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://havartek.com}
+    image: havartek-site:latest
+    container_name: havartek-site
     restart: unless-stopped
     # SMTP bilgileri gibi çalışma anı değerleri buradan gelir.
     env_file:

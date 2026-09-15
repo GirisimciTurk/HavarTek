@@ -5,17 +5,10 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import logoWhite from '@/assets/logo-white.png';
+import logo from '@/assets/havartek-logo.webp';
+import { ButtonLink } from '@/components/ui';
 import { cn } from '@/lib/cn';
-import {
-  href,
-  isLocale,
-  locales,
-  otherLocale,
-  pageHref,
-  resolveRoute,
-  type Locale,
-} from '@/lib/i18n';
+import { href, isLocale, locales, pageHref, resolveRoute, type Locale } from '@/lib/i18n';
 
 type NavLabels = {
   home: string;
@@ -27,7 +20,6 @@ type NavLabels = {
 type Props = {
   locale: Locale;
   nav: NavLabels;
-  model3dLabel: string;
   ctaLabel: string;
   menuLabel: string;
   closeLabel: string;
@@ -43,7 +35,11 @@ function splitPath(pathname: string) {
   return { locale: null, segments: parts };
 }
 
-export function SiteHeader({ locale, nav, model3dLabel, ctaLabel, menuLabel, closeLabel }: Props) {
+/**
+ * Yüzen hap menü. Tasarımdaki gibi akışta 0 yükseklik kaplar; her sayfanın
+ * ilk bölümü içeriğini menünün altından kurtaracak üst boşluğu kendisi taşır.
+ */
+export function SiteHeader({ locale, nav, ctaLabel, menuLabel, closeLabel }: Props) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [hovered, setHovered] = useState<keyof NavLabels | null>(null);
@@ -69,30 +65,26 @@ export function SiteHeader({ locale, nav, model3dLabel, ctaLabel, menuLabel, clo
     return route ? href(target, route) : `/${target}`;
   };
 
-  const isModel3d = current?.kind === 'model3d';
-
   const navLinks = navOrder.map((key) => {
     const active = activeKey === key;
+    // Drone işareti: hover varsa hover'daki öğede, yoksa aktif sayfada durur.
     const marked = hovered ? hovered === key : active;
     return { key, active, marked, label: nav[key], to: pageHref(locale, key) };
   });
 
   return (
-    <header className="sticky top-0 z-30 border-b border-paper/12 bg-ink/86 backdrop-blur-[14px]">
-      <div className="flex flex-wrap items-center gap-x-7 gap-y-3 px-[clamp(20px,4vw,64px)] py-4">
+    <header className="sticky top-[14px] z-30 h-0 px-[clamp(14px,3vw,40px)] pt-[14px]">
+      <div className="mx-auto flex w-full max-w-[1320px] flex-wrap items-center gap-x-7 gap-y-3 rounded-[20px] border border-line bg-ground/90 px-[clamp(16px,2vw,26px)] py-3 shadow-float backdrop-blur-[14px]">
         <Link
           href={pageHref(locale, 'home')}
-          className="mr-auto flex items-center gap-2.5 text-paper hover:text-paper"
-          aria-label="DroneTek"
+          className="mr-auto flex flex-none items-center"
+          aria-label="HavarTek.com"
         >
-          <Image src={logoWhite} alt="" height={22} className="h-[22px] w-auto" priority />
-          <span className="font-display text-[21px] font-extrabold tracking-[-0.02em]">
-            Drone<span className="text-amber">Tek</span>
-          </span>
+          <Image src={logo} alt="" height={50} className="block h-[50px] w-auto" priority />
         </Link>
 
         {/* Masaüstü menüsü */}
-        <nav className="hidden items-center gap-7 lg:flex" aria-label={nav.home}>
+        <nav className="hidden items-center gap-[26px] lg:flex">
           {navLinks.map(({ key, active, marked, label, to }) => (
             <span
               key={key}
@@ -100,44 +92,37 @@ export function SiteHeader({ locale, nav, model3dLabel, ctaLabel, menuLabel, clo
               onMouseEnter={() => setHovered(key)}
               onMouseLeave={() => setHovered(null)}
             >
-              <Image
-                src={logoWhite}
-                alt=""
+              {/* 28×12 kutu logonun üst kısmını (drone işaretini) gösterir. */}
+              <span
                 aria-hidden
-                height={8}
-                className="pointer-events-none absolute -top-[15px] left-1/2 -ml-2 h-2 w-auto transition-[opacity,transform] duration-300 ease-[cubic-bezier(.22,.61,.36,1)] motion-safe:animate-[dtBob_2.6s_ease-in-out_infinite]"
+                className={cn(
+                  'pointer-events-none absolute -top-[15px] left-1/2 -ml-3.5 h-3 w-7 overflow-hidden transition-[opacity,transform] duration-300 ease-out-soft',
+                  marked && 'animate-[dtBob_2.6s_ease-in-out_infinite]',
+                )}
                 style={{ opacity: marked ? 1 : 0, transform: `translateY(${marked ? 0 : 5}px)` }}
-              />
+              >
+                <Image src={logo} alt="" width={28} className="block w-7" />
+              </span>
               <Link
                 href={to}
                 aria-current={active ? 'page' : undefined}
                 className={cn(
-                  'whitespace-nowrap text-[15px] text-paper transition-opacity duration-200 hover:text-paper',
-                  active || hovered === key ? 'opacity-100' : 'opacity-[.72]',
+                  'whitespace-nowrap text-[15px] transition-colors',
+                  active ? 'font-medium text-ink hover:text-ink' : 'text-muted hover:text-ink',
                 )}
               >
                 {label}
               </Link>
             </span>
           ))}
-
-          <Link
-            href={pageHref(locale, 'model3d')}
-            aria-current={isModel3d ? 'page' : undefined}
-            className={cn(
-              'whitespace-nowrap text-[15px] text-paper hover:text-paper hover:opacity-100',
-              isModel3d ? 'opacity-100' : 'opacity-[.72]',
-            )}
-          >
-            {model3dLabel}
-          </Link>
         </nav>
 
         <LocaleSwitch locale={locale} localeHref={localeHref} />
 
+        {/* Masaüstü CTA; mobilde menü panelinin altında */}
         <Link
           href={pageHref(locale, 'contact')}
-          className="hidden rounded-full bg-amber px-5 py-[11px] text-[14px] font-medium text-ink transition-colors hover:bg-amber-lift hover:text-ink sm:inline-flex"
+          className="hidden flex-none whitespace-nowrap rounded-full bg-blue px-5 py-[11px] text-[14px] font-medium text-white transition-colors hover:bg-blue-lift hover:text-white lg:inline-flex"
         >
           {ctaLabel}
         </Link>
@@ -148,12 +133,9 @@ export function SiteHeader({ locale, nav, model3dLabel, ctaLabel, menuLabel, clo
           aria-expanded={menuOpen}
           aria-controls="site-menu"
           aria-label={menuOpen ? closeLabel : menuLabel}
-          className="inline-flex items-center gap-2 rounded-full border border-paper/24 px-3 py-2.5 text-[14px] text-paper transition-colors hover:bg-paper/10 sm:px-4 sm:py-2 lg:hidden"
+          className="inline-flex flex-none cursor-pointer items-center gap-2 rounded-full border border-line-strong bg-white px-3.5 py-[9px] text-[14px] text-ink transition-colors hover:bg-tint lg:hidden"
         >
-          <span
-            aria-hidden
-            className="relative flex h-3 w-4 flex-col justify-between"
-          >
+          <span aria-hidden className="relative flex h-3 w-4 flex-col justify-between">
             <span
               className={cn(
                 'block h-px w-full bg-current transition-transform duration-200',
@@ -161,7 +143,10 @@ export function SiteHeader({ locale, nav, model3dLabel, ctaLabel, menuLabel, clo
               )}
             />
             <span
-              className={cn('block h-px w-full bg-current transition-opacity', menuOpen && 'opacity-0')}
+              className={cn(
+                'block h-px w-full bg-current transition-opacity duration-200',
+                menuOpen && 'opacity-0',
+              )}
             />
             <span
               className={cn(
@@ -175,11 +160,11 @@ export function SiteHeader({ locale, nav, model3dLabel, ctaLabel, menuLabel, clo
         </button>
       </div>
 
-      {/* Mobil menü */}
+      {/* Mobil menü — hapın altında ikinci bir yüzen panel */}
       <div
         id="site-menu"
         hidden={!menuOpen}
-        className="border-t border-paper/12 bg-ink px-[clamp(20px,4vw,64px)] pb-6 pt-2 lg:hidden"
+        className="mx-auto mt-2 w-full max-w-[1320px] rounded-[20px] border border-line bg-ground/96 px-[clamp(18px,3vw,26px)] pb-[22px] pt-2 shadow-float backdrop-blur-[14px] lg:hidden"
       >
         {/* Bağlantıya tıklanınca menü kapanır — gezinme sonrası açık kalmasın. */}
         <nav className="flex flex-col" onClick={() => setMenuOpen(false)}>
@@ -189,29 +174,16 @@ export function SiteHeader({ locale, nav, model3dLabel, ctaLabel, menuLabel, clo
               href={to}
               aria-current={active ? 'page' : undefined}
               className={cn(
-                'border-b border-paper/12 py-4 font-display text-[19px] font-semibold tracking-[-0.015em] text-paper hover:text-amber',
-                active && 'text-amber',
+                'border-b border-line py-4 font-display text-[19px] font-semibold tracking-[-0.015em] transition-colors',
+                active ? 'text-blue' : 'text-ink hover:text-blue',
               )}
             >
               {label}
             </Link>
           ))}
-          <Link
-            href={pageHref(locale, 'model3d')}
-            aria-current={isModel3d ? 'page' : undefined}
-            className={cn(
-              'border-b border-paper/12 py-4 font-display text-[19px] font-semibold tracking-[-0.015em] text-paper hover:text-amber',
-              isModel3d && 'text-amber',
-            )}
-          >
-            {model3dLabel}
-          </Link>
-          <Link
-            href={pageHref(locale, 'contact')}
-            className="mt-6 inline-flex justify-center rounded-full bg-amber px-6 py-[13px] text-[15px] font-medium text-ink hover:bg-amber-lift hover:text-ink sm:hidden"
-          >
+          <ButtonLink href={pageHref(locale, 'contact')} className="mt-6">
             {ctaLabel}
-          </Link>
+          </ButtonLink>
         </nav>
       </div>
     </header>
@@ -226,7 +198,7 @@ function LocaleSwitch({
   localeHref: (target: Locale) => string;
 }) {
   return (
-    <div className="flex gap-0.5 rounded-full border border-paper/18 p-[3px]">
+    <div className="flex flex-none gap-0.5 rounded-full border border-line-strong bg-white p-[3px]">
       {locales.map((code) => {
         const active = code === locale;
         return (
@@ -236,10 +208,8 @@ function LocaleSwitch({
             hrefLang={code}
             aria-current={active ? 'true' : undefined}
             className={cn(
-              'rounded-full px-[11px] py-[5px] text-[12px] font-medium tracking-[0.08em] transition-colors',
-              active
-                ? 'bg-amber text-ink hover:text-ink'
-                : 'bg-transparent text-paper/70 hover:bg-paper/10 hover:text-paper',
+              'rounded-full px-[11px] py-[5px] text-[12px] font-semibold tracking-[0.08em] transition-colors',
+              active ? 'bg-blue text-white hover:text-white' : 'text-muted hover:bg-tint hover:text-ink',
             )}
           >
             {code.toUpperCase()}
@@ -249,5 +219,3 @@ function LocaleSwitch({
     </div>
   );
 }
-
-export { otherLocale };

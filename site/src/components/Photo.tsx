@@ -16,8 +16,8 @@ type PhotoProps = {
 };
 
 /**
- * Tasarımdaki `<image-slot>` karşılığı. Her zaman `fill` ile çalışır; ölçüyü
- * saran kap belirler (bkz. `Frame`).
+ * Tasarımdaki tam kaplayan `<img>` karşılığı. Her zaman `fill` ile çalışır;
+ * ölçüyü saran kap belirler (bkz. `Frame`).
  */
 export function Photo({ slot, alt, sizes, priority, className, position }: PhotoProps) {
   return (
@@ -42,11 +42,11 @@ type FrameProps = {
   children: ReactNode;
 };
 
-/** Sabit en-boy oranlı, taşmayı kırpan fotoğraf kabı. */
+/** Sabit en-boy oranlı, taşmayı kırpan fotoğraf kabı. Zemin tasarımdaki #E4EDF8. */
 export function Frame({ ratio, className, style, children }: FrameProps) {
   return (
     <div
-      className={cn('relative w-full overflow-hidden bg-surface', className)}
+      className={cn('relative w-full overflow-hidden bg-tint', className)}
       style={{ aspectRatio: ratio, ...style }}
     >
       {children}
@@ -66,7 +66,7 @@ export function PhotoFrame({ ratio, frameClassName, ...photo }: PhotoFrameProps)
 }
 
 /**
- * Fotoğrafın üzerine binen koyu geçiş katmanı. Tasarımdaki her bölümün kendi
+ * Fotoğrafın üzerine binen geçiş katmanı. Tasarımdaki her bölümün kendi
  * gradyanı olduğu için değer dışarıdan veriliyor.
  */
 export function Scrim({ gradient, className }: { gradient: string; className?: string }) {
@@ -79,24 +79,21 @@ export function Scrim({ gradient, className }: { gradient: string; className?: s
   );
 }
 
-/** Tasarımda tekrar eden gradyanlar. */
+/** Tasarımda tekrar eden gradyanlar ("HavarTek Aydınlık Tema.dc.html"). */
 export const scrims = {
-  hero:
-    'linear-gradient(180deg,rgba(11,13,15,.6) 0%,rgba(11,13,15,.4) 34%,rgba(11,13,15,.86) 72%,rgba(11,13,15,.97) 100%)',
-  stats:
-    'linear-gradient(180deg,rgba(11,13,15,.82) 0%,rgba(11,13,15,.62) 50%,rgba(11,13,15,.9) 100%)',
-  card:
-    'linear-gradient(180deg,rgba(11,13,15,0) 0%,rgba(11,13,15,.18) 34%,rgba(11,13,15,.82) 62%,rgba(11,13,15,.97) 100%)',
+  /** Vaadimiz şeridi: lacivert, fotoğraf %30 opaklıkla altta kalır. */
+  promise:
+    'linear-gradient(180deg,rgba(8,32,63,.82) 0%,rgba(8,32,63,.66) 50%,rgba(8,32,63,.92) 100%)',
+  /** Kullanım alanı kartı: alttan beyaza dönen perde, metin fotoğrafın üstünde. */
+  areaCard:
+    'linear-gradient(180deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.08) 34%,rgba(255,255,255,.62) 62%,rgba(255,255,255,.88) 100%)',
+  /** "Neden hava yolu": soldan gelen açık zemin, fotoğraf sağda görünür. */
   sideways:
-    'linear-gradient(90deg,rgba(11,13,15,.94) 0%,rgba(11,13,15,.72) 46%,rgba(11,13,15,.35) 100%)',
-  disaster:
-    'linear-gradient(180deg,rgba(11,13,15,.3) 0%,rgba(11,13,15,.72) 55%,rgba(11,13,15,.95) 100%)',
-  cta:
-    'linear-gradient(180deg,rgba(11,13,15,.35) 0%,rgba(11,13,15,.8) 62%,rgba(11,13,15,.96) 100%)',
+    'linear-gradient(90deg,rgba(244,247,251,.985) 0%,rgba(244,247,251,.88) 46%,rgba(244,247,251,.35) 100%)',
+  /** Talep bölümü: üstten alta açık zemine kaybolan fotoğraf. */
+  request:
+    'linear-gradient(180deg,rgba(244,247,251,.82) 0%,rgba(244,247,251,.94) 55%,rgba(244,247,251,.99) 100%)',
+  /** Alt sayfa manşetleri (koyu şerit, açık yazı) — Vaadimiz şeridinin türevi. */
   pageHeader:
-    'linear-gradient(180deg,rgba(11,13,15,.45) 0%,rgba(11,13,15,.92) 100%)',
-  pageHeaderSoft:
-    'linear-gradient(180deg,rgba(11,13,15,.4) 0%,rgba(11,13,15,.9) 100%)',
-  contactHeader:
-    'linear-gradient(180deg,rgba(11,13,15,.3) 0%,rgba(11,13,15,.92) 100%)',
+    'linear-gradient(180deg,rgba(8,32,63,.55) 0%,rgba(8,32,63,.72) 55%,rgba(8,32,63,.92) 100%)',
 } as const;

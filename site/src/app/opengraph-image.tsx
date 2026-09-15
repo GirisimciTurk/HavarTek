@@ -9,17 +9,29 @@ import { defaultLocale } from '@/lib/i18n';
 
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
-export const alt = 'DroneTek';
+export const alt = 'HavarTek.com';
 
-/** Marka işaretinin gerçek en-boy oranı (632×272) — bozulmadan ölçeklensin. */
-const MARK_HEIGHT = 52;
-const MARK_WIDTH = Math.round(MARK_HEIGHT * (632 / 272));
+/** Logonun gerçek en-boy oranı (1280×1000) — bozulmadan ölçeklensin. */
+const MARK_HEIGHT = 120;
+const MARK_WIDTH = Math.round(MARK_HEIGHT * (1280 / 1000));
 
 /** Fon, build-images.mjs tarafından zaten 1200×630 kırpılmış olarak üretiliyor. */
 const BG_WIDTH = 1200;
 const BG_HEIGHT = 630;
 
 const PAD_X = 72;
+
+/* Kart ölçüleri — satori esnek genişliği kendisi çözmediği için sütun genişliği elle hesaplanıyor. */
+const CARD_WIDTH = size.width - PAD_X * 2;
+const CARD_PAD_X = 36;
+const MARK_GAP = 32;
+const TEXT_WIDTH = CARD_WIDTH - CARD_PAD_X * 2 - MARK_WIDTH - MARK_GAP;
+
+/* Tasarım token'ları (globals.css ile aynı) */
+const GROUND = '#F4F7FB';
+const INK = '#0C1D38';
+const MUTED = '#46597A';
+const LINE_SOFT = '#DCE7F4';
 
 type OgFont = {
   name: string;
@@ -43,15 +55,15 @@ function toDataUri(result: PromiseSettledResult<Buffer>, mime: string): string |
 }
 
 /**
- * Archivo'yu derleme sırasında Google Fonts'tan indirir.
+ * Poppins'i derleme sırasında Google Fonts'tan indirir.
  *
  * Satori woff2 okuyamadığı için eski bir tarayıcı kimliğiyle istek atıyoruz;
  * Google o zaman ttf sürümünü veriyor. İndirme her nedenle başarısız olursa
  * boş liste döner ve görsel varsayılan yazı tipiyle üretilir — derleme kırılmaz.
  */
-async function loadArchivo(): Promise<OgFont[]> {
+async function loadPoppins(): Promise<OgFont[]> {
   try {
-    const response = await fetch('https://fonts.googleapis.com/css2?family=Archivo:wght@400;800', {
+    const response = await fetch('https://fonts.googleapis.com/css2?family=Poppins:wght@400;800', {
       headers: { 'User-Agent': 'Mozilla/4.0' },
     });
     if (!response.ok) return [];
@@ -66,7 +78,7 @@ async function loadArchivo(): Promise<OgFont[]> {
         const file = await fetch(face[2]);
         if (!file.ok) return null;
         return {
-          name: 'Archivo',
+          name: 'Poppins',
           data: await file.arrayBuffer(),
           weight: Number(face[1]) >= 700 ? 800 : 400,
           style: 'normal',
@@ -81,8 +93,8 @@ async function loadArchivo(): Promise<OgFont[]> {
 }
 
 /**
- * Sosyal paylaşım görseli (/opengraph-image). Tasarımın manşet düzenini
- * yineliyor: fotoğraf, koyu gradyan ve sol altta marka bloğu.
+ * Sosyal paylaşım görseli (/opengraph-image). Açık tema: manşet fotoğrafı,
+ * soldan gelen açık perde ve sol altta logo + marka adını taşıyan beyaz kart.
  */
 export default async function OpengraphImage() {
   const t = getDictionary(defaultLocale);
@@ -94,7 +106,7 @@ export default async function OpengraphImage() {
 
   const background = toDataUri(backgroundFile, 'image/jpeg');
   const mark = toDataUri(markFile, 'image/png');
-  const fonts = await loadArchivo();
+  const fonts = await loadPoppins();
 
   return new ImageResponse(
     (
@@ -104,8 +116,8 @@ export default async function OpengraphImage() {
           display: 'flex',
           width: '100%',
           height: '100%',
-          backgroundColor: '#0B0D0F',
-          fontFamily: 'Archivo',
+          backgroundColor: GROUND,
+          fontFamily: 'Poppins',
         }}
       >
         {background ? (
@@ -118,7 +130,7 @@ export default async function OpengraphImage() {
           />
         ) : null}
 
-        {/* Tasarımdaki manşet perdesi: alttan koyulaşan gradyan… */}
+        {/* "Neden hava yolu" bölümündeki perde: soldan gelen açık zemin, fotoğraf sağda kalır. */}
         <div
           style={{
             position: 'absolute',
@@ -127,66 +139,59 @@ export default async function OpengraphImage() {
             width: '100%',
             height: '100%',
             backgroundImage:
-              'linear-gradient(180deg,rgba(11,13,15,.35) 0%,rgba(11,13,15,.55) 40%,rgba(11,13,15,.9) 78%,rgba(11,13,15,.98) 100%)',
-          }}
-        />
-        {/* …ve metnin okunması için soldan gelen ikinci perde. */}
-        <div
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: 0,
-            width: '100%',
-            height: '100%',
-            backgroundImage:
-              'linear-gradient(90deg,rgba(11,13,15,.88) 0%,rgba(11,13,15,.5) 52%,rgba(11,13,15,.12) 100%)',
+              'linear-gradient(90deg,rgba(244,247,251,.96) 0%,rgba(244,247,251,.35) 100%)',
           }}
         />
 
+        {/* Beyaz kart: logo + marka adı + tanım */}
         <div
           style={{
             position: 'absolute',
             left: PAD_X,
             bottom: 66,
             display: 'flex',
-            flexDirection: 'column',
-            width: size.width - PAD_X * 2,
+            alignItems: 'center',
+            width: CARD_WIDTH,
+            padding: `30px ${CARD_PAD_X}px`,
+            borderRadius: 24,
+            border: `1px solid ${LINE_SOFT}`,
+            backgroundColor: '#FFFFFF',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            {mark ? (
-              <img
-                src={mark}
-                alt=""
-                width={MARK_WIDTH}
-                height={MARK_HEIGHT}
-                style={{ marginRight: 20 }}
-              />
-            ) : null}
+          {mark ? (
+            <img
+              src={mark}
+              alt=""
+              width={MARK_WIDTH}
+              height={MARK_HEIGHT}
+              style={{ marginRight: MARK_GAP, flexShrink: 0 }}
+            />
+          ) : null}
+
+          <div style={{ display: 'flex', flexDirection: 'column', width: TEXT_WIDTH }}>
             <div
               style={{
                 display: 'flex',
-                fontSize: 76,
+                fontSize: 64,
+                lineHeight: 1.1,
                 fontWeight: 800,
-                letterSpacing: -1.6,
-                color: '#F2F0EC',
+                letterSpacing: -1.4,
+                color: INK,
               }}
             >
-              <span>Drone</span>
-              <span style={{ color: '#F0A93B' }}>Tek</span>
+              HavarTek.com
             </div>
-          </div>
-
-          <div
-            style={{
-              display: 'flex',
-              marginTop: 26,
-              fontSize: 27,
-              lineHeight: 1.4,
-              color: 'rgba(242,240,236,.78)',
-            }}
-          >
-            {t.ft.desc}
+            <div
+              style={{
+                display: 'flex',
+                marginTop: 12,
+                fontSize: 26,
+                lineHeight: 1.4,
+                color: MUTED,
+              }}
+            >
+              {t.ft.desc}
+            </div>
           </div>
         </div>
       </div>

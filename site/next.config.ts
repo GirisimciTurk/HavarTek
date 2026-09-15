@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
   output: 'standalone',
   poweredByHeader: false,
   reactStrictMode: true,
+  // Next'in geliştirme sırasında ürettiği AGENTS.md/CLAUDE.md dosyaları depoya girmesin.
+  agentRules: false,
   images: {
     // Fotoğraf ağırlıklı site: modern formatlar ve tasarımdaki kırılma noktaları.
     formats: ['image/avif', 'image/webp'],

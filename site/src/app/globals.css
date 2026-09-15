@@ -1,22 +1,55 @@
 @import "tailwindcss";
 
 /* ---------------------------------------------------------------------------
-   DroneTek tasarım token'ları — "DroneTek v4.dc.html" dosyasından birebir.
-   Koyu zemin, amber vurgu; Archivo (başlık) + Instrument Sans (metin).
+   HavarTek.com tasarım token'ları — "HavarTek Aydınlık Tema.dc.html" dosyasından
+   birebir. Açık mavi-beyaz zemin, lacivert metin, mavi vurgu; Poppins.
 --------------------------------------------------------------------------- */
 @theme {
-  --color-ink: #0B0D0F;
-  --color-surface: #14181C;
-  --color-paper: #F2F0EC;
-  --color-amber: #F0A93B;
-  --color-amber-lift: #FFC96B;
+  /* Zeminler */
+  --color-ground: #f4f7fb; /* sayfa zemini */
+  --color-navy: #08203f; /* koyu bölümler: Vaadimiz şeridi, alt bilgi */
+  --color-tint: #e4edf8; /* hover zemini, fotoğraf yer tutucu */
+  --color-field: #f8fafd; /* form alanı zemini */
 
-  --font-display: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  /* Metin (açık zemin) */
+  --color-ink: #0c1d38; /* ana metin, lacivert */
+  --color-muted: #46597a; /* ikincil metin */
+  --color-slate: #2c3f5c; /* madde listesi metni */
+  --color-faint: #5b6e8c; /* ince yazı, alt etiketler */
+
+  /* Metin (koyu zemin) */
+  --color-paper: #eaf2fd; /* alt bilgi ve Vaadimiz metni */
+  --color-paper-soft: #dce8f9; /* manşet alt metni */
+
+  /* Vurgu */
+  --color-blue: #0f4ca8;
+  --color-blue-lift: #1763ce; /* hover */
+  --color-blue-soft: #7e9bc7; /* gönderiliyor durumundaki düğme */
+  --color-sky: #9cc4ff; /* koyu zemin üstünde vurgu (manşet 2. satır) */
+  --color-sky-soft: #8cb8f2; /* koyu zeminde etiket ve bağlantı hover'ı */
+
+  /* Kenarlıklar */
+  --color-line: #d2dfee; /* ayraçlar, üst menü */
+  --color-line-soft: #dce7f4; /* kartlar */
+  --color-line-strong: #c9d9ec; /* form alanları, filtre etiketleri */
+  --color-line-chip: #b9cde6; /* iletişim hapları */
+
+  /* Hata */
+  --color-error: #8c2230;
+  --color-error-bg: #fdecec;
+  --color-error-line: #f3c9c9;
+
+  --font-display: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
 
   --spacing-shell: 1320px;
 
   --ease-out-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  --shadow-float: 0 14px 34px -24px rgba(8, 32, 63, 0.45); /* yüzen üst menü */
+  --shadow-card: 0 18px 40px -24px rgba(8, 32, 63, 0.35); /* kart hover'ı */
+  --shadow-panel: 0 24px 60px -40px rgba(8, 32, 63, 0.45); /* form paneli */
+  --shadow-open: 0 18px 44px -32px rgba(8, 32, 63, 0.5); /* açık akordeon */
 }
 
 @layer base {
@@ -32,25 +65,25 @@
 
   body {
     margin: 0;
-    background: var(--color-ink);
-    color: var(--color-paper);
+    background: var(--color-ground);
+    color: var(--color-ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-wrap: pretty;
   }
 
   a {
-    color: var(--color-amber);
+    color: var(--color-blue);
     text-decoration: none;
   }
 
   a:hover {
-    color: var(--color-amber-lift);
+    color: var(--color-blue-lift);
   }
 
   ::selection {
-    background: var(--color-amber);
-    color: var(--color-ink);
+    background: var(--color-blue);
+    color: #fff;
   }
 
   input,
@@ -61,15 +94,14 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-amber);
+    outline: 2px solid var(--color-blue);
     outline-offset: 3px;
   }
 
-  /* Tarayıcı varsayılanı yerine koyu tema formu */
   input,
   select,
   textarea {
-    color-scheme: dark;
+    color-scheme: light;
   }
 }
 
@@ -92,15 +124,16 @@
   padding-block: clamp(48px, 6vw, 88px);
 }
 
-/* Amber, harf aralıklı üst etiket ("03 · Kullanım alanları") */
+/* Mavi, harf aralıklı üst etiket ("03 · Kullanım alanları") */
 @utility kicker {
   display: block;
   font-size: 12px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-amber);
+  color: var(--color-blue);
 }
 
+/* Küçük etiket; rengi kullanım yerinde verilir (text-blue, text-faint, text-paper/50 …) */
 @utility kicker-sm {
   display: block;
   font-size: 11px;
@@ -113,8 +146,32 @@
   font-feature-settings: "tnum" 1;
 }
 
+/* Tasarımdaki form alanı: açık zemin, odakta mavi kenarlık ve beyaz zemin */
+@utility field {
+  width: 100%;
+  border: 1px solid var(--color-line-strong);
+  border-radius: 10px;
+  background: var(--color-field);
+  padding: 13px 14px;
+  font-size: 15px;
+  color: var(--color-ink);
+  transition:
+    border-color 0.2s,
+    background-color 0.2s;
+
+  &:focus {
+    border-color: var(--color-blue);
+    background: #fff;
+    outline: none;
+  }
+
+  &::placeholder {
+    color: var(--color-faint);
+  }
+}
+
 /* ---------------------------------------------------------------------------
-   Hareket — tasarımdaki scroll-driven animasyonlar
+   Hareket — tasarımdaki animasyonlar
 --------------------------------------------------------------------------- */
 @keyframes dtRise {
   from {
@@ -136,6 +193,7 @@
   }
 }
 
+/* Üst menüde aktif bağlantının üstünde süzülen küçük logo */
 @keyframes dtBob {
   0%,
   100% {
@@ -180,9 +238,9 @@
   }
 }
 
-/* İnce kaydırma çubuğu — koyu tema ile uyumlu */
+/* İnce kaydırma çubuğu — açık tema ile uyumlu */
 @supports (scrollbar-color: auto) {
   html {
-    scrollbar-color: rgba(242, 240, 236, 0.28) var(--color-ink);
+    scrollbar-color: var(--color-line-chip) var(--color-ground);
   }
 }

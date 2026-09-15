@@ -14,7 +14,10 @@ next-env.d.ts
 # Tasarım dosyalarının kendisi (*.dc.html + çalıştıran betikler) depoda tutuluyor;
 # içindeki gömülü/kopya görseller tutulmuyor. Fotoğrafların depodaki tek kopyası
 # site/src/assets/photos altında.
-DroneTek site tasarımı.zip
+# Claude Design dışa aktarımları (ör. "Aydınlık tema tasarımı.zip") kök dizine
+# düşüyor; içeriği design-src/ altına açıldıktan sonra zip'in kendisi depoya girmez.
+HavarTek site tasarımı.zip
+/*.zip
 design-src/uploads/
 design-src/assets/photos/
 design-src/slot-images/

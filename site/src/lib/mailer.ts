@@ -1,5 +1,5 @@
 /**
- * Form gönderimlerinin e-postaya çıkışı (SMTP).
+ * HavarTek.com form gönderimlerinin (talep, bülten) e-postaya çıkışı (SMTP).
  *
  * Anahtarlar (.env) girilmeden de site çalışsın diye SMTP_HOST boşken hata
  * fırlatılmaz: içerik sunucu günlüğüne yazılır ve `delivered: false` dönülür.
@@ -23,8 +23,8 @@ function config() {
     secure: (process.env.SMTP_SECURE ?? '').trim().toLowerCase() === 'true',
     user: (process.env.SMTP_USER ?? '').trim(),
     pass: process.env.SMTP_PASS ?? '',
-    from: (process.env.MAIL_FROM ?? '').trim() || 'DroneTek Web <web@dronetek.com.tr>',
-    to: (process.env.MAIL_TO ?? '').trim() || 'iletisim@dronetek.com.tr',
+    from: (process.env.MAIL_FROM ?? '').trim() || 'HavarTek Web <web@havartek.com>',
+    to: (process.env.MAIL_TO ?? '').trim() || 'bedirkaraabali@girisimciturk.com',
   };
 }
 

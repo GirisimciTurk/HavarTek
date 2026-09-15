@@ -8,12 +8,16 @@ import type { SlotId } from '@/lib/photos';
 /** Yuva sırası sözlükteki `steps` dizisiyle aynı. */
 const stepSlots: SlotId[] = ['step-0', 'step-1', 'step-2', 'step-3'];
 
-/** Görevden teslime dört adım — tasarım "DroneTek v4.dc.html", 168–183. satırlar. */
+/**
+ * "04 · Süreç — Görevden teslime dört adım" — tasarım "HavarTek Aydınlık
+ * Tema.dc.html", 194–230. satırlar. Alt boşluk yok: tasarımda "Sahadan
+ * durumlar" aynı bölümün devamı, `StoriesSection` kendi üst boşluğunu getiriyor.
+ */
 export function StepsSection({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
 
   return (
-    <section className="shell section-y">
+    <section className="shell pt-[clamp(64px,7vw,104px)]">
       <Kicker>{t.stepsK}</Kicker>
       <h2 className={cn(face.bold, 'rise m-0 max-w-[24ch] text-[clamp(28px,3.2vw,44px)]')}>
         {t.stepsTitle}
@@ -23,22 +27,22 @@ export function StepsSection({ locale }: { locale: Locale }) {
         {t.steps.map((s, i) => (
           <article
             key={s.n}
-            className="rise flex min-w-0 flex-col transition-transform duration-[350ms] ease-out-soft hover:-translate-y-[5px]"
+            className="flex min-w-0 flex-col transition-transform duration-[350ms] ease-out-soft hover:-translate-y-[5px]"
           >
             <div className="relative grid">
-              <Frame ratio="3/4">
+              <Frame ratio="3/4" className="rounded-[14px]">
                 <Photo
                   slot={stepSlots[i]}
                   alt={s.t}
                   sizes="(max-width: 560px) 100vw, (max-width: 1000px) 50vw, 25vw"
                 />
               </Frame>
-              <span className="pointer-events-none absolute top-4 left-4 rounded-full bg-amber px-[11px] py-[5px] font-display text-[15px] font-extrabold tracking-[0.02em] text-ink tnum">
+              <span className="pointer-events-none absolute top-4 left-4 rounded-full bg-blue px-[11px] py-[5px] font-display text-[15px] font-extrabold tracking-[0.02em] text-white tnum">
                 {s.n}
               </span>
             </div>
             <h3 className={cn(face.semi, 'm-0 mt-[18px] text-[20px] leading-[25px]')}>{s.t}</h3>
-            <p className="m-0 mt-2 text-[15px] leading-[23px] text-paper/72">{s.b}</p>
+            <p className="m-0 mt-2 text-[15px] leading-[23px] text-muted">{s.b}</p>
           </article>
         ))}
       </div>

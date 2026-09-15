@@ -11,9 +11,12 @@ import type { ViewerLabels } from '@/components/three/DroneViewer';
  * çağrılamadığı için ara katman olarak duruyor.
  */
 
-/** DroneViewer'daki `stageBox` ile aynı ölçü — yükleme sırasında sıçrama olmasın. */
+/**
+ * DroneViewer'daki `stageBox` ile aynı ölçü — yükleme sırasında sıçrama olmasın.
+ * Zemin, fotoğraf yer tutucularıyla aynı (tint).
+ */
 const placeholderBox =
-  'relative w-full h-[min(78vh,760px)] min-h-[420px] overflow-hidden bg-white';
+  'relative w-full h-[min(78vh,760px)] min-h-[420px] overflow-hidden bg-tint';
 
 /**
  * `dynamic()` modül düzeyinde çağrılmalı; çizim sırasında bileşen üretmek
@@ -26,7 +29,7 @@ function ViewerPlaceholder() {
   const label = useContext(LoadingLabelContext);
   return (
     <div className={placeholderBox}>
-      <p className="absolute inset-0 m-0 flex items-center justify-center px-6 text-center text-[14px] text-[rgba(26,25,21,0.55)]">
+      <p className="absolute inset-0 m-0 flex items-center justify-center px-6 text-center text-[14px] text-muted">
         {label}
       </p>
     </div>

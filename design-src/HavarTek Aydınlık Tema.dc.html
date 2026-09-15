@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#F4F7FB;color:#0C1D38;font-family:Poppins,ui-sans-serif,system-ui,sans-serif;-webkit-font-smoothing:antialiased;text-wrap:pretty}
+  a{color:#0F4CA8;text-decoration:none}
+  a:hover{color:#1763CE}
+  ::selection{background:#0F4CA8;color:#fff}
+  input,select,textarea,button{font-family:inherit}
+  :focus-visible{outline:2px solid #0F4CA8;outline-offset:3px}
+  @supports (scrollbar-color:auto){html{scrollbar-color:#B9CDE6 #F4F7FB}}
+  @keyframes dtRise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+  @keyframes dtBob{0%,100%{translate:0 0}50%{translate:0 -2.5px}}
+</style>
+</helmet>
+
+<header style="position:sticky;top:14px;z-index:30;height:0;padding:14px clamp(14px,3vw,40px) 0">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;column-gap:28px;row-gap:12px;width:100%;max-width:1320px;margin-inline:auto;padding:12px clamp(16px,2vw,26px);border:1px solid #D2DFEE;border-radius:20px;background:rgba(244,247,251,.9);backdrop-filter:blur(14px);box-shadow:0 14px 34px -24px rgba(8,32,63,.45)">
+    <a href="#" style="margin-right:auto;display:flex;align-items:center;flex:none" aria-label="HavarTek.com">
+      <img src="site/src/assets/havartek-logo.webp" alt="HavarTek.com" style="height:50px;width:auto;display:block">
+    </a>
+
+    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <nav style="display:flex;align-items:center;gap:26px" aria-label="Ana menü">
+        <span style="position:relative;display:flex;align-items:center" onMouseEnter="{{ enterHome }}" onMouseLeave="{{ leaveNav }}">
+          <span aria-hidden="true" style="{{ droneHome }}"><img src="site/src/assets/havartek-logo.webp" alt="" style="width:28px;display:block"></span>
+          <a href="#" style="font-size:15px;color:#0C1D38;font-weight:500;white-space:nowrap">Ana sayfa</a>
+        </span>
+        <span style="position:relative;display:flex;align-items:center" onMouseEnter="{{ enterAreas }}" onMouseLeave="{{ leaveNav }}">
+          <span aria-hidden="true" style="{{ droneAreas }}"><img src="site/src/assets/havartek-logo.webp" alt="" style="width:28px;display:block"></span>
+          <a href="#alanlar" style="font-size:15px;color:#46597A;white-space:nowrap" style-hover="color:#0C1D38">Kullanım alanları</a>
+        </span>
+        <span style="position:relative;display:flex;align-items:center" onMouseEnter="{{ enterTech }}" onMouseLeave="{{ leaveNav }}">
+          <span aria-hidden="true" style="{{ droneTech }}"><img src="site/src/assets/havartek-logo.webp" alt="" style="width:28px;display:block"></span>
+          <a href="#" style="font-size:15px;color:#46597A;white-space:nowrap" style-hover="color:#0C1D38">Teknoloji</a>
+        </span>
+        <span style="position:relative;display:flex;align-items:center" onMouseEnter="{{ enterContact }}" onMouseLeave="{{ leaveNav }}">
+          <span aria-hidden="true" style="{{ droneContact }}"><img src="site/src/assets/havartek-logo.webp" alt="" style="width:28px;display:block"></span>
+          <a href="#iletisim" style="font-size:15px;color:#46597A;white-space:nowrap" style-hover="color:#0C1D38">İletişim</a>
+        </span>
+      </nav>
+    </sc-if>
+
+    <div style="display:flex;gap:2px;border:1px solid #C9D9EC;border-radius:999px;padding:3px;background:#fff;flex:none">
+      <a href="#" style="border-radius:999px;padding:5px 11px;font-size:12px;font-weight:600;letter-spacing:.08em;background:#0F4CA8;color:#fff">TR</a>
+      <a href="#" style="border-radius:999px;padding:5px 11px;font-size:12px;font-weight:600;letter-spacing:.08em;color:#46597A" style-hover="background:#E4EDF8;color:#0C1D38">EN</a>
+    </div>
+
+    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <a href="#iletisim" style="border-radius:999px;background:#0F4CA8;padding:11px 20px;font-size:14px;font-weight:500;color:#fff;white-space:nowrap;flex:none" style-hover="background:#1763CE;color:#fff">Talep oluştur</a>
+    </sc-if>
+
+    <sc-if value="{{ isMobile }}">
+      <button type="button" onClick="{{ toggleMenu }}" aria-expanded="{{ menuOpen }}" aria-controls="site-menu" aria-label="Menü" style="display:inline-flex;align-items:center;gap:8px;cursor:pointer;border-radius:999px;border:1px solid #C9D9EC;background:#fff;padding:9px 14px;font-size:14px;color:#0C1D38;flex:none" style-hover="background:#E4EDF8">
+        <span aria-hidden="true" style="position:relative;display:flex;height:12px;width:16px;flex-direction:column;justify-content:space-between">
+          <span style="{{ barTop }}"></span>
+          <span style="{{ barMid }}"></span>
+          <span style="{{ barBot }}"></span>
+        </span>
+        <span>{{ menuLabel }}</span>
+      </button>
+    </sc-if>
+  </div>
+
+  <sc-if value="{{ menuOpen }}">
+    <div id="site-menu" style="width:100%;max-width:1320px;margin:8px auto 0;border:1px solid #D2DFEE;border-radius:20px;background:rgba(244,247,251,.96);backdrop-filter:blur(14px);box-shadow:0 14px 34px -24px rgba(8,32,63,.45);padding:8px clamp(18px,3vw,26px) 22px">
+      <nav style="display:flex;flex-direction:column" onClick="{{ closeMenu }}">
+        <a href="#" style="border-bottom:1px solid #D2DFEE;padding-block:16px;font-family:Poppins,sans-serif;font-size:19px;font-weight:600;letter-spacing:-.015em;color:#0F4CA8">Ana sayfa</a>
+        <a href="#alanlar" style="border-bottom:1px solid #D2DFEE;padding-block:16px;font-family:Poppins,sans-serif;font-size:19px;font-weight:600;letter-spacing:-.015em;color:#0C1D38" style-hover="color:#0F4CA8">Kullanım alanları</a>
+        <a href="#" style="border-bottom:1px solid #D2DFEE;padding-block:16px;font-family:Poppins,sans-serif;font-size:19px;font-weight:600;letter-spacing:-.015em;color:#0C1D38" style-hover="color:#0F4CA8">Teknoloji</a>
+        <a href="#iletisim" style="border-bottom:1px solid #D2DFEE;padding-block:16px;font-family:Poppins,sans-serif;font-size:19px;font-weight:600;letter-spacing:-.015em;color:#0C1D38" style-hover="color:#0F4CA8">İletişim</a>
+        <a href="#iletisim" style="margin-top:24px;display:inline-flex;justify-content:center;border-radius:999px;background:#0F4CA8;padding:13px 24px;font-size:15px;font-weight:500;color:#fff" style-hover="background:#1763CE;color:#fff">Talep oluştur</a>
+      </nav>
+    </div>
+  </sc-if>
+</header>
+
+<section style="position:relative;display:grid;min-height:min(100vh,940px)">
+  <img src="site/src/assets/photos/hero-split.jpeg" alt="Solda dumanlı kara yolu trafiği, sağda açık gökyüzünde kargo taşıyan drone" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+  <div style="position:relative;align-self:center;display:flex;justify-content:center;width:100%;max-width:1320px;margin-inline:auto;padding-inline:clamp(20px,4vw,64px);padding-top:clamp(96px,10vw,150px);padding-bottom:clamp(40px,6vw,88px)">
+   <div style="max-width:760px;border-radius:24px;border:1px solid rgba(255,255,255,.22);background:rgba(8,32,63,.42);backdrop-filter:blur(10px);padding:clamp(26px,3vw,40px)">
+    <h1 style="animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;margin:0;max-width:20ch;font-family:Poppins,sans-serif;font-weight:800;font-size:clamp(32px,4.4vw,60px);line-height:1.14;letter-spacing:-.022em;color:#FFFFFF">
+      <span style="display:block">Paket, kargo ve insan taşımacılığı için</span>
+      <span style="display:block;color:#9CC4FF">drone tabanlı sistemler geliştirir;</span>
+    </h1>
+    <p style="margin:24px 0 0;max-width:60ch;font-size:16px;line-height:27px;color:#DCE8F9">HavarTek.com; drone tabanlı ulaşım sistemleri alanında geliştirilen mühendislik çözümlerini, yenilikçi teknolojileri ve girişimci ekipleri bir araya getiren bir platformdur. Amacımız trafik yükünü azaltan, zaman ve enerji verimliliği sağlayan, güvenli ve sürdürülebilir hava taşımacılığı altyapılarını geliştirmek.</p>
+   </div>
+  </div>
+</section>
+
+<section data-screen-label="Vaadimiz" style="position:relative;display:grid;min-height:min(66vh,600px);background:#08203F">
+  <img src="site/src/assets/photos/niceiha.jpeg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.3">
+  <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,32,63,.82) 0%,rgba(8,32,63,.66) 50%,rgba(8,32,63,.92) 100%)"></div>
+  <div style="position:relative;align-self:center;width:100%;max-width:1320px;margin-inline:auto;padding-inline:clamp(20px,4vw,64px);padding-block:clamp(40px,5vw,72px)">
+    <span style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#8CB8F2;margin-bottom:18px">01 · Vaadimiz</span>
+    <h2 style="animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;margin:0;max-width:26ch;font-family:Poppins,sans-serif;font-weight:800;font-size:clamp(26px,3.2vw,44px);line-height:1.14;letter-spacing:-.018em;color:#FFFFFF">Yolun durumu değişir, teslim süresi değişmez</h2>
+    <div style="margin-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:clamp(20px,2.5vw,32px)">
+      <div style="border-top:1px solid rgba(234,242,253,.28);padding-top:18px">
+        <h3 style="margin:0;font-family:Poppins,sans-serif;font-weight:600;font-size:19px;line-height:26px;letter-spacing:-.008em;color:#FFFFFF">Trafikte bekleyen kurye yok</h3>
+        <p style="margin:10px 0 0;font-size:15px;line-height:24px;color:rgba(234,242,253,.78)">Uçuş hattı yol yoğunluğundan bağımsız planlanır; teslim süresi trafikle birlikte uzamaz.</p>
+      </div>
+      <div style="border-top:1px solid rgba(234,242,253,.28);padding-top:18px">
+        <h3 style="margin:0;font-family:Poppins,sans-serif;font-weight:600;font-size:19px;line-height:26px;letter-spacing:-.008em;color:#FFFFFF">Sipariş yola değil koridora girer</h3>
+        <p style="margin:10px 0 0;font-size:15px;line-height:24px;color:rgba(234,242,253,.78)">Kalkış ve iniş noktası arasındaki en kısa hava hattı, her seferde aynı uçuş süresini verir.</p>
+      </div>
+      <div style="border-top:1px solid rgba(234,242,253,.28);padding-top:18px">
+        <h3 style="margin:0;font-family:Poppins,sans-serif;font-weight:600;font-size:19px;line-height:26px;letter-spacing:-.008em;color:#FFFFFF">Acil durumda yol açmak gerekmez</h3>
+        <p style="margin:10px 0 0;font-size:15px;line-height:24px;color:rgba(234,242,253,.78)">İlaç, kan ve acil yardım malzemesi kara trafiğine takılmadan, ilk saatler içinde ulaşır.</p>
+      </div>
+      <div style="border-top:1px solid rgba(234,242,253,.28);padding-top:18px">
+        <h3 style="margin:0;font-family:Poppins,sans-serif;font-weight:600;font-size:19px;line-height:26px;letter-spacing:-.008em;color:#FFFFFF">Daha az araç, daha az enerji</h3>
+        <p style="margin:10px 0 0;font-size:15px;line-height:24px;color:rgba(234,242,253,.78)">Küçük yükler tek tek araçla dolaşmak yerine doğrudan taşınır; enerji ve emisyon azalır.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="width:100%;max-width:1320px;margin-inline:auto;padding-inline:clamp(20px,4vw,64px);padding-top:clamp(64px,7vw,104px)">
+  <span style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#0F4CA8;margin-bottom:18px">02 · Platform</span>
+  <h2 style="animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;margin:0;max-width:22ch;font-family:Poppins,sans-serif;font-weight:800;font-size:clamp(28px,3.6vw,48px);line-height:1.14;letter-spacing:-.018em">Bu platform ne yapar</h2>
+  <p style="margin:20px 0 0;max-width:64ch;font-size:16px;line-height:27px;color:#46597A">Yukarıdaki vaatler bir slogan değil; üç işin sonucu. Platformu kendimiz geliştiriyor, şehir ve acil durum operasyonlarında yaygınlaştırıyor, sahada işleyen bir ürüne dönüştürüyoruz.</p>
+  <div style="margin-top:44px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));align-items:start;gap:clamp(16px,2vw,28px)">
+    <div style="display:flex;min-width:0;flex-direction:column;background:#fff;border:1px solid #DCE7F4;border-radius:16px;overflow:hidden;transition:transform .35s cubic-bezier(.22,.61,.36,1),box-shadow .35s ease" style-hover="transform:translateY(-5px);box-shadow:0 18px 40px -24px rgba(8,32,63,.35)">
+      <div style="position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;background:#E4EDF8;flex:none"><img src="site/src/assets/photos/hero-split.jpeg" alt="Sistem geliştirir" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
+      <div style="padding:20px 22px 24px">
+        <h3 style="margin:0;font-family:Poppins,sans-serif;font-weight:600;font-size:21px;line-height:26px;letter-spacing:-.015em">Sistem geliştirir</h3>
+        <p style="margin:10px 0 0;font-size:15px;line-height:24px;color:#46597A">Paket, kargo ve insan taşımacılığı için drone tabanlı sistemler geliştirir; test edilmesini, doğrulanmasını ve uygulanabilir hale gelmesini destekler.</p>
+        <p style="margin:14px 0 0;padding-top:14px;border-top:1px solid #E4EDF8;font-size:14px;line-height:22px;color:#0F4CA8">Sabit teslim süresi vaadinin arkasında kendi uçuş platformu ve yer istasyonu var.</p>
+      </div>
+    </div>
+    <div style="display:flex;min-width:0;flex-direction:column;background:#fff;border:1px solid #DCE7F4;border-radius:16px;overflow:hidden;transition:transform .35s cubic-bezier(.22,.61,.36,1),box-shadow .35s ease" style-hover="transform:translateY(-5px);box-shadow:0 18px 40px -24px rgba(8,32,63,.35)">
+      <div style="position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;background:#E4EDF8;flex:none"><img src="site/src/assets/photos/gemini-city.jpeg" alt="Yaygınlaştırır" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
+      <div style="padding:20px 22px 24px">
+        <h3 style="margin:0;font-family:Poppins,sans-serif;font-weight:600;font-size:21px;line-height:26px;letter-spacing:-.015em">Yaygınlaştırır</h3>
+        <p style="margin:10px 0 0;font-size:15px;line-height:24px;color:#46597A">Şehir içi ulaşım, lojistik ve acil durumlarda drone taşımacılığının yaygınlaşmasına katkı sağlar.</p>
+        <p style="margin:14px 0 0;padding-top:14px;border-top:1px solid #E4EDF8;font-size:14px;line-height:22px;color:#0F4CA8">Koridor sayısı arttıkça "yola çıkmadan teslim" tek tek görev değil, işleyen bir ağ olur.</p>
+      </div>
+    </div>
+    <div style="display:flex;min-width:0;flex-direction:column;background:#fff;border:1px solid #DCE7F4;border-radius:16px;overflow:hidden;transition:transform .35s cubic-bezier(.22,.61,.36,1),box-shadow .35s ease" style-hover="transform:translateY(-5px);box-shadow:0 18px 40px -24px rgba(8,32,63,.35)">
+      <div style="position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;background:#E4EDF8;flex:none"><img src="site/src/assets/photos/gemini-city.jpeg" alt="Ürüne dönüştürür" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
+      <div style="padding:20px 22px 24px">
+        <h3 style="margin:0;font-family:Poppins,sans-serif;font-weight:600;font-size:21px;line-height:26px;letter-spacing:-.015em">Ürüne dönüştürür</h3>
+        <p style="margin:10px 0 0;font-size:15px;line-height:24px;color:#46597A">Mühendislik bilgisini, girişimcilik ve sistem tasarımı bakış açısıyla ürün, platform ve operasyonel çözümlere dönüştürür.</p>
+        <p style="margin:14px 0 0;padding-top:14px;border-top:1px solid #E4EDF8;font-size:14px;line-height:22px;color:#0F4CA8">Prototip değil; izin, bakım ve raporlamayla birlikte tekrarlanabilir bir operasyon modeli.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="alanlar" data-screen-label="Kullanım alanları" style="width:100%;max-width:1320px;margin-inline:auto;padding-inline:clamp(20px,4vw,64px);padding-block:clamp(64px,7vw,104px)">
+  <div style="display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:24px">
+    <div>
+      <span style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#0F4CA8;margin-bottom:18px">03 · Kullanım alanları</span>
+      <h2 style="animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;margin:0;max-width:24ch;font-family:Poppins,sans-serif;font-weight:800;font-size:clamp(30px,3.8vw,52px);line-height:1.14;letter-spacing:-.018em">Üç faaliyet alanı, tek platform ailesi</h2>
+    </div>
+    <p style="margin:0;max-width:44ch;font-size:16px;line-height:26px;color:#46597A">Aynı uçuş yazılımı, aynı yer istasyonu. Görevden göreve değişen tek şey taşınan yük ve uçuş koridoru.</p>
+  </div>
+
+  <div style="margin-top:40px;display:flex;flex-wrap:wrap;gap:8px">
+    <sc-for list="{{ cats }}" as="c" hint-placeholder-count="4">
+      <button type="button" onClick="{{ c.select }}" style="{{ c.style }}">{{ c.label }}</button>
+    </sc-for>
+  </div>
+
+  <div style="margin-top:44px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(460px,100%),1fr));gap:20px">
+    <sc-for list="{{ areas }}" as="a" hint-placeholder-count="4">
+      <article style="position:relative;display:grid;min-height:min(72vh,600px);overflow:hidden;border-radius:18px;border:1px solid #DCE7F4;background:#fff">
+        <img src="{{ a.img }}" alt="{{ a.title }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+        <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.08) 34%,rgba(255,255,255,.62) 62%,rgba(255,255,255,.88) 100%)"></div>
+        <div style="position:relative;z-index:1;align-self:end;padding:32px 32px 36px">
+          <span style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#0F4CA8;margin-bottom:12px">{{ a.catLabel }}</span>
+          <h3 style="margin:0;font-family:Poppins,sans-serif;font-size:26px;line-height:1.2;font-weight:600;letter-spacing:-.02em">
+            <a href="#alanlar" style="color:#0C1D38" style-hover="color:#0F4CA8">{{ a.title }}</a>
+          </h3>
+          <p style="margin:12px 0 0;max-width:46ch;font-size:15px;line-height:24px;color:#46597A">{{ a.body }}</p>
+        </div>
+      </article>
+    </sc-for>
+  </div>
+</section>
+
+<section style="width:100%;max-width:1320px;margin-inline:auto;padding-inline:clamp(20px,4vw,64px);padding-block:clamp(64px,7vw,104px)">
+  <span style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#0F4CA8;margin-bottom:18px">04 · Süreç</span>
+  <h2 style="animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;margin:0;max-width:24ch;font-family:Poppins,sans-serif;font-weight:800;font-size:clamp(28px,3.2vw,44px);line-height:1.14;letter-spacing:-.018em">Görevden teslime dört adım</h2>
+  <div style="margin-top:44px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));align-items:start;gap:clamp(16px,2vw,28px)">
+    <article style="display:flex;min-width:0;flex-direction:column;transition:transform .35s cubic-bezier(.22,.61,.36,1)" style-hover="transform:translateY(-5px)">
+      <div style="position:relative;display:grid">
+        <div style="position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;border-radius:14px;background:#E4EDF8"><img src="site/src/assets/photos/hero-split.jpeg" alt="Görev tanımı" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
+        <span style="pointer-events:none;position:absolute;top:16px;left:16px;border-radius:999px;background:#0F4CA8;color:#fff;padding:5px 11px;font-family:Poppins,sans-serif;font-size:15px;font-weight:800;letter-spacing:.02em;font-variant-numeric:tabular-nums">01</span>
+      </div>
+      <h3 style="margin:18px 0 0;font-family:Poppins,sans-serif;font-weight:600;letter-spacing:-.015em;font-size:20px;line-height:25px">Görev tanımı</h3>
+      <p style="margin:8px 0 0;font-size:15px;line-height:23px;color:#46597A">Kalkış ve teslim noktaları, taşınacak yük, ağırlık sınırı ve takvim birlikte belirlenir.</p>
+    </article>
+    <article style="display:flex;min-width:0;flex-direction:column;transition:transform .35s cubic-bezier(.22,.61,.36,1)" style-hover="transform:translateY(-5px)">
+      <div style="position:relative;display:grid">
+        <div style="position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;border-radius:14px;background:#E4EDF8"><img src="site/src/assets/photos/vk7.jpeg" alt="İzin ve uçuş planı" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
+        <span style="pointer-events:none;position:absolute;top:16px;left:16px;border-radius:999px;background:#0F4CA8;color:#fff;padding:5px 11px;font-family:Poppins,sans-serif;font-size:15px;font-weight:800;letter-spacing:.02em;font-variant-numeric:tabular-nums">02</span>
+      </div>
+      <h3 style="margin:18px 0 0;font-family:Poppins,sans-serif;font-weight:600;letter-spacing:-.015em;font-size:20px;line-height:25px">İzin ve uçuş planı</h3>
+      <p style="margin:8px 0 0;font-size:15px;line-height:23px;color:#46597A">SHGM kaydı, uçuşa yasak saha kontrolü ve bildirim süreci bizim tarafımızda yürür.</p>
+    </article>
+    <article style="display:flex;min-width:0;flex-direction:column;transition:transform .35s cubic-bezier(.22,.61,.36,1)" style-hover="transform:translateY(-5px)">
+      <div style="position:relative;display:grid">
+        <div style="position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;border-radius:14px;background:#E4EDF8"><img src="site/src/assets/photos/niceiha.jpeg" alt="Uçuş operasyonu" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
+        <span style="pointer-events:none;position:absolute;top:16px;left:16px;border-radius:999px;background:#0F4CA8;color:#fff;padding:5px 11px;font-family:Poppins,sans-serif;font-size:15px;font-weight:800;letter-spacing:.02em;font-variant-numeric:tabular-nums">03</span>
+      </div>
+      <h3 style="margin:18px 0 0;font-family:Poppins,sans-serif;font-weight:600;letter-spacing:-.015em;font-size:20px;line-height:25px">Uçuş operasyonu</h3>
+      <p style="margin:8px 0 0;font-size:15px;line-height:23px;color:#46597A">Otonom koridor uçuşu; yük güvenliği ve iniş hassasiyeti sahada doğrulanır.</p>
+    </article>
+    <article style="display:flex;min-width:0;flex-direction:column;transition:transform .35s cubic-bezier(.22,.61,.36,1)" style-hover="transform:translateY(-5px)">
+      <div style="position:relative;display:grid">
+        <div style="position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;border-radius:14px;background:#E4EDF8"><img src="site/src/assets/photos/kargo.jpeg" alt="Teslim ve raporlama" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
+        <span style="pointer-events:none;position:absolute;top:16px;left:16px;border-radius:999px;background:#0F4CA8;color:#fff;padding:5px 11px;font-family:Poppins,sans-serif;font-size:15px;font-weight:800;letter-spacing:.02em;font-variant-numeric:tabular-nums">04</span>
+      </div>
+      <h3 style="margin:18px 0 0;font-family:Poppins,sans-serif;font-weight:600;letter-spacing:-.015em;font-size:20px;line-height:25px">Teslim ve raporlama</h3>
+      <p style="margin:8px 0 0;font-size:15px;line-height:23px;color:#46597A">Teslim onayı, uçuş kaydı ve operasyon raporu görev sonrası tek dosyada paylaşılır.</p>
+    </article>
+  </div>
+
+  <div style="margin-top:clamp(56px,6vw,88px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));align-items:start;gap:clamp(24px,3vw,56px)">
+    <div style="min-width:0;position:sticky;top:110px">
+      <span style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#0F4CA8;margin-bottom:14px">Sahadan durumlar</span>
+      <h3 style="margin:0;max-width:20ch;font-family:Poppins,sans-serif;font-weight:800;font-size:clamp(24px,2.6vw,34px);line-height:1.18;letter-spacing:-.018em">Yol tıkandığında ne oluyor, biz ne yapıyoruz</h3>
+      <p style="margin:16px 0 0;max-width:46ch;font-size:15px;line-height:25px;color:#46597A">Aşağıdaki durumlar, hava taşımacılığının fark yarattığı tipik senaryolardır. Başlığa dokunarak çözümü görebilirsiniz.</p>
+      <div style="margin-top:28px;position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;border-radius:16px;background:#E4EDF8">
+        <img src="site/src/assets/photos/gece.jpeg" alt="Gece uçuşunda acil teslim" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+      </div>
+      <a href="#iletisim" style="display:inline-flex;align-items:center;margin-top:24px;border-radius:999px;background:#0F4CA8;padding:13px 24px;font-size:15px;font-weight:500;color:#fff" style-hover="background:#1763CE;color:#fff">Benzer bir durumunuz varsa talep oluşturun</a>
+    </div>
+
+    <div style="min-width:0;display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{ stories }}" as="s" hint-placeholder-count="4">
+        <div style="{{ s.cardStyle }}">
+          <button type="button" onClick="{{ s.toggle }}" aria-expanded="{{ s.open }}" style="display:flex;width:100%;cursor:pointer;align-items:flex-start;justify-content:space-between;gap:18px;border:0;background:transparent;padding:20px 22px;text-align:left;font-family:inherit">
+            <span style="min-width:0">
+              <span style="display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#0F4CA8;margin-bottom:8px">{{ s.who }}</span>
+              <span style="display:block;font-family:Poppins,sans-serif;font-weight:600;font-size:18px;line-height:25px;letter-spacing:-.01em;color:#0C1D38">{{ s.t }}</span>
+            </span>
+            <span aria-hidden="true" style="{{ s.iconStyle }}">+</span>
+          </button>
+          <div style="{{ s.bodyStyle }}">
+            <div style="min-height:0;overflow:hidden">
+              <div style="padding:0 22px 22px">
+                <p style="margin:0;font-size:15px;line-height:24px;color:#46597A">{{ s.p }}</p>
+                <p style="margin:14px 0 0;border-left:2px solid #0F4CA8;padding-left:14px;font-size:15px;line-height:24px;color:#0C1D38">{{ s.s }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section style="position:relative;display:grid;min-height:min(70vh,640px);border-top:1px solid #D2DFEE">
+  <img src="site/src/assets/photos/gece.jpeg" alt="Gece uçuşunda acil durum teslimi" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+  <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(244,247,251,.985) 0%,rgba(244,247,251,.88) 46%,rgba(244,247,251,.35) 100%)"></div>
+  <div style="position:relative;align-self:center;width:100%;max-width:1320px;margin-inline:auto;padding-inline:clamp(20px,4vw,64px);padding-block:clamp(48px,6vw,88px)">
+    <div style="max-width:560px">
+      <span style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#0F4CA8;margin-bottom:18px">05 · Neden hava yolu</span>
+      <h2 style="animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;margin:0;font-family:Poppins,sans-serif;font-weight:800;font-size:clamp(26px,3vw,42px);line-height:1.14;letter-spacing:-.018em">Kara ulaşımının aksadığı durumlarda hava yolu en hızlı ulaştırma yöntemidir</h2>
+      <ul style="margin:32px 0 0;padding:26px;list-style:none;display:flex;flex-direction:column;gap:14px;background:#fff;border:1px solid #DCE7F4;border-radius:18px">
+        <li style="font-size:15px;line-height:24px;color:#2C3F5C">Şehir içi ulaşım yükü, kırsal lojistik maliyetleri ve afet sonrası ilk müdahale süresi çözülmemiş problemlerdir.</li>
+        <li style="font-size:15px;line-height:24px;color:#2C3F5C">Hava yolu, yol kapalıyken de hayati yardımı en kısa sürede ulaştırabilen tek hattır.</li>
+        <li style="font-size:15px;line-height:24px;color:#2C3F5C">Aynı platform ailesi kargo, numune ve acil yardım taşımasında tek operasyon modeliyle çalışır.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<sc-if value="{{ showNews }}" hint-placeholder-val="{{ true }}">
+<section style="width:100%;max-width:1320px;margin-inline:auto;padding-inline:clamp(20px,4vw,64px);padding-block:clamp(64px,7vw,104px)">
+  <span style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#0F4CA8;margin-bottom:18px">06 · Gündem</span>
+  <h2 style="animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;margin:0;max-width:24ch;font-family:Poppins,sans-serif;font-weight:800;font-size:clamp(28px,3.2vw,44px);line-height:1.14;letter-spacing:-.018em">Sahadan ve geliştirme hattından</h2>
+  <div style="margin-top:44px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(16px,2vw,28px)">
+    <article style="background:#fff;border:1px solid #DCE7F4;border-radius:16px;padding:28px">
+      <span style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#0F4CA8;margin-bottom:14px">Platform</span>
+      <h3 style="margin:0;font-family:Poppins,sans-serif;font-weight:600;font-size:20px;line-height:26px;letter-spacing:-.015em">VK-9 VTOL seri üretime geçti</h3>
+      <p style="margin:12px 0 0;font-size:15px;line-height:24px;color:#46597A">Dikey kalkışlı sabit kanat platform, kırk kilometre menzil ve iki saat havada kalış ile teslim edilmeye başlandı.</p>
+    </article>
+    <article style="background:#fff;border:1px solid #DCE7F4;border-radius:16px;padding:28px">
+      <span style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#0F4CA8;margin-bottom:14px">Operasyon</span>
+      <h3 style="margin:0;font-family:Poppins,sans-serif;font-weight:600;font-size:20px;line-height:26px;letter-spacing:-.015em">Otonom iniş istasyonu saha testinde</h3>
+      <p style="margin:12px 0 0;font-size:15px;line-height:24px;color:#46597A">Noktadan noktaya teslimde pilot müdahalesi olmadan iniş ve yük bırakma denemeleri sürüyor.</p>
+    </article>
+    <article style="background:#fff;border:1px solid #DCE7F4;border-radius:16px;padding:28px">
+      <span style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#0F4CA8;margin-bottom:14px">Platform</span>
+      <h3 style="margin:0;font-family:Poppins,sans-serif;font-weight:600;font-size:20px;line-height:26px;letter-spacing:-.015em">İnsan taşımacılığı için yük kapasitesi çalışması</h3>
+      <p style="margin:12px 0 0;font-size:15px;line-height:24px;color:#46597A">Yedekli uçuş kontrolü ve daha yüksek yük kapasitesi hedefiyle platform geliştirme devam ediyor.</p>
+    </article>
+  </div>
+</section>
+</sc-if>
+
+<section id="iletisim" data-screen-label="Talep" style="position:relative;display:grid;border-top:1px solid #D2DFEE">
+  <img src="site/src/assets/photos/niceiha.jpeg" alt="Uçuş öncesi hazırlık" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+  <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(244,247,251,.82) 0%,rgba(244,247,251,.94) 55%,rgba(244,247,251,.99) 100%)"></div>
+  <div style="position:relative;z-index:1;width:100%;max-width:1320px;margin-inline:auto;padding-inline:clamp(20px,4vw,64px);padding-block:clamp(56px,7vw,104px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));align-items:start;gap:clamp(32px,4vw,64px)">
+
+    <div style="min-width:0">
+      <span style="display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#0F4CA8;margin-bottom:18px">07 · Talep</span>
+      <h2 style="animation:dtRise .9s cubic-bezier(.22,.61,.36,1) both;margin:0;max-width:20ch;font-family:Poppins,sans-serif;font-weight:800;font-size:clamp(30px,4.2vw,56px);line-height:1.14;letter-spacing:-.022em">Talep oluşturun</h2>
+      <p style="margin:20px 0 0;max-width:52ch;font-size:17px;line-height:28px;color:#46597A">Mühendis ya da girişimci olarak katılmak, pilot uygulama önermek veya bir taşımacılık ihtiyacınızı iletmek için talebinizi oluşturun.</p>
+
+      <div style="margin-top:30px;display:flex;flex-wrap:wrap;gap:8px">
+        <a href="tel:+908502417000" style="border-radius:999px;border:1px solid #B9CDE6;background:#fff;padding:10px 16px;font-size:14px;color:#0C1D38" style-hover="background:#E4EDF8;color:#0C1D38">0850 241 70 00</a>
+        <a href="https://wa.me/905446943278" target="_blank" rel="noopener noreferrer" style="border-radius:999px;border:1px solid #B9CDE6;background:#fff;padding:10px 16px;font-size:14px;color:#0C1D38" style-hover="background:#E4EDF8;color:#0C1D38">WhatsApp · 0544 694 32 78</a>
+        <a href="mailto:bedirkaraabali@girisimciturk.com" style="border-radius:999px;border:1px solid #B9CDE6;background:#fff;padding:10px 16px;font-size:14px;color:#0C1D38" style-hover="background:#E4EDF8;color:#0C1D38">bedirkaraabali@girisimciturk.com</a>
+      </div>
+
+      <span style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#5B6E8C;margin:34px 0 0">Talepten sonra ne oluyor</span>
+      <ol style="margin:12px 0 0;padding:0;list-style:none">
+        <li style="display:flex;gap:14px;border-top:1px solid #D2DFEE;padding-block:16px">
+          <span style="flex:none;font-family:Poppins,sans-serif;font-weight:700;font-size:14px;color:#0F4CA8;font-variant-numeric:tabular-nums">01</span>
+          <span style="font-size:15px;line-height:24px;color:#2C3F5C">Talebiniz iki iş günü içinde okunur ve ilgili ekibe yönlendirilir.</span>
+        </li>
+        <li style="display:flex;gap:14px;border-top:1px solid #D2DFEE;padding-block:16px">
+          <span style="flex:none;font-family:Poppins,sans-serif;font-weight:700;font-size:14px;color:#0F4CA8;font-variant-numeric:tabular-nums">02</span>
+          <span style="font-size:15px;line-height:24px;color:#2C3F5C">Kısa bir görüşmede taşınacak yük, mesafe ve teslim noktaları netleştirilir.</span>
+        </li>
+        <li style="display:flex;gap:14px;border-top:1px solid #D2DFEE;border-bottom:1px solid #D2DFEE;padding-block:16px">
+          <span style="flex:none;font-family:Poppins,sans-serif;font-weight:700;font-size:14px;color:#0F4CA8;font-variant-numeric:tabular-nums">03</span>
+          <span style="font-size:15px;line-height:24px;color:#2C3F5C">Uygun görülen taleplerde bir pilot uçuş planı ve takvim paylaşılır.</span>
+        </li>
+      </ol>
+    </div>
+
+    <div style="min-width:0;background:#fff;border:1px solid #DCE7F4;border-radius:20px;box-shadow:0 24px 60px -40px rgba(8,32,63,.45);padding:clamp(22px,2.6vw,34px)">
+      <sc-if value="{{ isSent }}">
+        <div role="status">
+          <h3 style="margin:0;font-family:Poppins,sans-serif;font-weight:800;font-size:26px;line-height:1.2;letter-spacing:-.015em">Talebiniz alındı</h3>
+          <p style="margin:14px 0 0;font-size:15px;line-height:24px;color:#46597A">Talebiniz bedirkaraabali@girisimciturk.com adresine iletilmek üzere hazırlandı; e-posta uygulamanız açılmadıysa doğrudan bu adrese yazabilirsiniz. Acil bir durum varsa 0850 241 70 00 numarasından çağrı merkezine ulaşabilirsiniz.</p>
+          <button type="button" onClick="{{ reset }}" style="margin-top:24px;cursor:pointer;border-radius:999px;border:1px solid #B9CDE6;background:#fff;padding:13px 24px;font-size:15px;font-weight:500;color:#0C1D38" style-hover="background:#E4EDF8">Yeni talep oluştur</button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isForm }}" hint-placeholder-val="{{ true }}">
+      <form onSubmit="{{ submit }}" novalidate="">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:16px">
+          <div style="display:flex;flex-direction:column;gap:7px;min-width:0">
+            <label for="tf-ad" style="font-size:13px;letter-spacing:.03em;color:#46597A">Ad soyad *</label>
+            <input id="tf-ad" type="text" autocomplete="name" value="{{ f.ad }}" onChange="{{ on.ad }}" style="width:100%;border:1px solid #C9D9EC;border-radius:10px;background:#F8FAFD;padding:13px 14px;font-size:15px;color:#0C1D38" style-focus="border-color:#0F4CA8;background:#fff">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px;min-width:0">
+            <label for="tf-kurum" style="font-size:13px;letter-spacing:.03em;color:#46597A">Kurum / şirket</label>
+            <input id="tf-kurum" type="text" autocomplete="organization" value="{{ f.kurum }}" onChange="{{ on.kurum }}" style="width:100%;border:1px solid #C9D9EC;border-radius:10px;background:#F8FAFD;padding:13px 14px;font-size:15px;color:#0C1D38" style-focus="border-color:#0F4CA8;background:#fff">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px;min-width:0">
+            <label for="tf-eposta" style="font-size:13px;letter-spacing:.03em;color:#46597A">E-posta *</label>
+            <input id="tf-eposta" type="email" autocomplete="email" value="{{ f.eposta }}" onChange="{{ on.eposta }}" style="width:100%;border:1px solid #C9D9EC;border-radius:10px;background:#F8FAFD;padding:13px 14px;font-size:15px;color:#0C1D38" style-focus="border-color:#0F4CA8;background:#fff">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px;min-width:0">
+            <label for="tf-telefon" style="font-size:13px;letter-spacing:.03em;color:#46597A">Telefon</label>
+            <input id="tf-telefon" type="tel" autocomplete="tel" value="{{ f.telefon }}" onChange="{{ on.telefon }}" style="width:100%;border:1px solid #C9D9EC;border-radius:10px;background:#F8FAFD;padding:13px 14px;font-size:15px;color:#0C1D38" style-focus="border-color:#0F4CA8;background:#fff">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px;min-width:0">
+            <label for="tf-rol" style="font-size:13px;letter-spacing:.03em;color:#46597A">Rolünüz</label>
+            <select id="tf-rol" value="{{ f.rol }}" onChange="{{ on.rol }}" style="width:100%;border:1px solid #C9D9EC;border-radius:10px;background:#F8FAFD;padding:13px 14px;font-size:15px;color:#0C1D38" style-focus="border-color:#0F4CA8;background:#fff">
+              <option value="">Seçiniz</option>
+              <option value="Mühendis">Mühendis</option>
+              <option value="Girişimci">Girişimci</option>
+              <option value="Öğrenci">Öğrenci</option>
+              <option value="Kurum / şirket">Kurum / şirket</option>
+              <option value="Kamu kurumu">Kamu kurumu</option>
+              <option value="Diğer">Diğer</option>
+            </select>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px;min-width:0">
+            <label for="tf-alan" style="font-size:13px;letter-spacing:.03em;color:#46597A">İlgili alan</label>
+            <select id="tf-alan" value="{{ f.alan }}" onChange="{{ on.alan }}" style="width:100%;border:1px solid #C9D9EC;border-radius:10px;background:#F8FAFD;padding:13px 14px;font-size:15px;color:#0C1D38" style-focus="border-color:#0F4CA8;background:#fff">
+              <option value="">Seçiniz</option>
+              <option value="Kargo ve paket teslimi">Kargo ve paket teslimi</option>
+              <option value="Şehir içi taşıma">Şehir içi taşıma</option>
+              <option value="Acil durum ve afet">Acil durum ve afet</option>
+              <option value="İnsan taşımacılığı">İnsan taşımacılığı</option>
+              <option value="Ekibe katılım">Ekibe katılım</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:7px;margin-top:16px">
+          <label for="tf-mesaj" style="font-size:13px;letter-spacing:.03em;color:#46597A">Talebiniz *</label>
+          <textarea id="tf-mesaj" rows="5" value="{{ f.mesaj }}" onChange="{{ on.mesaj }}" placeholder="Taşınacak yük, mesafe, kalkış ve teslim noktası ile beklediğiniz takvim" style="width:100%;resize:vertical;border:1px solid #C9D9EC;border-radius:10px;background:#F8FAFD;padding:13px 14px;font-size:15px;line-height:24px;color:#0C1D38" style-focus="border-color:#0F4CA8;background:#fff"></textarea>
+        </div>
+
+        <label style="display:flex;align-items:flex-start;gap:10px;margin-top:18px;font-size:14px;line-height:22px;color:#46597A">
+          <input type="checkbox" checked="{{ f.onay }}" onChange="{{ on.onay }}" style="margin-top:3px;width:17px;height:17px;accent-color:#0F4CA8;flex:none">
+          <span>KVKK aydınlatma metnini okudum; talebimin değerlendirilmesi için iletişim bilgilerimin işlenmesini kabul ediyorum.</span>
+        </label>
+
+        <sc-if value="{{ hasError }}">
+          <p role="alert" style="margin:16px 0 0;border-radius:10px;background:#FDECEC;border:1px solid #F3C9C9;padding:12px 14px;font-size:14px;line-height:21px;color:#8C2230">{{ errorText }}</p>
+        </sc-if>
+
+        <button type="submit" style="{{ submitStyle }}">{{ submitLabel }}</button>
+        <p style="margin:14px 0 0;font-size:13px;line-height:20px;color:#5B6E8C">* işaretli alanlar zorunludur. Talepler yalnızca değerlendirme amacıyla kullanılır.</p>
+      </form>
+      </sc-if>
+    </div>
+
+  </div>
+</section>
+
+<footer style="background:#08203F;color:#EAF2FD">
+  <div style="width:100%;max-width:1320px;margin-inline:auto;padding-inline:clamp(20px,4vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));align-items:start;gap:32px;column-gap:clamp(32px,5vw,72px);padding-top:clamp(40px,5vw,64px)">
+    <div>
+      <h2 style="margin:0;max-width:24ch;font-family:Poppins,sans-serif;font-weight:800;font-size:clamp(22px,2.4vw,30px);line-height:1.14;letter-spacing:-.025em">Gelişmeleri e-posta ile alın</h2>
+      <p style="margin:14px 0 0;max-width:48ch;font-size:15px;line-height:24px;color:rgba(234,242,253,.74)">Platform güncellemeleri, saha örnekleri ve açık çağrılar ayda bir kez.</p>
+    </div>
+    <div style="align-self:center;display:flex;flex-wrap:wrap;gap:10px">
+      <input type="email" placeholder="E-posta adresiniz" aria-label="E-posta adresiniz" style="flex:1 1 220px;min-width:0;border-radius:999px;border:1px solid rgba(234,242,253,.28);background:rgba(234,242,253,.07);padding:13px 20px;font-size:15px;color:#EAF2FD">
+      <button type="button" style="border:0;cursor:pointer;border-radius:999px;background:#EAF2FD;padding:13px 24px;font-size:15px;font-weight:500;color:#08203F" style-hover="background:#fff">Abone ol</button>
+    </div>
+  </div>
+
+  <div style="width:100%;max-width:1320px;margin-inline:auto;padding-inline:clamp(20px,4vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));align-items:start;gap:32px;column-gap:clamp(24px,3vw,48px);border-bottom:1px solid rgba(234,242,253,.16);padding-block:clamp(40px,5vw,56px)">
+    <div>
+      <span style="display:inline-flex;align-items:center;border-radius:12px;background:#FFFFFF;padding:10px 14px">
+        <img src="site/src/assets/havartek-logo.webp" alt="HavarTek.com" style="height:46px;width:auto;display:block">
+      </span>
+      <p style="margin:16px 0 0;max-width:34ch;font-size:14px;line-height:22px;color:rgba(234,242,253,.66)">Drone tabanlı ulaşım sistemleri için mühendislik ve girişimcilik platformu.</p>
+      <span style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(234,242,253,.5);margin:24px 0 10px">İletişim</span>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <a href="https://wa.me/905446943278" target="_blank" rel="noopener noreferrer" style="border-radius:999px;border:1px solid rgba(234,242,253,.26);padding:8px 14px;font-size:14px;color:#EAF2FD" style-hover="background:rgba(234,242,253,.1);color:#fff">WhatsApp</a>
+        <a href="tel:+908502417000" style="border-radius:999px;border:1px solid rgba(234,242,253,.26);padding:8px 14px;font-size:14px;color:#EAF2FD" style-hover="background:rgba(234,242,253,.1);color:#fff">0850 241 70 00</a>
+        <a href="mailto:bedirkaraabali@girisimciturk.com" style="border-radius:999px;border:1px solid rgba(234,242,253,.26);padding:8px 14px;font-size:14px;color:#EAF2FD" style-hover="background:rgba(234,242,253,.1);color:#fff">E-posta</a>
+      </div>
+    </div>
+    <div>
+      <span style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(234,242,253,.5);margin-bottom:14px">Kullanım alanları</span>
+      <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px">
+        <li><a href="#alanlar" style="font-size:14px;line-height:21px;color:rgba(234,242,253,.76)" style-hover="color:#8CB8F2">Kargo ve paket teslimi</a></li>
+        <li><a href="#alanlar" style="font-size:14px;line-height:21px;color:rgba(234,242,253,.76)" style-hover="color:#8CB8F2">Şehir içi taşıma koridorları</a></li>
+        <li><a href="#alanlar" style="font-size:14px;line-height:21px;color:rgba(234,242,253,.76)" style-hover="color:#8CB8F2">Acil durum ve afet lojistiği</a></li>
+        <li><a href="#alanlar" style="font-size:14px;line-height:21px;color:rgba(234,242,253,.76)" style-hover="color:#8CB8F2">İnsan taşımacılığına hazırlık</a></li>
+      </ul>
+    </div>
+    <div>
+      <span style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(234,242,253,.5);margin-bottom:14px">Destek</span>
+      <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px">
+        <li><a href="https://girisimciturk.com/hakkimizda/" target="_blank" rel="noopener noreferrer" style="font-size:14px;line-height:21px;color:rgba(234,242,253,.76)" style-hover="color:#8CB8F2">Hakkımızda</a></li>
+        <li><a href="#" style="font-size:14px;line-height:21px;color:rgba(234,242,253,.76)" style-hover="color:#8CB8F2">Talep Takibi</a></li>
+        <li><a href="#" style="font-size:14px;line-height:21px;color:rgba(234,242,253,.76)" style-hover="color:#8CB8F2">SHGM İzin ve Yetkiler</a></li>
+        <li><a href="#" style="font-size:14px;line-height:21px;color:rgba(234,242,253,.76)" style-hover="color:#8CB8F2">Gizlilik ve Veri Güvenliği</a></li>
+        <li><a href="#iletisim" style="font-size:14px;line-height:21px;color:rgba(234,242,253,.76)" style-hover="color:#8CB8F2">İletişim</a></li>
+      </ul>
+    </div>
+    <div>
+      <span style="display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(234,242,253,.5);margin-bottom:14px">Grup</span>
+      <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px">
+        <li><a href="https://girisimciturk.com/" target="_blank" rel="noopener noreferrer" style="font-size:14px;line-height:21px;color:rgba(234,242,253,.76)" style-hover="color:#8CB8F2">Girişimci Türk</a></li>
+        <li><a href="https://girisimciturk.com/hakkimizda/" target="_blank" rel="noopener noreferrer" style="font-size:14px;line-height:21px;color:rgba(234,242,253,.76)" style-hover="color:#8CB8F2">Hakkımızda</a></li>
+        <li><a href="https://girisimciturk.com/iletisim/" target="_blank" rel="noopener noreferrer" style="font-size:14px;line-height:21px;color:rgba(234,242,253,.76)" style-hover="color:#8CB8F2">İletişim</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="width:100%;max-width:1320px;margin-inline:auto;padding-inline:clamp(20px,4vw,64px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;column-gap:28px;row-gap:12px;padding-top:24px;padding-bottom:40px">
+    <span style="font-size:13px;line-height:20px;color:rgba(234,242,253,.62)">© 2026 HavarTek.com. Tüm hakları saklıdır.</span>
+    <div style="display:flex;flex-wrap:wrap;align-items:center;column-gap:20px;row-gap:8px">
+      <a href="#" style="font-size:13px;color:rgba(234,242,253,.76)" style-hover="color:#8CB8F2">Çerez Politikası</a>
+      <a href="#" style="font-size:13px;color:rgba(234,242,253,.76)" style-hover="color:#8CB8F2">KVKK Aydınlatma Metni</a>
+      <a href="#" style="font-size:13px;color:rgba(234,242,253,.76)" style-hover="color:#8CB8F2">Kullanım Koşulları</a>
+    </div>
+  </div>
+</footer>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showNews&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Bölümler&quot;},&quot;defaultCategory&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;all&quot;,&quot;lojistik&quot;,&quot;sehir&quot;,&quot;acil&quot;],&quot;default&quot;:&quot;all&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Başlangıç durumu&quot;}}">
+const CATS = [
+  { id: 'all', label: 'Tümü' },
+  { id: 'lojistik', label: 'Lojistik' },
+  { id: 'sehir', label: 'Şehir İçi Ulaşım' },
+  { id: 'acil', label: 'Acil Durum & Afet' },
+];
+
+const P = 'site/src/assets/photos/';
+const AREAS = [
+  { cat: 'lojistik', catLabel: 'Lojistik', title: 'Kargo ve paket teslimi', img: P + 'kargo.jpeg', body: 'Ada, yayla ve şantiye hatlarında dört kilograma kadar noktadan noktaya teslim; otonom iniş istasyonu ile.' },
+  { cat: 'sehir', catLabel: 'Şehir İçi Ulaşım', title: 'Şehir içi taşıma koridorları', img: P + 'gemini-city.jpeg', body: 'Yoğun trafiğin dışında, belirlenen kalkış ve iniş noktaları arasında planlanan otonom hava koridorları.' },
+  { cat: 'acil', catLabel: 'Acil Durum & Afet', title: 'Acil durum ve afet lojistiği', img: P + 'gece.jpeg', body: 'Kara ulaşımının aksadığı durumlarda ilaç, kan ve acil yardım malzemesinin hava yoluyla ulaştırılması.' },
+  { cat: 'sehir', catLabel: 'Şehir İçi Ulaşım', title: 'İnsan taşımacılığına hazırlık', img: P + 'niceiha.jpeg', body: 'Dikey kalkışlı platformlarda yük kapasitesi, yedekli uçuş kontrolü ve iniş altyapısı üzerine geliştirme çalışmaları.' },
+];
+
+const CHIP_BASE = 'cursor:pointer;border-radius:999px;padding:9px 16px;font-size:14px;transition:background-color .2s,border-color .2s,color .2s;';
+const CHIP_ON = CHIP_BASE + 'border:1px solid #0F4CA8;background:#0F4CA8;color:#fff;';
+const CHIP_OFF = CHIP_BASE + 'border:1px solid #C9D9EC;background:#fff;color:#46597A;';
+
+const BAR = 'display:block;height:1px;width:100%;background:currentColor;transition:transform .2s,opacity .2s;';
+
+const DRONE_BASE =
+  'position:absolute;top:-15px;left:50%;margin-left:-14px;width:28px;height:12px;overflow:hidden;pointer-events:none;' +
+  'transition:opacity .3s cubic-bezier(.22,.61,.36,1),transform .3s cubic-bezier(.22,.61,.36,1);';
+const DRONE_ON = DRONE_BASE + 'opacity:1;transform:translateY(0);animation:dtBob 2.6s ease-in-out infinite;';
+
+const REQUEST_INBOX = 'bedirkaraabali@girisimciturk.com';
+const EMPTY_FORM = { ad: '', kurum: '', eposta: '', telefon: '', rol: '', alan: '', mesaj: '', onay: false };
+const EMAIL_RE = /.+@.+\..+/;
+const SUBMIT_BASE =
+  'margin-top:22px;width:100%;cursor:pointer;border:0;border-radius:999px;padding:15px 26px;font-family:inherit;font-size:15px;font-weight:500;color:#fff;transition:background-color .2s;';
+
+const STORIES = [
+  {
+    t: 'Acil kan sevkiyatı trafikte bekledi',
+    who: 'Şehir hastanesi · kan bankası',
+    p: 'İki hastane arasındaki 14 kilometrelik yol, akşam yoğunluğunda 50 dakikayı aştı. Soğuk zincirle taşınan ürün için bu süre kabul edilebilir sınırın üstünde kaldı.',
+    s: 'Aynı iki nokta arasında hava hattı 6 kilometre. Kalkış ve iniş noktası çatıya kurulan sabit bir istasyon olduğunda teslim süresi trafikten bağımsız hâle gelir ve her seferde aynı kalır.',
+  },
+  {
+    t: 'Depremin ilk günü köy yolu kapalıydı',
+    who: 'Afet koordinasyon · kırsal yerleşim',
+    p: 'Heyelan nedeniyle tek giriş yolu kapandı; ilaç ve bebek maması taşıyan araç 11 saat bekledi. Yol açılana kadar yerleşime hiçbir malzeme ulaşamadı.',
+    s: 'Yol durumundan etkilenmeyen bir koridorla dört kilograma kadar yükler doğrudan yerleşime indirilebilir. İlk 24 saatte hangi noktaya ne gittiği uçuş kaydıyla birlikte raporlanır.',
+  },
+  {
+    t: 'Şantiye tek bir parça için durdu',
+    who: 'Altyapı şantiyesi · saha ekibi',
+    p: 'Arızalı bir hidrolik bağlantı parçası için en yakın depoya gidiş-dönüş 3,5 saat sürdü. Bu sürede on kişilik ekip beklemede kaldı.',
+    s: 'Küçük ve kritik parçalar için depodan sahaya doğrudan teslim, aracı ve şoförü işten çekmeden yapılır. Talep yer istasyonundan girilir, uçuş planı otomatik oluşturulur.',
+  },
+  {
+    t: 'Kurye trafikte, sipariş soğudu',
+    who: 'Şehir içi teslimat · işletme',
+    p: 'Yoğun saatlerde motorlu kurye aynı mesafeyi bazen 12, bazen 40 dakikada tamamladı. İşletme müşteriye net bir teslim saati veremedi.',
+    s: 'Koridor uçuşunda mesafe sabitse süre de sabittir. İşletme müşteriye tahmin değil, taahhüt edilebilir bir teslim aralığı verebilir.',
+  },
+];
+const DRONE_OFF = DRONE_BASE + 'opacity:0;transform:translateY(5px);';
+
+class Component extends DCLogic {
+  state = {
+    cat: null,
+    plat: null,
+    menuOpen: false,
+    vw: 1200,
+    navHover: null,
+    form: EMPTY_FORM,
+    sendState: 'idle',
+    formErr: '',
+    openStory: 0,
+  };
+
+  componentDidMount() {
+    this.onResize = () => this.setState({ vw: window.innerWidth });
+    this.onResize();
+    window.addEventListener('resize', this.onResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize);
+  }
+
+  setField(key, value) {
+    this.setState((s) => ({ form: { ...s.form, [key]: value }, formErr: '' }));
+  }
+
+  submit = (e) => {
+    e.preventDefault();
+    if (this.state.sendState === 'sending') return;
+    const f = this.state.form;
+    let err = '';
+    if (!f.ad.trim()) err = 'Lütfen ad soyad bilgisini girin.';
+    else if (!EMAIL_RE.test(f.eposta.trim())) err = 'Geçerli bir e-posta adresi girin.';
+    else if (f.mesaj.trim().length < 20) err = 'Talebinizi en az birkaç cümleyle açıklayın.';
+    else if (!f.onay) err = 'Devam etmek için KVKK onayı gerekli.';
+    if (err) {
+      this.setState({ formErr: err });
+      return;
+    }
+    this.setState({ sendState: 'sending', formErr: '' });
+
+    const lines = [
+      'Ad soyad: ' + f.ad,
+      'Kurum: ' + (f.kurum || '-'),
+      'E-posta: ' + f.eposta,
+      'Telefon: ' + (f.telefon || '-'),
+      'Rol: ' + (f.rol || '-'),
+      'İlgili alan: ' + (f.alan || '-'),
+      '',
+      'Talep:',
+      f.mesaj,
+    ];
+    const href =
+      'mailto:' + REQUEST_INBOX +
+      '?subject=' + encodeURIComponent('HavarTek talep — ' + f.ad) +
+      '&body=' + encodeURIComponent(lines.join('\n'));
+
+    setTimeout(() => {
+      window.location.href = href;
+      this.setState({ sendState: 'sent' });
+    }, 500);
+  };
+
+  renderVals() {
+    const cat = this.state.cat ?? this.props.defaultCategory ?? 'all';
+    const marked = this.state.navHover ?? 'home';
+    const drone = (key) => (marked === key ? DRONE_ON : DRONE_OFF);
+    const enter = (key) => () => this.setState({ navHover: key });
+
+    const isDesktop = this.state.vw >= 1040;
+    const menuOpen = !isDesktop && this.state.menuOpen;
+
+    return {
+      isDesktop,
+      isMobile: !isDesktop,
+      droneHome: drone('home'),
+      droneAreas: drone('areas'),
+      droneTech: drone('tech'),
+      droneContact: drone('contact'),
+      enterHome: enter('home'),
+      enterAreas: enter('areas'),
+      enterTech: enter('tech'),
+      enterContact: enter('contact'),
+      leaveNav: () => this.setState({ navHover: null }),
+      menuOpen,
+      menuLabel: menuOpen ? 'Kapat' : 'Menü',
+      barTop: BAR + (menuOpen ? 'transform:translateY(5.5px) rotate(45deg);' : ''),
+      barMid: BAR + (menuOpen ? 'opacity:0;' : ''),
+      barBot: BAR + (menuOpen ? 'transform:translateY(-5.5px) rotate(-45deg);' : ''),
+      toggleMenu: () => this.setState((s) => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      showNews: this.props.showNews ?? true,
+      cats: CATS.map((c) => ({
+        label: c.label,
+        style: c.id === cat ? CHIP_ON : CHIP_OFF,
+        select: () => this.setState({ cat: c.id }),
+      })),
+      areas: AREAS.filter((a) => cat === 'all' || a.cat === cat),
+
+      stories: STORIES.map((s, i) => {
+        const open = this.state.openStory === i;
+        return {
+          t: s.t,
+          who: s.who,
+          p: s.p,
+          s: s.s,
+          open,
+          cardStyle:
+            'overflow:hidden;border-radius:14px;background:#fff;transition:border-color .2s,box-shadow .2s;' +
+            (open
+              ? 'border:1px solid #0F4CA8;box-shadow:0 18px 44px -32px rgba(8,32,63,.5);'
+              : 'border:1px solid #DCE7F4;'),
+          iconStyle:
+            'flex:none;display:grid;place-items:center;width:26px;height:26px;border-radius:999px;font-size:18px;line-height:1;' +
+            'transition:transform .25s cubic-bezier(.22,.61,.36,1),background-color .2s,color .2s;' +
+            (open ? 'background:#0F4CA8;color:#fff;transform:rotate(45deg);' : 'background:#E4EDF8;color:#0F4CA8;'),
+          bodyStyle:
+            'display:grid;transition:grid-template-rows .3s cubic-bezier(.22,.61,.36,1),opacity .25s ease;overflow:hidden;' +
+            (open ? 'grid-template-rows:1fr;opacity:1;' : 'grid-template-rows:0fr;opacity:0;pointer-events:none;'),
+          toggle: () => this.setState((st) => ({ openStory: st.openStory === i ? -1 : i })),
+        };
+      }),
+
+      f: this.state.form,
+      on: {
+        ad: (e) => this.setField('ad', e.target.value),
+        kurum: (e) => this.setField('kurum', e.target.value),
+        eposta: (e) => this.setField('eposta', e.target.value),
+        telefon: (e) => this.setField('telefon', e.target.value),
+        rol: (e) => this.setField('rol', e.target.value),
+        alan: (e) => this.setField('alan', e.target.value),
+        mesaj: (e) => this.setField('mesaj', e.target.value),
+        onay: (e) => this.setField('onay', e.target.checked),
+      },
+      isSent: this.state.sendState === 'sent',
+      isForm: this.state.sendState !== 'sent',
+      hasError: !!this.state.formErr,
+      errorText: this.state.formErr,
+      submitLabel: this.state.sendState === 'sending' ? 'Gönderiliyor…' : 'Talebi gönder',
+      submitStyle:
+        SUBMIT_BASE + (this.state.sendState === 'sending' ? 'background:#7E9BC7;cursor:default;' : 'background:#0F4CA8;'),
+      submit: this.submit,
+      reset: () => this.setState({ form: EMPTY_FORM, sendState: 'idle', formErr: '' }),
+    };
+  }
+}
+
+</script>
+</body>
+</html>

@@ -1,29 +1,29 @@
-# DroneTek — Docker kullanmadan çalıştırma (systemd)
+# HavarTek — Docker kullanmadan çalıştırma (systemd)
 #
-#   sudo cp deploy/dronetek.service /etc/systemd/system/
+#   sudo cp deploy/havartek.service /etc/systemd/system/
 #   sudo systemctl daemon-reload
-#   sudo systemctl enable --now dronetek
-#   journalctl -u dronetek -f
+#   sudo systemctl enable --now havartek
+#   journalctl -u havartek -f
 #
-# Ön koşul: /var/www/dronetek içinde `npm ci && npm run build` çalıştırılmış,
+# Ön koşul: /var/www/havartek içinde `npm ci && npm run build` çalıştırılmış,
 # public/ ve .next/static klasörleri .next/standalone içine kopyalanmış olmalı
 # (adımlar README'de). Uygulama yalnızca localhost'u dinler; 80/443'ü nginx karşılar.
 
 [Unit]
-Description=DroneTek kurumsal sitesi (Next.js standalone)
-Documentation=https://dronetek.com.tr
+Description=HavarTek kurumsal sitesi (Next.js standalone)
+Documentation=https://havartek.com
 After=network-online.target
 Wants=network-online.target
 
 [Service]
 Type=simple
-User=dronetek
-Group=dronetek
-WorkingDirectory=/var/www/dronetek
+User=havartek
+Group=havartek
+WorkingDirectory=/var/www/havartek
 
 # NEXT_PUBLIC_* değerleri derleme anında gömülür; burada okunanlar SMTP gibi
 # çalışma anı ayarlarıdır. Dosya yoksa servis başlamaz — "-" ile isteğe bağlı.
-EnvironmentFile=-/var/www/dronetek/.env
+EnvironmentFile=-/var/www/havartek/.env
 Environment=NODE_ENV=production
 Environment=NEXT_TELEMETRY_DISABLED=1
 Environment=PORT=3000
@@ -39,7 +39,7 @@ TimeoutStopSec=20
 
 StandardOutput=journal
 StandardError=journal
-SyslogIdentifier=dronetek
+SyslogIdentifier=havartek
 
 # --- Güvenlik sıkılaştırmaları ---------------------------------------------
 NoNewPrivileges=true
@@ -65,7 +65,7 @@ MemoryDenyWriteExecute=false
 
 # ProtectSystem=strict tüm dosya sistemini salt okunur yapar; next/image
 # önbelleğinin yazabilmesi için yalnızca bu klasör açılır (önceden oluşturun).
-ReadWritePaths=/var/www/dronetek/.next/standalone/.next/cache
+ReadWritePaths=/var/www/havartek/.next/standalone/.next/cache
 
 [Install]
 WantedBy=multi-user.target

@@ -1,11 +1,11 @@
 {
-  "name": "DroneTek",
-  "short_name": "DroneTek",
-  "description": "Paket, kargo ve insan taşımacılığı için drone tabanlı ulaşım sistemleri.",
+  "name": "HavarTek.com",
+  "short_name": "HavarTek",
+  "description": "Drone tabanlı ulaşım sistemleri için mühendislik ve girişimcilik platformu.",
   "start_url": "/tr",
   "display": "standalone",
-  "background_color": "#0B0D0F",
-  "theme_color": "#0B0D0F",
+  "background_color": "#FFFFFF",
+  "theme_color": "#F4F7FB",
   "icons": [
     {
       "src": "/icon.png",

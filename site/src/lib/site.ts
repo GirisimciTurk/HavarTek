@@ -5,7 +5,7 @@ import { getUi } from '@/content/ui';
 import { href, htmlLang, locales, type Locale, type Route } from '@/lib/i18n';
 
 /** Kanonik adres. VPS'te NEXT_PUBLIC_SITE_URL ile ayarlanır. */
-export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://dronetek.com.tr').replace(
+export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://havartek.com').replace(
   /\/+$/,
   '',
 );
@@ -13,15 +13,18 @@ export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://dronetek.co
 export const absolute = (path: string) => `${siteUrl}${path}`;
 
 export const ORG = {
-  name: 'DroneTek',
-  legalName: 'DroneTek İnsansız Hava Aracı Sistemleri A.Ş.',
-  email: 'iletisim@dronetek.com.tr',
-  phone: '+90 544 694 32 78',
-  phoneRaw: '+905446943278',
+  name: 'HavarTek.com',
+  legalName: 'HavarTek İnsansız Hava Aracı Sistemleri A.Ş.',
+  email: 'bedirkaraabali@girisimciturk.com',
+  /** Çağrı merkezi (tasarımdaki tel: bağlantısı) */
+  phone: '0850 241 70 00',
+  phoneRaw: '+908502417000',
+  /** WhatsApp hattı — wa.me bağlantısı için ülke kodlu, artısız */
+  whatsapp: '0544 694 32 78',
+  whatsappRaw: '905446943278',
   address: {
-    street: 'Teknopark İzmir',
-    district: 'Urla',
-    city: 'İzmir',
+    district: 'Gölbaşı',
+    city: 'Ankara',
     country: 'TR',
   },
   parent: 'DEV YAPIMCILIK YAYINCILIK SAN. TİC. LTD. ŞTİ.',
@@ -94,8 +97,8 @@ export function organizationJsonLd(locale: Locale) {
     telephone: ORG.phone,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: ORG.address.street,
       addressLocality: `${ORG.address.district} / ${ORG.address.city}`,
+      addressRegion: ORG.address.city,
       addressCountry: ORG.address.country,
     },
     parentOrganization: { '@type': 'Organization', name: ORG.parent },

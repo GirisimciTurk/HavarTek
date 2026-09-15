@@ -1,7 +1,7 @@
 /**
  * VK-7 sabit kanat platformunun 3B geometrisi.
  *
- * Tasarımdaki "DroneTek 3D.html" modül betiğinden birebir taşındı: profil
+ * Tasarımdaki "HavarTek 3D.html" modül betiğinden birebir taşındı: profil
  * noktaları, ölçüler, konumlar, dönüşler ve malzeme değerleri aynı. Parça
  * adları da korundu — dışa aktarımda (OBJ/GLB) nesne adı olarak kullanılıyor.
  *

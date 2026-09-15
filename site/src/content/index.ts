@@ -1,16 +1,21 @@
 /**
  * Site metinleri.
  *
- * `site.json`, tasarım dosyası "DroneTek v4.dc.html" içindeki `content` ve
- * `platformData` alanlarından programla çıkarıldı — hiçbir metin elle
- * yazılmadı, bu yüzden Türkçe/İngilizce çeviriler tasarımla birebir aynı.
- * Metni güncellemek için doğrudan `site.json` düzenlenir.
+ * `site.json`, tasarım dosyası "HavarTek Aydınlık Tema.dc.html" içindeki
+ * gövde metinleri ve script bloğundaki CATS / AREAS / STORIES verilerinden
+ * programla çıkarıldı; Türkçe metinler tasarımla birebir aynı, İngilizce
+ * aynı anahtar yapısındaki çevirisi. Metni güncellemek için doğrudan
+ * `site.json` düzenlenir. `platformData` teknoloji sayfasının tablosu.
  */
 import raw from './site.json';
 import type { Locale } from '@/lib/i18n';
 
 export type Dictionary = typeof raw.content.tr;
 export type Area = Dictionary['areas'][number];
+export type PromiseItem = Dictionary['promiseItems'][number];
+export type MissionItem = Dictionary['missionItems'][number];
+export type Step = Dictionary['steps'][number];
+export type Story = Dictionary['stories'][number];
 export type NewsItem = Dictionary['news'][number];
 export type DocContent = Dictionary['docs']['hakkimizda'];
 

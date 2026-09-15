@@ -9,6 +9,8 @@ export const runtime = 'nodejs';
 const EMAIL_PATTERN = /^.+@.+\..+$/;
 const FIELD_MAX = 2000;
 const MESSAGE_MAX = 5000;
+// Formdaki "en az birkaç cümle" kuralının sunucu tarafı karşılığı.
+const MESSAGE_MIN = 20;
 
 const invalid = () => NextResponse.json({ ok: false, error: 'invalid' }, { status: 400 });
 
@@ -43,9 +45,8 @@ export async function POST(request: Request) {
   const kurum = readField(raw.kurum, FIELD_MAX);
   const eposta = readField(raw.eposta, FIELD_MAX);
   const telefon = readField(raw.telefon, FIELD_MAX);
-  const uni = readField(raw.uni, FIELD_MAX);
   const rol = readField(raw.rol, FIELD_MAX);
-  const sektor = readField(raw.sektor, FIELD_MAX);
+  const alan = readField(raw.alan, FIELD_MAX);
   const mesaj = readField(raw.mesaj, MESSAGE_MAX);
 
   if (
@@ -53,35 +54,36 @@ export async function POST(request: Request) {
     kurum === null ||
     eposta === null ||
     telefon === null ||
-    uni === null ||
     rol === null ||
-    sektor === null ||
+    alan === null ||
     mesaj === null
   ) {
     return invalid();
   }
-  if (!ad || !mesaj || !EMAIL_PATTERN.test(eposta)) return invalid();
+  if (!ad || mesaj.length < MESSAGE_MIN || !EMAIL_PATTERN.test(eposta)) return invalid();
+  // KVKK onayı olmadan talep işlenmez; yalnızca gerçek `true` kabul edilir.
+  if (raw.onay !== true) return invalid();
 
   const locale = raw.locale === 'en' ? 'en' : 'tr';
   const text = [
-    'DroneTek web sitesi — yeni talep',
+    'HavarTek.com web sitesi — yeni talep',
     '',
     `Ad soyad     : ${ad}`,
     `Kurum        : ${kurum || '-'}`,
     `E-posta      : ${eposta}`,
     `Telefon      : ${telefon || '-'}`,
-    `Üniversite   : ${uni || '-'}`,
     `Rol          : ${rol || '-'}`,
-    `İlgi alanı   : ${sektor || '-'}`,
+    `İlgili alan  : ${alan || '-'}`,
+    'KVKK onayı   : evet',
     `Site dili    : ${locale}`,
     `Zaman        : ${new Date().toISOString()}`,
     '',
-    'Mesaj:',
+    'Talep:',
     mesaj,
   ].join('\n');
 
   try {
-    await sendMail({ subject: `DroneTek talebi — ${ad}`, text, replyTo: eposta });
+    await sendMail({ subject: `HavarTek talep — ${ad}`, text, replyTo: eposta });
   } catch (error) {
     // Teslimat başarısızsa talep kaybolmasın: içerik günlüğe düşsün.
     console.error('[contact] gönderilemedi', error, text);

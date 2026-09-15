@@ -9,11 +9,11 @@ const tr = {
   skipToContent: 'İçeriğe geç',
   menu: 'Menü',
   close: 'Kapat',
-  siteName: 'DroneTek',
+  siteName: 'HavarTek.com',
   metaDescription:
-    'DroneTek; paket, kargo ve insan taşımacılığı için drone tabanlı ulaşım sistemleri geliştiren mühendislik ve girişimcilik platformu.',
-  titleSuffix: 'DroneTek',
-  homeTitle: 'DroneTek — Drone tabanlı ulaşım sistemleri',
+    'HavarTek.com; paket, kargo ve insan taşımacılığı için drone tabanlı ulaşım sistemleri geliştiren mühendislik ve girişimcilik platformu.',
+  titleSuffix: 'HavarTek.com',
+  homeTitle: 'HavarTek.com — Drone tabanlı ulaşım sistemleri',
   notFound: {
     code: '404',
     title: 'Aradığınız sayfa bulunamadı',
@@ -58,11 +58,11 @@ const en: UiStrings = {
   skipToContent: 'Skip to content',
   menu: 'Menu',
   close: 'Close',
-  siteName: 'DroneTek',
+  siteName: 'HavarTek.com',
   metaDescription:
-    'DroneTek is an engineering and entrepreneurship platform developing drone-based transport systems for packages, cargo and people.',
-  titleSuffix: 'DroneTek',
-  homeTitle: 'DroneTek — Drone-based transport systems',
+    'HavarTek.com is an engineering and entrepreneurship platform developing drone-based transport systems for packages, cargo and people.',
+  titleSuffix: 'HavarTek.com',
+  homeTitle: 'HavarTek.com — Drone-based transport systems',
   notFound: {
     code: '404',
     title: 'We could not find that page',

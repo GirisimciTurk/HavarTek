@@ -1,0 +1,114 @@
+# HavarTek.com — CI/CD
+#
+# Her PR ve main'e her push'ta site/ derlenir (lint + tip denetimi + next build).
+# main'e push'ta ayrıca VPS'e dağıtım yapılır; dağıtım yerelde de kullanılan
+# site/deploy/sync.sh betiğini çalıştırır (rsync + uzakta npm ci && npm run build
+# + systemctl restart). Gerekli secrets ve ilk kurulum adımları site/README.md
+# "CI/CD" bölümünde.
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  NEXT_TELEMETRY_DISABLED: '1'
+
+jobs:
+  check:
+    name: Lint · tip · derleme
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - name: Bağımlılıklar
+        run: npm ci
+
+      - name: ESLint
+        run: npm run lint
+
+      - name: Tip denetimi
+        run: npm run typecheck
+
+      # next/font/google derleme sırasında yazı tipini indirir; runner'da internet var.
+      - name: Üretim derlemesi
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://havartek.com
+
+  deploy:
+    name: VPS'e dağıtım
+    needs: check
+    # Yalnızca main'e push (ve main üzerinde elle tetikleme); PR'larda dağıtım yok.
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+    # Aynı anda tek dağıtım; sıradaki iptal edilmez, bekler.
+    concurrency:
+      group: deploy-production
+      cancel-in-progress: false
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v4
+
+      # sync.sh ssh/rsync'i HOST takma adıyla çağırır; anahtar ve kullanıcı
+      # ~/.ssh/config içindeki "vps" girdisinden gelir.
+      - name: SSH anahtarı ve takma ad
+        env:
+          VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+          VPS_KNOWN_HOSTS: ${{ secrets.VPS_KNOWN_HOSTS }}
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+        run: |
+          for v in VPS_SSH_KEY VPS_KNOWN_HOSTS VPS_HOST VPS_USER; do
+            [ -n "${!v}" ] || { echo "$v secret'ı tanımlı değil (bkz. site/README.md → CI/CD)" >&2; exit 1; }
+          done
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          echo "$VPS_SSH_KEY" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          echo "$VPS_KNOWN_HOSTS" >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+          cat > ~/.ssh/config <<EOF
+          Host vps
+            HostName $VPS_HOST
+            User $VPS_USER
+            IdentityFile ~/.ssh/id_deploy
+            IdentitiesOnly yes
+          EOF
+          chmod 600 ~/.ssh/config
+
+      # ubuntu-latest'te rsync hazır; yoksa kurulur.
+      - name: rsync
+        run: command -v rsync >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y -qq rsync; }
+
+      - name: Dağıt (deploy/sync.sh)
+        run: HOST=vps ./deploy/sync.sh
+
+      # HEALTH_URL depo değişkeni (vars) tanımlıysa o adres denetlenir; yoksa
+      # sunucunun IP'si. TLS açılıp 80 → 443 yönlendirmesi başlayınca
+      # HEALTH_URL=https://havartek.com/tr olarak ayarlanmalı.
+      - name: Sağlık denetimi
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          HEALTH_URL: ${{ vars.HEALTH_URL }}
+        run: |
+          url="${HEALTH_URL:-http://$VPS_HOST/tr}"
+          code=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 20 "$url")
+          echo "$url -> $code"
+          test "$code" = "200"

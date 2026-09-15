@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
-# DroneTek kurumsal sitesi — çok aşamalı üretim imajı.
-# Bağlam (build context) bu klasördür:  docker build -t dronetek .
+# HavarTek kurumsal sitesi — çok aşamalı üretim imajı.
+# Bağlam (build context) bu klasördür:  docker build -t havartek .
 
 # ---------------------------------------------------------------------------
 # 1) deps — bağımlılıklar
@@ -28,7 +28,7 @@ COPY . .
 # Kanonik adres derleme anında koda gömülür (canonical, hreflang, og:url,
 # sitemap). Farklı bir alan adı için:
 #   docker build --build-arg NEXT_PUBLIC_SITE_URL=https://ornek.com .
-ARG NEXT_PUBLIC_SITE_URL=https://dronetek.com.tr
+ARG NEXT_PUBLIC_SITE_URL=https://havartek.com
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1

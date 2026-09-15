@@ -27,10 +27,10 @@ export const docKeys = [
 ] as const;
 export type DocKey = (typeof docKeys)[number];
 
-/** Alt bilgide "Destek & Bilgi" sütununda listelenen dokümanlar */
-export const supportDocKeys: DocKey[] = ['takip', 'sozlesme', 'shgm', 'gizlilik'];
+/** Alt bilgide "Destek" sütununda listelenen dokümanlar (tasarımdaki sıra) */
+export const supportDocKeys: DocKey[] = ['hakkimizda', 'takip', 'shgm', 'gizlilik'];
 /** Alt bilgide telif satırının yanında listelenen dokümanlar */
-export const legalDocKeys: DocKey[] = ['hakkimizda', 'cerez', 'kvkk', 'kosullar'];
+export const legalDocKeys: DocKey[] = ['cerez', 'kvkk', 'kosullar'];
 
 export type PageKey = 'home' | 'areas' | 'tech' | 'contact' | 'model3d';
 
@@ -154,4 +154,4 @@ export const categoryParam: Record<Locale, string> = { tr: 'kategori', en: 'cate
  * Aktif dili sunucu bileşenlerine taşıyan istek başlığı. Proxy ekler;
  * `params` alamayan 404 sınırı bunu okur.
  */
-export const LOCALE_HEADER = 'x-dronetek-locale';
+export const LOCALE_HEADER = 'x-havartek-locale';

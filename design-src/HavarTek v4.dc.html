@@ -30,7 +30,7 @@
 
 <nav style="position:sticky;top:0;z-index:30;display:flex;flex-wrap:wrap;align-items:center;gap:28px;padding:16px clamp(20px,4vw,64px);background:rgba(11,13,15,.86);backdrop-filter:blur(14px);border-bottom:1px solid rgba(242,240,236,.12)">
   <span style="display:flex;align-items:center;gap:10px;margin-right:auto">
-    <img src="assets/logo-white.png" alt="DroneTek" style="height:22px;width:auto;display:block" />
+    <img src="assets/logo-white.png" alt="HavarTek" style="height:22px;width:auto;display:block" />
     <span style="font-family:'Archivo',sans-serif;font-weight:800;font-size:21px;letter-spacing:-.02em">Drone<span style="color:#F0A93B">Tek</span></span>
   </span>
   <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
@@ -39,7 +39,7 @@
       <a href="#" onClick="{{ n.go }}" aria-current="{{ n.current }}" style="cursor:pointer;white-space:nowrap;font-size:15px;color:#F2F0EC;opacity:{{ n.labelOpacity }};transition:opacity .25s ease">{{ n.label }}</a>
     </span>
   </sc-for>
-  <a href="DroneTek 3D.html" style="white-space:nowrap;font-size:15px;color:#F2F0EC;opacity:.72" style-hover="{opacity:1,color:'#F2F0EC'}">{{ t.nav3d }}</a>
+  <a href="HavarTek 3D.html" style="white-space:nowrap;font-size:15px;color:#F2F0EC;opacity:.72" style-hover="{opacity:1,color:'#F2F0EC'}">{{ t.nav3d }}</a>
   <div style="display:flex;gap:2px;padding:3px;border:1px solid rgba(242,240,236,.18);border-radius:999px">
     <sc-for list="{{ langOpts }}" as="l" hint-placeholder-count="2">
       <label style="cursor:pointer;font-size:12px;font-weight:500;letter-spacing:.08em;padding:5px 11px;border-radius:999px;background:{{ l.pillBg }};color:{{ l.pillFg }}">
@@ -559,7 +559,7 @@
       <div style="display:flex;flex-wrap:wrap;gap:8px">
         <a href="{{ waHref }}" target="_blank" rel="noopener" style="font-size:14px;padding:8px 14px;border-radius:999px;border:1px solid rgba(242,240,236,.24);color:#F2F0EC" style-hover="{background:'rgba(242,240,236,.1)',color:'#F2F0EC'}">{{ t.ft.wa }}</a>
         <a href="tel:+905446943278" style="font-size:14px;padding:8px 14px;border-radius:999px;border:1px solid rgba(242,240,236,.24);color:#F2F0EC" style-hover="{background:'rgba(242,240,236,.1)',color:'#F2F0EC'}">{{ t.ft.call }}</a>
-        <a href="mailto:iletisim@dronetek.com.tr" style="font-size:14px;padding:8px 14px;border-radius:999px;border:1px solid rgba(242,240,236,.24);color:#F2F0EC" style-hover="{background:'rgba(242,240,236,.1)',color:'#F2F0EC'}">{{ t.ft.mail }}</a>
+        <a href="mailto:iletisim@havartek.com" style="font-size:14px;padding:8px 14px;border-radius:999px;border:1px solid rgba(242,240,236,.24);color:#F2F0EC" style-hover="{background:'rgba(242,240,236,.1)',color:'#F2F0EC'}">{{ t.ft.mail }}</a>
       </div>
     </div>
     <div>
@@ -659,7 +659,7 @@
 <script type="text/x-dc" data-dc-script data-props="{&quot;defaultLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;TR&quot;,&quot;EN&quot;],&quot;default&quot;:&quot;TR&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Site&quot;},&quot;defaultCategory&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;all&quot;,&quot;tarim&quot;,&quot;enerji&quot;,&quot;olcum&quot;,&quot;kamu&quot;,&quot;lojistik&quot;],&quot;default&quot;:&quot;all&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Site&quot;},&quot;defaultPlatform&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;VK-4&quot;,&quot;VK-7&quot;,&quot;VK-9&quot;],&quot;default&quot;:&quot;VK-4&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Site&quot;},&quot;showRegulation&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Bölümler&quot;},&quot;showNews&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Bölümler&quot;}}">
 class Component extends DCLogic {
   emptyForm = { ad: '', kurum: '', eposta: '', telefon: '', uni: '', rol: '', sektor: '', mesaj: '' };
-  CK_KEY = 'dronetek-cookie-consent';
+  CK_KEY = 'havartek-cookie-consent';
   state = { page: 'home', doc: 'hakkimizda', navHover: null, lang: null, cat: null, platform: null, sent: false, err: false,
     nlMail: '', nlSent: false, ckDecided: true, ckPanel: false, ckAnalytics: false, ckMarketing: false,
     form: { ad: '', kurum: '', eposta: '', telefon: '', uni: '', rol: '', sektor: '', mesaj: '' } };
@@ -670,7 +670,7 @@ class Component extends DCLogic {
       nav3d: '3B Model',
       cta: 'Talep oluştur',
       hero: { l1: 'Paket, kargo ve insan taşımacılığı için', l2: 'drone tabanlı ulaşım sistemleri.',
-        sub: 'DroneTek; drone tabanlı ulaşım sistemleri alanında geliştirilen mühendislik çözümlerini, yenilikçi teknolojileri ve girişimci ekipleri bir araya getiren bir platformdur. Amacımız trafik yükünü azaltan, zaman ve enerji verimliliği sağlayan, güvenli ve sürdürülebilir hava taşımacılığı altyapılarını geliştirmek.',
+        sub: 'HavarTek; drone tabanlı ulaşım sistemleri alanında geliştirilen mühendislik çözümlerini, yenilikçi teknolojileri ve girişimci ekipleri bir araya getiren bir platformdur. Amacımız trafik yükünü azaltan, zaman ve enerji verimliliği sağlayan, güvenli ve sürdürülebilir hava taşımacılığı altyapılarını geliştirmek.',
         b1: 'Talep oluştur', b2: 'Kullanım alanlarını gör' },
       missionK: '02 · Platform',
       missionTitle: 'Bu platform ne yapar',
@@ -790,17 +790,17 @@ class Component extends DCLogic {
         { i: 'NY', n: 'Nihan Yılmaz', r: 'Coğrafi veri ve analiz' }
       ],
       officeTitle: 'Ofis',
-      office: ['Teknopark İzmir, Urla / İzmir', '+90 544 694 32 78', 'iletisim@dronetek.com.tr'],
-      footer: '© 2026 DroneTek İnsansız Hava Aracı Sistemleri A.Ş.',
+      office: ['Teknopark İzmir, Urla / İzmir', '+90 544 694 32 78', 'iletisim@havartek.com'],
+      footer: '© 2026 HavarTek İnsansız Hava Aracı Sistemleri A.Ş.',
       docBack: 'Ana sayfaya dön',
       docUpdated: 'Son güncelleme',
       docs: {
         hakkimizda: { t: 'Hakkımızda', u: '1 Eylül 2026', s: [
-          { h: 'Kimiz', p: ['DroneTek, paket, kargo ve insan taşımacılığı için drone tabanlı ulaşım sistemleri geliştiren bir mühendislik ve girişimcilik platformudur. Faaliyetlerimiz uçuş platformu geliştirme, sensör yükü entegrasyonu, uçuş yazılımı ve saha operasyonlarını kapsar.', 'Şirket, DEV YAPIMCILIK YAYINCILIK SAN. TİC. LTD. ŞTİ. iştirakidir ve Deprem Teknolojileri ile aynı grup içinde yer alır.'] },
+          { h: 'Kimiz', p: ['HavarTek, paket, kargo ve insan taşımacılığı için drone tabanlı ulaşım sistemleri geliştiren bir mühendislik ve girişimcilik platformudur. Faaliyetlerimiz uçuş platformu geliştirme, sensör yükü entegrasyonu, uçuş yazılımı ve saha operasyonlarını kapsar.', 'Şirket, DEV YAPIMCILIK YAYINCILIK SAN. TİC. LTD. ŞTİ. iştirakidir ve Deprem Teknolojileri ile aynı grup içinde yer alır.'] },
           { h: 'Ne yapıyoruz', p: ['Tarım, enerji altyapısı denetimi, haritalama, lojistik, arama-kurtarma, inşaat, güvenlik ve çevre izleme alanlarında insansız hava aracı ile veri toplama ve taşıma operasyonları yürütüyoruz. Her görev, görev profiline göre yapılandırılmış bir platform ve sensör yükü ile uçurulur.', 'Uçuşun çıktısı her zaman teslim edilebilir bir dosyadır: ortofoto, sayısal yükseklik modeli, nokta bulutu, denetim raporu veya koordinat listesi.'] },
           { h: 'Neden bu alan', p: ['Türkiye\u2019de şehir içi ulaşım yükü, kırsal lojistik maliyetleri ve afet sonrası ilk müdahale süresi çözülmemiş problemlerdir. Kara ulaşımının aksadığı durumlarda hava yoluyla taşıma, hayati yardımın en hızlı ulaştırma yöntemidir.', 'Amacımız bu ihtiyacı karşılayan sistemleri yalnızca prototip düzeyinde değil, saha koşullarında doğrulanmış ve operasyonel hale getirilmiş biçimde geliştirmektir.'] },
           { h: 'Ekip ve katılım', p: ['Platform; drone, yazılım ve mekanik mühendisliği bilen veya bu alana ilgi duyan kişilere, ulaşım ve otonom sistemler alanında çalışanlara ve ürün geliştirme ile ölçeklenme süreçlerine katkı vermek isteyen girişimcilere açıktır.', 'Katılmak için İletişim sayfasındaki talep formunu kullanabilirsiniz.'] },
-          { h: 'Şirket bilgileri', p: ['DroneTek İnsansız Hava Aracı Sistemleri A.Ş. — Teknopark İzmir, Urla / İzmir. E-posta: iletisim@dronetek.com.tr — Telefon: +90 544 694 32 78'] }
+          { h: 'Şirket bilgileri', p: ['HavarTek İnsansız Hava Aracı Sistemleri A.Ş. — Teknopark İzmir, Urla / İzmir. E-posta: iletisim@havartek.com — Telefon: +90 544 694 32 78'] }
         ] },
         cerez: { t: 'Çerez Politikası', u: '1 Eylül 2026', s: [
           { h: 'Çerez nedir', p: ['Çerez, bir web sitesini ziyaret ettiğinizde tarayıcınıza kaydedilen küçük bir metin dosyasıdır. Sitenin sizi hatırlamasını, tercihlerinizi korumasını ve kullanım istatistiği üretmesini sağlar.'] },
@@ -809,32 +809,32 @@ class Component extends DCLogic {
           { h: 'Saklama süresi', p: ['Çerez tercihiniz on iki ay boyunca saklanır. Bu sürenin sonunda bilgilendirme bandı tekrar görüntülenir.'] }
         ] },
         kvkk: { t: 'KVKK Aydınlatma Metni', u: '1 Eylül 2026', s: [
-          { h: 'Veri sorumlusu', p: ['6698 sayılı Kişisel Verilerin Korunması Kanunu uyarınca veri sorumlusu DroneTek İnsansız Hava Aracı Sistemleri A.Ş.\u2019dir. Adres: Teknopark İzmir, Urla / İzmir. E-posta: kvkk@dronetek.com.tr'] },
+          { h: 'Veri sorumlusu', p: ['6698 sayılı Kişisel Verilerin Korunması Kanunu uyarınca veri sorumlusu HavarTek İnsansız Hava Aracı Sistemleri A.Ş.\u2019dir. Adres: Teknopark İzmir, Urla / İzmir. E-posta: kvkk@havartek.com'] },
           { h: 'İşlenen kişisel veriler', p: ['Talep formu üzerinden: ad soyad, kurum, e-posta, telefon, üniversite ve bölüm bilgisi, rol seçimi ve iletmiş olduğunuz açıklama metni.', 'Bülten kaydı üzerinden: e-posta adresi.', 'Site kullanımı üzerinden: onay verdiyseniz anonim kullanım istatistikleri.'] },
           { h: 'İşleme amacı ve hukuki sebep', p: ['Verileriniz; talebinizin değerlendirilmesi, size dönüş yapılması, uçuş operasyonlarının planlanması, sözleşme süreçlerinin yürütülmesi ve yasal yükümlülüklerin yerine getirilmesi amacıyla işlenir.', 'Hukuki sebep; sözleşmenin kurulması ve ifası, meşru menfaat ve açık rızanızdır. Bülten ve pazarlama çerezleri yalnızca açık rıza ile işlenir.'] },
           { h: 'Aktarım', p: ['Kişisel verileriniz; barındırma ve e-posta hizmet sağlayıcılarımıza, yasal talep halinde yetkili kamu kurumlarına aktarılabilir. Uçuş operasyonu gerektiren durumlarda izin süreçleri için Sivil Havacılık Genel Müdürlüğü ile paylaşılabilir. Yurt dışına aktarım yapılmamaktadır.'] },
-          { h: 'Haklarınız', p: ['Kanunun 11. maddesi uyarınca; verilerinizin işlenip işlenmediğini öğrenme, bilgi talep etme, düzeltilmesini veya silinmesini isteme, işlemeye itiraz etme ve zararınızın giderilmesini talep etme hakkına sahipsiniz.', 'Başvurularınızı kvkk@dronetek.com.tr adresine iletebilirsiniz. Talebiniz en geç otuz gün içinde yanıtlanır.'] },
+          { h: 'Haklarınız', p: ['Kanunun 11. maddesi uyarınca; verilerinizin işlenip işlenmediğini öğrenme, bilgi talep etme, düzeltilmesini veya silinmesini isteme, işlemeye itiraz etme ve zararınızın giderilmesini talep etme hakkına sahipsiniz.', 'Başvurularınızı kvkk@havartek.com adresine iletebilirsiniz. Talebiniz en geç otuz gün içinde yanıtlanır.'] },
           { h: 'Saklama süresi', p: ['Talep kayıtları, ilgili sürecin sona ermesinden itibaren üç yıl; sözleşme ilişkisi kurulan kayıtlar on yıl boyunca saklanır. Bülten kaydınızı iptal ettiğinizde e-posta adresiniz listeden çıkarılır.'] }
         ] },
         kosullar: { t: 'Kullanım Koşulları', u: '1 Eylül 2026', s: [
-          { h: 'Kapsam', p: ['Bu koşullar dronetek.com.tr sitesinin kullanımını düzenler. Siteyi kullanarak koşulları kabul etmiş sayılırsınız.'] },
+          { h: 'Kapsam', p: ['Bu koşullar havartek.com sitesinin kullanımını düzenler. Siteyi kullanarak koşulları kabul etmiş sayılırsınız.'] },
           { h: 'İçeriğin niteliği', p: ['Sitede yer alan teknik veriler, platform özellikleri ve süre-menzil değerleri standart konfigürasyon ve deniz seviyesi koşulları için verilmiştir. Gerçek performans; irtifa, sıcaklık, rüzgâr ve yük konfigürasyonuna göre değişir ve teklif aşamasında görev bazında teyit edilir.', 'Sitede yer alan bilgiler bağlayıcı bir teklif teşkil etmez.'] },
           { h: 'Talep formu', p: ['Talep formu üzerinden ilettiğiniz bilgilerin doğru olması gerekir. Form gönderimi bir hizmet sözleşmesi kurmaz; talebiniz değerlendirildikten sonra tarafınıza uçuş planı, teslim listesi ve fiyat aralığı ile dönüş yapılır.'] },
-          { h: 'Fikri mülkiyet', p: ['Sitedeki metin, görsel, marka ve yazılım unsurları DroneTek\u2019e veya lisans verenlerine aittir. İzinsiz kopyalanamaz, çoğaltılamaz veya ticari amaçla kullanılamaz.'] },
-          { h: 'Sorumluluğun sınırı', p: ['Site kesintisiz ve hatasız çalışacağı garanti edilmez. Sitedeki bilgilere dayanılarak alınan kararlardan doğan dolaylı zararlardan DroneTek sorumlu tutulamaz.'] },
+          { h: 'Fikri mülkiyet', p: ['Sitedeki metin, görsel, marka ve yazılım unsurları HavarTek\u2019e veya lisans verenlerine aittir. İzinsiz kopyalanamaz, çoğaltılamaz veya ticari amaçla kullanılamaz.'] },
+          { h: 'Sorumluluğun sınırı', p: ['Site kesintisiz ve hatasız çalışacağı garanti edilmez. Sitedeki bilgilere dayanılarak alınan kararlardan doğan dolaylı zararlardan HavarTek sorumlu tutulamaz.'] },
           { h: 'Uygulanacak hukuk', p: ['Bu koşullar Türkiye Cumhuriyeti hukukuna tabidir. Uyuşmazlıklarda İzmir mahkemeleri yetkilidir.'] }
         ] },
         takip: { t: 'Talep Takibi', u: '1 Eylül 2026', s: [
           { h: 'Talebiniz nasıl ilerler', p: ['Talep formunu gönderdiğinizde e-posta ile bir talep numarası iletilir. Bu numara ile süreci takip edebilirsiniz.', 'Birinci aşama: teknik değerlendirme — iki iş günü. İkinci aşama: uçuş planı, teslim listesi ve fiyat aralığı ile dönüş. Üçüncü aşama: izin süreçleri ve uçuş takvimi. Dördüncü aşama: saha operasyonu ve veri işleme. Beşinci aşama: teslim.'] },
           { h: 'Teslim süresi', p: ['Standart görevlerde işlenmiş çıktı, saha çalışmasının tamamlanmasından itibaren beş iş günü içinde teslim edilir. LiDAR ve büyük alan projelerinde bu süre görev büyüklüğüne göre uzayabilir ve teklifte belirtilir.'] },
-          { h: 'Bilgi almak için', p: ['Talep numaranız ile iletisim@dronetek.com.tr adresine yazabilir veya +90 544 694 32 78 numaralı hattı arayabilirsiniz.'] }
+          { h: 'Bilgi almak için', p: ['Talep numaranız ile iletisim@havartek.com adresine yazabilir veya +90 544 694 32 78 numaralı hattı arayabilirsiniz.'] }
         ] },
         sozlesme: { t: 'Hizmet Sözleşmesi', u: '1 Eylül 2026', s: [
-          { h: 'Sözleşmenin konusu', p: ['Sözleşme; DroneTek tarafından yürütülecek insansız hava aracı ile veri toplama, denetim veya taşıma hizmetinin kapsamını, teslim edilecek çıktıları, takvimi ve bedeli düzenler.'] },
-          { h: 'Tarafların yükümlülükleri', p: ['DroneTek; uçuş izinlerinin alınması, uçuşun mevzuata uygun yürütülmesi, sigorta kapsamının sağlanması ve kararlaştırılan çıktıların teslim edilmesinden sorumludur.', 'Müşteri; saha erişiminin sağlanması, alan sınırlarının ve bilinen engellerin bildirilmesi ve gerekli kurum izinlerinin kendi tarafında olan kısmının tamamlanmasından sorumludur.'] },
+          { h: 'Sözleşmenin konusu', p: ['Sözleşme; HavarTek tarafından yürütülecek insansız hava aracı ile veri toplama, denetim veya taşıma hizmetinin kapsamını, teslim edilecek çıktıları, takvimi ve bedeli düzenler.'] },
+          { h: 'Tarafların yükümlülükleri', p: ['HavarTek; uçuş izinlerinin alınması, uçuşun mevzuata uygun yürütülmesi, sigorta kapsamının sağlanması ve kararlaştırılan çıktıların teslim edilmesinden sorumludur.', 'Müşteri; saha erişiminin sağlanması, alan sınırlarının ve bilinen engellerin bildirilmesi ve gerekli kurum izinlerinin kendi tarafında olan kısmının tamamlanmasından sorumludur.'] },
           { h: 'Bedel ve ödeme', p: ['Bedel; görev alanı, çözünürlük hedefi, sensör yükü ve teslim formatına göre belirlenir ve teklifte sabitlenir. Ödeme, teklifte belirtilen takvime göre yapılır.'] },
           { h: 'Hava koşulları ve erteleme', p: ['Uçuş güvenliğini etkileyen rüzgâr, yağış veya görüş koşullarında operasyon ertelenir. Erteleme ek bedel doğurmaz; yeni takvim karşılıklı olarak belirlenir.'] },
-          { h: 'Veri sahipliği ve gizlilik', p: ['Uçuş sonucu üretilen çıktıların kullanım hakkı müşteriye aittir. DroneTek, referans amaçlı kullanım için ayrıca yazılı izin alır. Saha verileri üçüncü taraflarla paylaşılmaz.'] },
+          { h: 'Veri sahipliği ve gizlilik', p: ['Uçuş sonucu üretilen çıktıların kullanım hakkı müşteriye aittir. HavarTek, referans amaçlı kullanım için ayrıca yazılı izin alır. Saha verileri üçüncü taraflarla paylaşılmaz.'] },
           { h: 'Fesih', p: ['Taraflar, operasyon başlamadan önce yazılı bildirimle sözleşmeyi feshedebilir. Başlamış operasyonlarda tamamlanan iş oranında bedel tahakkuk eder.'] }
         ] },
         shgm: { t: 'SHGM İzin ve Yetkiler', u: '1 Eylül 2026', s: [
@@ -869,7 +869,7 @@ class Component extends DCLogic {
         trustItems: ['SHGM kayıtlı ticari İHA operatörü', 'Üçüncü şahıs mali sorumluluk sigortası', 'KVKK uyumlu veri işleme'],
         contactTitle: 'Doğrudan iletişim',
         wa: 'WhatsApp', call: 'Çağrı Merkezi', mail: 'E-posta',
-        copy: '© 2026 DroneTek. Tüm hakları saklıdır.',
+        copy: '© 2026 HavarTek. Tüm hakları saklıdır.',
         affilA: 'Bu site bir ', affilB: 'DEV YAPIMCILIK YAYINCILIK SAN. TİC. LTD. ŞTİ.', affilC: ' iştirakidir.',
         legal: ['Hakkımızda', 'Çerez Politikası', 'KVKK Aydınlatma Metni', 'Kullanım Koşulları'],
         prefs: 'Çerez Tercihleri'
@@ -891,7 +891,7 @@ class Component extends DCLogic {
       nav3d: '3D Model',
       cta: 'Create a request',
       hero: { l1: 'Drone-based transport systems for', l2: 'packages, cargo and people.',
-        sub: 'DroneTek is a platform bringing together the engineering solutions, emerging technologies and entrepreneurial teams working on drone-based transport systems. Our aim is to build air transport infrastructure that reduces traffic load, saves time and energy, and stays safe and sustainable.',
+        sub: 'HavarTek is a platform bringing together the engineering solutions, emerging technologies and entrepreneurial teams working on drone-based transport systems. Our aim is to build air transport infrastructure that reduces traffic load, saves time and energy, and stays safe and sustainable.',
         b1: 'Create a request', b2: 'See the applications' },
       missionK: '02 · Platform',
       missionTitle: 'What this platform does',
@@ -1011,17 +1011,17 @@ class Component extends DCLogic {
         { i: 'NY', n: 'Nihan Yılmaz', r: 'Geospatial data and analysis' }
       ],
       officeTitle: 'Office',
-      office: ['Teknopark İzmir, Urla / İzmir', '+90 544 694 32 78', 'iletisim@dronetek.com.tr'],
-      footer: '© 2026 DroneTek Unmanned Aircraft Systems',
+      office: ['Teknopark İzmir, Urla / İzmir', '+90 544 694 32 78', 'iletisim@havartek.com'],
+      footer: '© 2026 HavarTek Unmanned Aircraft Systems',
       docBack: 'Back to home',
       docUpdated: 'Last updated',
       docs: {
         hakkimizda: { t: 'About us', u: '1 September 2026', s: [
-          { h: 'Who we are', p: ['DroneTek is an engineering and entrepreneurship platform developing drone-based transport systems for packages, cargo and passengers. Our work covers flight platform development, sensor payload integration, flight software and field operations.', 'The company is an affiliate of DEV YAPIMCILIK YAYINCILIK SAN. TİC. LTD. ŞTİ. and sits in the same group as Deprem Teknolojileri.'] },
+          { h: 'Who we are', p: ['HavarTek is an engineering and entrepreneurship platform developing drone-based transport systems for packages, cargo and passengers. Our work covers flight platform development, sensor payload integration, flight software and field operations.', 'The company is an affiliate of DEV YAPIMCILIK YAYINCILIK SAN. TİC. LTD. ŞTİ. and sits in the same group as Deprem Teknolojileri.'] },
           { h: 'What we do', p: ['We run unmanned aircraft data collection and transport operations in agriculture, energy infrastructure inspection, mapping, logistics, search and rescue, construction, security and environmental monitoring. Each mission flies a platform and payload configured to its mission profile.', 'The output of a flight is always a deliverable file: an orthophoto, an elevation model, a point cloud, an inspection report or a coordinate list.'] },
           { h: 'Why this field', p: ['Urban transport load, rural logistics cost and post-disaster response time remain unsolved problems in Turkey. Where ground transport breaks down, air transport is the fastest way to deliver vital aid.', 'Our aim is to develop the systems that answer this need not as prototypes but as field-validated, operational solutions.'] },
           { h: 'Team and participation', p: ['The platform is open to people who know or are drawn to drone, software and mechanical engineering, to those working in transport and autonomous systems, and to entrepreneurs who want to contribute to product development and scaling.', 'Use the request form on the Contact page to join.'] },
-          { h: 'Company details', p: ['DroneTek Unmanned Aircraft Systems — Teknopark İzmir, Urla / İzmir. Email: iletisim@dronetek.com.tr — Phone: +90 544 694 32 78'] }
+          { h: 'Company details', p: ['HavarTek Unmanned Aircraft Systems — Teknopark İzmir, Urla / İzmir. Email: iletisim@havartek.com — Phone: +90 544 694 32 78'] }
         ] },
         cerez: { t: 'Cookie Policy', u: '1 September 2026', s: [
           { h: 'What a cookie is', p: ['A cookie is a small text file stored in your browser when you visit a website. It lets the site remember you, keep your preferences and produce usage statistics.'] },
@@ -1030,32 +1030,32 @@ class Component extends DCLogic {
           { h: 'Retention', p: ['Your cookie choice is stored for twelve months. After that the notice appears again.'] }
         ] },
         kvkk: { t: 'Privacy Notice', u: '1 September 2026', s: [
-          { h: 'Data controller', p: ['Under Turkish Personal Data Protection Law no. 6698 the data controller is DroneTek Unmanned Aircraft Systems. Address: Teknopark İzmir, Urla / İzmir. Email: kvkk@dronetek.com.tr'] },
+          { h: 'Data controller', p: ['Under Turkish Personal Data Protection Law no. 6698 the data controller is HavarTek Unmanned Aircraft Systems. Address: Teknopark İzmir, Urla / İzmir. Email: kvkk@havartek.com'] },
           { h: 'Personal data processed', p: ['Through the request form: full name, organisation, email, phone, university and department, role selection and the description you submit.', 'Through newsletter signup: email address.', 'Through site usage: anonymous usage statistics, if you have consented.'] },
           { h: 'Purpose and legal basis', p: ['Your data is processed to evaluate your request, respond to you, plan flight operations, run contract processes and meet legal obligations.', 'The legal basis is the formation and performance of a contract, legitimate interest and your explicit consent. Newsletter and marketing cookies are processed on explicit consent only.'] },
           { h: 'Transfers', p: ['Your data may be transferred to our hosting and email service providers, and to competent public authorities upon lawful request. Where a flight operation requires it, data may be shared with the Directorate General of Civil Aviation for permit processes. No transfers are made outside Turkey.'] },
-          { h: 'Your rights', p: ['Under article 11 of the law you may learn whether your data is processed, request information, request correction or deletion, object to processing and claim compensation for damage.', 'Send requests to kvkk@dronetek.com.tr. Requests are answered within thirty days at the latest.'] },
+          { h: 'Your rights', p: ['Under article 11 of the law you may learn whether your data is processed, request information, request correction or deletion, object to processing and claim compensation for damage.', 'Send requests to kvkk@havartek.com. Requests are answered within thirty days at the latest.'] },
           { h: 'Retention', p: ['Request records are kept for three years after the relevant process ends; records under a contractual relationship are kept for ten years. When you unsubscribe, your email address is removed from the list.'] }
         ] },
         kosullar: { t: 'Terms of Use', u: '1 September 2026', s: [
-          { h: 'Scope', p: ['These terms govern the use of dronetek.com.tr. By using the site you accept them.'] },
+          { h: 'Scope', p: ['These terms govern the use of havartek.com. By using the site you accept them.'] },
           { h: 'Nature of the content', p: ['Technical data, platform specifications and endurance-range values on this site are given for the standard configuration at sea level. Real performance varies with altitude, temperature, wind and payload configuration, and is confirmed per mission at the quotation stage.', 'Information on the site does not constitute a binding offer.'] },
           { h: 'Request form', p: ['The information you submit through the request form must be accurate. Submitting the form does not create a service contract; once your request is evaluated you receive a flight plan, a delivery list and a price range.'] },
-          { h: 'Intellectual property', p: ['Text, imagery, trademarks and software on this site belong to DroneTek or its licensors. They may not be copied, reproduced or used commercially without permission.'] },
-          { h: 'Limitation of liability', p: ['The site is not guaranteed to run uninterrupted or error-free. DroneTek is not liable for indirect damages arising from decisions based on information on the site.'] },
+          { h: 'Intellectual property', p: ['Text, imagery, trademarks and software on this site belong to HavarTek or its licensors. They may not be copied, reproduced or used commercially without permission.'] },
+          { h: 'Limitation of liability', p: ['The site is not guaranteed to run uninterrupted or error-free. HavarTek is not liable for indirect damages arising from decisions based on information on the site.'] },
           { h: 'Governing law', p: ['These terms are governed by the laws of the Republic of Turkey. The courts of İzmir have jurisdiction over disputes.'] }
         ] },
         takip: { t: 'Request Tracking', u: '1 September 2026', s: [
           { h: 'How your request progresses', p: ['When you submit the request form you receive a request number by email. You can track the process with this number.', 'Stage one: technical evaluation — two working days. Stage two: response with flight plan, delivery list and price range. Stage three: permit processes and flight schedule. Stage four: field operation and data processing. Stage five: delivery.'] },
           { h: 'Delivery time', p: ['For standard missions the processed output is delivered within five working days of completing the field work. For LiDAR and large-area projects this may extend with mission size and is stated in the quotation.'] },
-          { h: 'Getting in touch', p: ['Write to iletisim@dronetek.com.tr with your request number, or call +90 544 694 32 78.'] }
+          { h: 'Getting in touch', p: ['Write to iletisim@havartek.com with your request number, or call +90 544 694 32 78.'] }
         ] },
         sozlesme: { t: 'Service Agreement', u: '1 September 2026', s: [
-          { h: 'Subject', p: ['The agreement sets out the scope of the unmanned aircraft data collection, inspection or transport service to be performed by DroneTek, the deliverables, the schedule and the price.'] },
-          { h: 'Obligations of the parties', p: ['DroneTek is responsible for obtaining flight permits, conducting the flight in line with regulation, maintaining insurance cover and delivering the agreed outputs.', 'The client is responsible for providing site access, declaring area boundaries and known obstacles, and completing any institutional permissions that fall on their side.'] },
+          { h: 'Subject', p: ['The agreement sets out the scope of the unmanned aircraft data collection, inspection or transport service to be performed by HavarTek, the deliverables, the schedule and the price.'] },
+          { h: 'Obligations of the parties', p: ['HavarTek is responsible for obtaining flight permits, conducting the flight in line with regulation, maintaining insurance cover and delivering the agreed outputs.', 'The client is responsible for providing site access, declaring area boundaries and known obstacles, and completing any institutional permissions that fall on their side.'] },
           { h: 'Price and payment', p: ['The price is set by mission area, resolution target, sensor payload and delivery format, and is fixed in the quotation. Payment follows the schedule stated there.'] },
           { h: 'Weather and postponement', p: ['Operations are postponed in wind, precipitation or visibility conditions affecting flight safety. Postponement carries no additional charge; a new schedule is agreed mutually.'] },
-          { h: 'Data ownership and confidentiality', p: ['The right to use the outputs produced by the flight belongs to the client. DroneTek obtains separate written permission for any reference use. Field data is not shared with third parties.'] },
+          { h: 'Data ownership and confidentiality', p: ['The right to use the outputs produced by the flight belongs to the client. HavarTek obtains separate written permission for any reference use. Field data is not shared with third parties.'] },
           { h: 'Termination', p: ['Either party may terminate by written notice before the operation starts. For operations already begun, the price accrues in proportion to work completed.'] }
         ] },
         shgm: { t: 'Civil Aviation Permits', u: '1 September 2026', s: [
@@ -1090,7 +1090,7 @@ class Component extends DCLogic {
         trustItems: ['Registered commercial UAV operator', 'Third-party liability insurance', 'GDPR/KVKK compliant data processing'],
         contactTitle: 'Direct contact',
         wa: 'WhatsApp', call: 'Call centre', mail: 'Email',
-        copy: '© 2026 DroneTek. All rights reserved.',
+        copy: '© 2026 HavarTek. All rights reserved.',
         affilA: 'This site is an affiliate of ', affilB: 'DEV YAPIMCILIK YAYINCILIK SAN. TİC. LTD. ŞTİ.', affilC: '.',
         legal: ['About us', 'Cookie Policy', 'Privacy Notice', 'Terms of Use'],
         prefs: 'Cookie Preferences'

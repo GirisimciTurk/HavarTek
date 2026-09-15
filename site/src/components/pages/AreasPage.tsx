@@ -21,16 +21,14 @@ const detailSlots = [
   'area-detail-1',
   'area-detail-2',
   'area-detail-3',
-  'area-detail-4',
-  'area-detail-5',
-  'area-detail-6',
-  'area-detail-7',
 ] as const satisfies readonly SlotId[];
 
 /**
- * Kullanım alanları sayfası — tasarım "DroneTek v4.dc.html", 290–331. satırlar.
- * Manşet sunucuda çizilir; altındaki filtreli liste URL sorgusunu okuduğu için
- * istemci bileşeni.
+ * Kullanım alanları sayfası. Tasarımda ("HavarTek Aydınlık Tema.dc.html") alt
+ * sayfa yok; manşet "01 · Vaadimiz" şeridinin türevi (lacivert zemin, açık
+ * yazı), altındaki liste ana sayfadaki kart ölçülerini kullanıyor.
+ * Manşet sunucuda çizilir; filtreli liste URL sorgusunu okuduğu için istemci
+ * bileşeni.
  */
 export function AreasPage({ locale }: { locale: Locale }) {
   const t = getDictionary(locale);
@@ -43,7 +41,7 @@ export function AreasPage({ locale }: { locale: Locale }) {
     body: area.body,
     items: area.items,
     slot: detailSlots[index],
-    // Tasarımda oran sırayla değişiyor: çift indeks 4/3, tek indeks 3/2.
+    // Oran sırayla değişiyor: çift indeks 4/3, tek indeks 3/2.
     ratio: index % 2 === 0 ? '4/3' : '3/2',
   }));
 
@@ -56,13 +54,16 @@ export function AreasPage({ locale }: { locale: Locale }) {
 
   return (
     <>
-      <section className="relative grid min-h-[min(84vh,780px)] overflow-hidden">
+      {/* Manşet — üst menü akışta 0 yükseklikte olduğu için üst boşluk menüyü de karşılıyor. */}
+      <section className="relative grid min-h-[min(60vh,560px)] bg-navy">
         <Photo slot="areas-hero" alt={photoAlt(locale, 'areas-hero')} sizes="100vw" priority />
         <Scrim gradient={scrims.pageHeader} />
-        <div className="shell relative self-end py-[clamp(48px,6vw,88px)]">
-          <span className="kicker mb-5">{t.apK}</span>
-          <h1 className={cn(display.page, 'rise m-0 max-w-[22ch]')}>{t.apTitle}</h1>
-          <p className="m-0 mt-6 max-w-[58ch] text-[17px] leading-7 text-paper/76">{t.apLead}</p>
+        <div className="shell relative self-end pt-[clamp(120px,14vw,180px)] pb-[clamp(48px,6vw,88px)]">
+          <span className="rise mb-[18px] block text-[12px] uppercase tracking-[0.16em] text-sky-soft">
+            {t.apK}
+          </span>
+          <h1 className={cn(display.page, 'rise m-0 max-w-[22ch] text-white')}>{t.apTitle}</h1>
+          <p className="m-0 mt-6 max-w-[58ch] text-[17px] leading-7 text-paper/80">{t.apLead}</p>
         </div>
       </section>
 

@@ -21,7 +21,7 @@ export function routeMeta(locale: Locale, route: Route): { title: string; descri
     case 'tech':
       return { title: t.tpTitle, description: t.tpLead };
     case 'contact':
-      return { title: t.ctaTitle, description: t.ctaBody };
+      return { title: t.reqTitle, description: t.reqBody };
     case 'model3d':
       return { title: ui.model3d.title, description: ui.model3d.lead };
     case 'doc': {

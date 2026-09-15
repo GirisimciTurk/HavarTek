@@ -3,11 +3,12 @@
 import Link from 'next/link';
 import { useCallback, useEffect, useState, useSyncExternalStore } from 'react';
 
+import { Button } from '@/components/ui';
 import { cn } from '@/lib/cn';
 
-const STORAGE_KEY = 'dronetek-cookie-consent';
+const STORAGE_KEY = 'havartek-cookie-consent';
 /** Alt bilgideki "Çerez Tercihleri" düğmesi paneli bu olayla açar. */
-const OPEN_PANEL_EVENT = 'dronetek:cookie-panel';
+const OPEN_PANEL_EVENT = 'havartek:cookie-panel';
 /** Tercih on iki ay saklanır (Çerez Politikası ile aynı süre). */
 const CONSENT_TTL_MS = 365 * 24 * 60 * 60 * 1000;
 
@@ -85,13 +86,13 @@ function writeConsent(analitik: boolean, pazarlama: boolean) {
   listeners.forEach((notify) => notify());
 }
 
-/** Alt bilgiden paneli açan düğme. */
+/** Alt bilgiden (koyu zemin) paneli açan düğme; yanındaki yasal bağlantılarla aynı görünümde. */
 export function CookiePreferencesButton({ label }: { label: string }) {
   return (
     <button
       type="button"
       onClick={() => window.dispatchEvent(new CustomEvent(OPEN_PANEL_EVENT))}
-      className="cursor-pointer rounded-full border border-paper/24 bg-transparent px-3.5 py-[7px] text-[13px] text-paper transition-colors hover:bg-paper/10"
+      className="-my-1.5 cursor-pointer border-0 bg-transparent px-0 py-1.5 text-[13px] text-paper/76 transition-colors hover:text-sky-soft"
     >
       {label}
     </button>
@@ -175,37 +176,25 @@ export function CookieConsent({ strings }: { strings: CookieStrings }) {
         <div
           role="region"
           aria-label={strings.barTitle}
-          className="fixed inset-x-0 bottom-0 z-[60] border-t border-amber/40 bg-ink/96 backdrop-blur-[14px]"
+          className="fixed inset-x-0 bottom-0 z-[60] border-t border-line bg-white/96 backdrop-blur-[14px]"
         >
           <div className="shell flex flex-wrap items-center justify-between gap-x-8 gap-y-4 py-5">
             <div className="max-w-[62ch]">
-              <span className="block font-display text-[17px] font-semibold leading-[22px] tracking-[-0.015em]">
+              <span className="block font-display text-[17px] font-semibold leading-[22px] tracking-[-0.015em] text-ink">
                 {strings.barTitle}
               </span>
-              <p className="m-0 mt-2 text-[14px] leading-[21px] text-paper/72">{strings.barBody}</p>
+              <p className="m-0 mt-2 text-[14px] leading-[21px] text-muted">{strings.barBody}</p>
             </div>
             <div className="flex flex-wrap gap-2">
-              <button
-                type="button"
-                onClick={openPanel}
-                className="cursor-pointer rounded-full border border-paper/28 bg-transparent px-[18px] py-[11px] text-[14px] text-paper transition-colors hover:bg-paper/10"
-              >
+              <Button variant="ghost" size="md" onClick={openPanel}>
                 {strings.manage}
-              </button>
-              <button
-                type="button"
-                onClick={() => write(false, false)}
-                className="cursor-pointer rounded-full border border-paper/28 bg-transparent px-[18px] py-[11px] text-[14px] text-paper transition-colors hover:bg-paper/10"
-              >
+              </Button>
+              <Button variant="ghost" size="md" onClick={() => write(false, false)}>
                 {strings.reject}
-              </button>
-              <button
-                type="button"
-                onClick={() => write(true, true)}
-                className="cursor-pointer rounded-full border-0 bg-amber px-5 py-[11px] text-[14px] font-medium text-ink transition-colors hover:bg-amber-lift"
-              >
+              </Button>
+              <Button size="md" onClick={() => write(true, true)}>
                 {strings.accept}
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -213,7 +202,7 @@ export function CookieConsent({ strings }: { strings: CookieStrings }) {
 
       {panelOpen ? (
         <div
-          className="fixed inset-0 z-[70] grid place-items-center bg-ink/70 p-5 backdrop-blur-[6px]"
+          className="fixed inset-0 z-[70] grid place-items-center bg-ink/40 p-5 backdrop-blur-[6px]"
           onClick={(event) => {
             if (event.target === event.currentTarget) closePanel();
           }}
@@ -222,9 +211,9 @@ export function CookieConsent({ strings }: { strings: CookieStrings }) {
             role="dialog"
             aria-modal="true"
             aria-label={strings.panelTitle}
-            className="max-h-[86vh] w-full max-w-[560px] overflow-y-auto border border-paper/16 bg-surface p-[clamp(22px,3vw,32px)]"
+            className="max-h-[86vh] w-full max-w-[560px] overflow-y-auto rounded-[20px] border border-line-soft bg-white p-[clamp(22px,3vw,32px)] shadow-panel"
           >
-            <h2 className="m-0 font-display text-[24px] font-extrabold leading-[1.14] tracking-[-0.025em]">
+            <h2 className="m-0 font-display text-[24px] font-extrabold leading-[1.14] tracking-[-0.025em] text-ink">
               {strings.panelTitle}
             </h2>
 
@@ -244,32 +233,32 @@ export function CookieConsent({ strings }: { strings: CookieStrings }) {
                 return (
                   <div
                     key={category.id}
-                    className="grid grid-cols-[1fr_auto] items-start gap-x-5 gap-y-3 border-t border-paper/14 py-[18px]"
+                    className="grid grid-cols-[1fr_auto] items-start gap-x-5 gap-y-3 border-t border-line py-[18px]"
                   >
                     <div>
-                      <span className="block text-[16px] font-medium leading-[22px]">
+                      <span className="block text-[16px] font-medium leading-[22px] text-ink">
                         {category.t}
                       </span>
-                      <p className="m-0 mt-1.5 text-[14px] leading-[21px] text-paper/70">
+                      <p className="m-0 mt-1.5 text-[14px] leading-[21px] text-muted">
                         {category.b}
                       </p>
                     </div>
                     {locked ? (
-                      <span className="whitespace-nowrap text-[12px] uppercase tracking-[0.1em] text-paper/50">
+                      <span className="whitespace-nowrap text-[12px] uppercase tracking-[0.1em] text-faint">
                         {strings.locked}
                       </span>
                     ) : (
                       <label
                         className={cn(
                           'flex cursor-pointer items-center gap-[9px] whitespace-nowrap text-[13px]',
-                          on ? 'text-amber' : 'text-paper/60',
+                          on ? 'text-blue' : 'text-muted',
                         )}
                       >
                         <input
                           type="checkbox"
                           checked={on}
                           onChange={toggle}
-                          className="h-[18px] w-[18px] cursor-pointer accent-amber"
+                          className="h-[18px] w-[18px] cursor-pointer accent-blue"
                         />
                         {on ? strings.on : strings.off}
                       </label>
@@ -280,31 +269,21 @@ export function CookieConsent({ strings }: { strings: CookieStrings }) {
             </div>
 
             <div className="mt-6 flex flex-wrap gap-2">
-              <button
-                type="button"
-                onClick={() => write(analytics, marketing)}
-                className="cursor-pointer rounded-full border-0 bg-amber px-[22px] py-[13px] text-[15px] font-medium text-ink transition-colors hover:bg-amber-lift"
-              >
-                {strings.save}
-              </button>
-              <button
-                type="button"
-                onClick={() => write(true, true)}
-                className="cursor-pointer rounded-full border border-paper/28 bg-transparent px-[22px] py-[13px] text-[15px] text-paper transition-colors hover:bg-paper/10"
-              >
+              <Button onClick={() => write(analytics, marketing)}>{strings.save}</Button>
+              <Button variant="ghost" onClick={() => write(true, true)}>
                 {strings.accept}
-              </button>
+              </Button>
               <button
                 type="button"
                 onClick={closePanel}
-                className="cursor-pointer border-0 bg-transparent px-2.5 py-[13px] text-[15px] text-paper/70 transition-colors hover:text-paper"
+                className="cursor-pointer border-0 bg-transparent px-2.5 py-[13px] text-[15px] text-muted transition-colors hover:text-ink"
               >
                 {strings.close}
               </button>
               <Link
                 href={strings.policyHref}
                 onClick={() => setPanelOpen(false)}
-                className="self-center px-1 py-[13px] text-[14px] text-amber"
+                className="self-center px-1 py-[13px] text-[14px] text-blue"
               >
                 {strings.policyLabel}
               </Link>

@@ -2,8 +2,8 @@
   "content": {
     "tr": {
       "nav": {
-        "home": "Ana Sayfa",
-        "areas": "Kullanım Alanları",
+        "home": "Ana sayfa",
+        "areas": "Kullanım alanları",
         "tech": "Teknoloji",
         "contact": "İletişim"
       },
@@ -11,192 +11,251 @@
       "cta": "Talep oluştur",
       "hero": {
         "l1": "Paket, kargo ve insan taşımacılığı için",
-        "l2": "drone tabanlı ulaşım sistemleri.",
-        "sub": "DroneTek; drone tabanlı ulaşım sistemleri alanında geliştirilen mühendislik çözümlerini, yenilikçi teknolojileri ve girişimci ekipleri bir araya getiren bir platformdur. Amacımız trafik yükünü azaltan, zaman ve enerji verimliliği sağlayan, güvenli ve sürdürülebilir hava taşımacılığı altyapılarını geliştirmek.",
-        "b1": "Talep oluştur",
-        "b2": "Kullanım alanlarını gör"
+        "l2": "drone tabanlı sistemler geliştirir.",
+        "sub": "HavarTek.com; drone tabanlı ulaşım sistemleri alanında geliştirilen mühendislik çözümlerini, yenilikçi teknolojileri ve girişimci ekipleri bir araya getiren bir platformdur. Amacımız trafik yükünü azaltan, zaman ve enerji verimliliği sağlayan, güvenli ve sürdürülebilir hava taşımacılığı altyapılarını geliştirmek."
       },
+      "promiseK": "01 · Vaadimiz",
+      "promiseTitle": "Yolun durumu değişir, teslim süresi değişmez",
+      "promiseItems": [
+        {
+          "t": "Trafikte bekleyen kurye yok",
+          "b": "Uçuş hattı yol yoğunluğundan bağımsız planlanır; teslim süresi trafikle birlikte uzamaz."
+        },
+        {
+          "t": "Sipariş yola değil koridora girer",
+          "b": "Kalkış ve iniş noktası arasındaki en kısa hava hattı, her seferde aynı uçuş süresini verir."
+        },
+        {
+          "t": "Acil durumda yol açmak gerekmez",
+          "b": "İlaç, kan ve acil yardım malzemesi kara trafiğine takılmadan, ilk saatler içinde ulaşır."
+        },
+        {
+          "t": "Daha az araç, daha az enerji",
+          "b": "Küçük yükler tek tek araçla dolaşmak yerine doğrudan taşınır; enerji ve emisyon azalır."
+        }
+      ],
       "missionK": "02 · Platform",
       "missionTitle": "Bu platform ne yapar",
+      "missionLead": "Yukarıdaki vaatler bir slogan değil; üç işin sonucu. Platformu kendimiz geliştiriyor, şehir ve acil durum operasyonlarında yaygınlaştırıyor, sahada işleyen bir ürüne dönüştürüyoruz.",
       "missionItems": [
         {
           "t": "Sistem geliştirir",
-          "b": "Paket, kargo ve insan taşımacılığı için drone tabanlı sistemler geliştirir; bu sistemlerin test edilmesini, doğrulanmasını ve uygulanabilir hale gelmesini destekler."
+          "b": "Paket, kargo ve insan taşımacılığı için drone tabanlı sistemler geliştirir; test edilmesini, doğrulanmasını ve uygulanabilir hale gelmesini destekler.",
+          "n": "Sabit teslim süresi vaadinin arkasında kendi uçuş platformu ve yer istasyonu var."
         },
         {
           "t": "Yaygınlaştırır",
-          "b": "Şehir içi ulaşım, lojistik ve acil durumlarda drone taşımacılığının yaygınlaşmasına katkı sağlar."
+          "b": "Şehir içi ulaşım, lojistik ve acil durumlarda drone taşımacılığının yaygınlaşmasına katkı sağlar.",
+          "n": "Koridor sayısı arttıkça \"yola çıkmadan teslim\" tek tek görev değil, işleyen bir ağ olur."
         },
         {
           "t": "Ürüne dönüştürür",
-          "b": "Mühendislik bilgisini, girişimcilik ve sistem tasarımı bakış açısıyla ürün, platform ve operasyonel çözümlere dönüştürür."
-        }
-      ],
-      "oppK": "07 · Fırsat",
-      "oppTitle": "Türkiye’nin taşımacılık ve acil lojistik sorunlarına çözüm üretme fırsatı",
-      "oppItems": [
-        "Paket, kargo ve insan taşımacılığını hızlı ve güvenli hale getirecek sistemler geliştir",
-        "Trafik ve gecikmeleri azaltacak yenilikçi hava taşımacılığı çözümleri tasarla",
-        "Pilot uygulamalar ve testlerle sistemlerin sahada çalışmasını sağla",
-        "Şehirlerin ve insanların günlük hayatını iyileştiren çözümler üret"
-      ],
-      "oppNote": "Burada yer almak, sadece teknoloji geliştirmek değil; gerçek bir ülke sorununa çözüm üretmek demektir.",
-      "disasterA": "Deprem ve benzeri afetlerde kara ulaşımı aksayabilir.",
-      "disasterB": "Drone teknolojisi, hayati yardımı en hızlı yoldan ulaştırır.",
-      "joinK": "10 · Katılım",
-      "joinTitle": "Çözümün bir parçası olmak isteyen herkese açık",
-      "joinItems": [
-        "Drone, yazılım veya mekanik mühendisliği bilenler veya ilgisi olanlar",
-        "Ulaşım, lojistik, otonom sistemler ve operasyon odaklı kişiler",
-        "Ürün geliştirme, iş modeli ve ölçeklenme süreçlerine katkı vermek isteyen girişimciler",
-        "Türkiye’nin şehir içi ve acil taşımacılık problemlerine çözüm üretmek isteyen herkes"
-      ],
-      "joinNote": "Bilgin, deneyimin ve fikirlerin; drone teknolojileriyle geleceğin ulaşım, lojistik ve acil müdahale çözümlerini şekillendirebilir.",
-      "statsK": "01 · Sayısal görünüm",
-      "stats": [
-        {
-          "v": "18.400",
-          "l": "Kayıtlı uçuş saati"
-        },
-        {
-          "v": "8",
-          "l": "Faaliyet alanı"
-        },
-        {
-          "v": "±2 cm",
-          "l": "Konum hassasiyeti (RTK)"
-        },
-        {
-          "v": "42",
-          "l": "İlde saha operasyonu"
+          "b": "Mühendislik bilgisini, girişimcilik ve sistem tasarımı bakış açısıyla ürün, platform ve operasyonel çözümlere dönüştürür.",
+          "n": "Prototip değil; izin, bakım ve raporlamayla birlikte tekrarlanabilir bir operasyon modeli."
         }
       ],
       "areasK": "03 · Kullanım alanları",
-      "areasTitle": "Sekiz alan, tek platform ailesi",
-      "areasLead": "Aynı uçuş yazılımı, aynı veri hattı. Görevden göreve değişen tek şey sensör yükü ve uçuş planı.",
+      "areasTitle": "Üç faaliyet alanı, tek platform ailesi",
+      "areasLead": "Aynı uçuş yazılımı, aynı yer istasyonu. Görevden göreve değişen tek şey taşınan yük ve uçuş koridoru.",
       "cats": [
         {
           "id": "all",
           "label": "Tümü"
         },
         {
-          "id": "tarim",
-          "label": "Tarım & Çevre"
-        },
-        {
-          "id": "enerji",
-          "label": "Enerji & Altyapı"
-        },
-        {
-          "id": "olcum",
-          "label": "Ölçüm & İnşaat"
-        },
-        {
-          "id": "kamu",
-          "label": "Kamu Güvenliği"
-        },
-        {
           "id": "lojistik",
           "label": "Lojistik"
+        },
+        {
+          "id": "sehir",
+          "label": "Şehir İçi Ulaşım"
+        },
+        {
+          "id": "acil",
+          "label": "Acil Durum & Afet"
         }
       ],
       "areas": [
         {
-          "cat": "tarim",
-          "catLabel": "Tarım & Çevre",
-          "title": "Zirai ilaçlama",
-          "body": "Değişken oranlı ilaçlama, sıra takipli püskürtme ve reçete dosyasına göre otonom uçuş. Altı kilogramlık tank ile hektar başına ortalama on iki dakika.",
-          "items": [
-            "Uçuş bazlı ilaçlama raporu",
-            "Parsel sınırı ve engel haritası",
-            "İlaç tüketim dökümü"
-          ]
-        },
-        {
-          "cat": "olcum",
-          "catLabel": "Ölçüm & İnşaat",
-          "title": "Haritalama ve fotogrametri",
-          "body": "Ortofoto, sayısal yükseklik modeli ve nokta bulutu üretimi. Yer kontrol noktası ile üç santimetre altı yatay doğruluk.",
-          "items": [
-            "GeoTIFF ortofoto",
-            "Nokta bulutu (LAS)",
-            "Doğruluk raporu"
-          ]
-        },
-        {
-          "cat": "enerji",
-          "catLabel": "Enerji & Altyapı",
-          "title": "Enerji hattı denetimi",
-          "body": "İletim hattı koridoru, izolatör, iletken ve trafo taraması. Termal ve görünür bant aynı uçuşta kaydedilir.",
-          "items": [
-            "Arıza noktası listesi",
-            "Termal anomali görüntüleri",
-            "Koridor ağaçlanma analizi"
-          ]
-        },
-        {
-          "cat": "kamu",
-          "catLabel": "Kamu Güvenliği",
-          "title": "Arama-kurtarma ve afet",
-          "body": "Termal tarama ile gece araması, enkaz sonrası hasar haritası ve ilk yirmi dört saat durum raporu.",
-          "items": [
-            "Canlı görüntü aktarımı",
-            "Hasar sınıflandırma haritası",
-            "Koordinat listesi"
-          ]
-        },
-        {
           "cat": "lojistik",
           "catLabel": "Lojistik",
-          "title": "Kargo ve numune teslimi",
+          "title": "Kargo ve paket teslimi",
           "body": "Ada, yayla ve şantiye hatlarında dört kilograma kadar noktadan noktaya teslim; otonom iniş istasyonu ile.",
           "items": [
             "Hat planı ve uçuş takvimi",
+            "Teslim onayı ve uçuş kaydı",
+            "Operasyon raporu"
+          ]
+        },
+        {
+          "cat": "sehir",
+          "catLabel": "Şehir İçi Ulaşım",
+          "title": "Şehir içi taşıma koridorları",
+          "body": "Yoğun trafiğin dışında, belirlenen kalkış ve iniş noktaları arasında planlanan otonom hava koridorları.",
+          "items": [
+            "Koridor planı ve iniş noktaları",
+            "Taahhütlü teslim aralığı",
+            "Sefer kaydı ve aylık rapor"
+          ]
+        },
+        {
+          "cat": "acil",
+          "catLabel": "Acil Durum & Afet",
+          "title": "Acil durum ve afet lojistiği",
+          "body": "Kara ulaşımının aksadığı durumlarda ilaç, kan ve acil yardım malzemesinin hava yoluyla ulaştırılması.",
+          "items": [
+            "Çağrıya hazır uçuş planı",
             "Sıcaklık kayıtlı taşıma",
-            "Teslim doğrulama kaydı"
+            "İlk 24 saat teslim raporu"
           ]
         },
         {
-          "cat": "olcum",
-          "catLabel": "Ölçüm & İnşaat",
-          "title": "İnşaat ve madencilik",
-          "body": "Hafriyat hacim hesabı, şev stabilite takibi ve haftalık ilerleme karşılaştırması.",
+          "cat": "sehir",
+          "catLabel": "Şehir İçi Ulaşım",
+          "title": "İnsan taşımacılığına hazırlık",
+          "body": "Dikey kalkışlı platformlarda yük kapasitesi, yedekli uçuş kontrolü ve iniş altyapısı üzerine geliştirme çalışmaları.",
           "items": [
-            "Hacim raporu (kesme/dolgu)",
-            "Haftalık ilerleme kıyası",
-            "Şev kesit çizimleri"
-          ]
-        },
-        {
-          "cat": "kamu",
-          "catLabel": "Kamu Güvenliği",
-          "title": "Güvenlik ve gözetleme",
-          "body": "Tesis çevresi devriye uçuşu, çit ihlali tespiti ve olay anında canlı görüntü aktarımı.",
-          "items": [
-            "Devriye uçuş planı",
-            "İhlal olay kaydı",
-            "Gece görüş taraması"
-          ]
-        },
-        {
-          "cat": "tarim",
-          "catLabel": "Tarım & Çevre",
-          "title": "Orman ve çevre izleme",
-          "body": "Yangın erken tespiti, sulak alan sınır takibi ve tür sayımı için düşük irtifa uçuşu.",
-          "items": [
-            "Sıcaklık anomali uyarısı",
-            "Alan değişim karşılaştırması",
-            "Sayım raporu"
+            "Yük kapasitesi test raporu",
+            "Yedekli uçuş kontrolü doğrulaması",
+            "İniş altyapısı fizibilitesi"
           ]
         }
       ],
-      "techK": "04 · Teknik veri",
-      "specTitle": "Uçuş platformları — teknik veri",
+      "stepsK": "04 · Süreç",
+      "stepsTitle": "Görevden teslime dört adım",
+      "steps": [
+        {
+          "n": "01",
+          "t": "Görev tanımı",
+          "b": "Kalkış ve teslim noktaları, taşınacak yük, ağırlık sınırı ve takvim birlikte belirlenir."
+        },
+        {
+          "n": "02",
+          "t": "İzin ve uçuş planı",
+          "b": "SHGM kaydı, uçuşa yasak saha kontrolü ve bildirim süreci bizim tarafımızda yürür."
+        },
+        {
+          "n": "03",
+          "t": "Uçuş operasyonu",
+          "b": "Otonom koridor uçuşu; yük güvenliği ve iniş hassasiyeti sahada doğrulanır."
+        },
+        {
+          "n": "04",
+          "t": "Teslim ve raporlama",
+          "b": "Teslim onayı, uçuş kaydı ve operasyon raporu görev sonrası tek dosyada paylaşılır."
+        }
+      ],
+      "storiesK": "Sahadan durumlar",
+      "storiesTitle": "Yol tıkandığında ne oluyor, biz ne yapıyoruz",
+      "storiesLead": "Aşağıdaki durumlar, hava taşımacılığının fark yarattığı tipik senaryolardır. Başlığa dokunarak çözümü görebilirsiniz.",
+      "storiesCta": "Benzer bir durumunuz varsa talep oluşturun",
+      "stories": [
+        {
+          "who": "Şehir hastanesi · kan bankası",
+          "t": "Acil kan sevkiyatı trafikte bekledi",
+          "p": "İki hastane arasındaki 14 kilometrelik yol, akşam yoğunluğunda 50 dakikayı aştı. Soğuk zincirle taşınan ürün için bu süre kabul edilebilir sınırın üstünde kaldı.",
+          "s": "Aynı iki nokta arasında hava hattı 6 kilometre. Kalkış ve iniş noktası çatıya kurulan sabit bir istasyon olduğunda teslim süresi trafikten bağımsız hâle gelir ve her seferde aynı kalır."
+        },
+        {
+          "who": "Afet koordinasyon · kırsal yerleşim",
+          "t": "Depremin ilk günü köy yolu kapalıydı",
+          "p": "Heyelan nedeniyle tek giriş yolu kapandı; ilaç ve bebek maması taşıyan araç 11 saat bekledi. Yol açılana kadar yerleşime hiçbir malzeme ulaşamadı.",
+          "s": "Yol durumundan etkilenmeyen bir koridorla dört kilograma kadar yükler doğrudan yerleşime indirilebilir. İlk 24 saatte hangi noktaya ne gittiği uçuş kaydıyla birlikte raporlanır."
+        },
+        {
+          "who": "Altyapı şantiyesi · saha ekibi",
+          "t": "Şantiye tek bir parça için durdu",
+          "p": "Arızalı bir hidrolik bağlantı parçası için en yakın depoya gidiş-dönüş 3,5 saat sürdü. Bu sürede on kişilik ekip beklemede kaldı.",
+          "s": "Küçük ve kritik parçalar için depodan sahaya doğrudan teslim, aracı ve şoförü işten çekmeden yapılır. Talep yer istasyonundan girilir, uçuş planı otomatik oluşturulur."
+        },
+        {
+          "who": "Şehir içi teslimat · işletme",
+          "t": "Kurye trafikte, sipariş soğudu",
+          "p": "Yoğun saatlerde motorlu kurye aynı mesafeyi bazen 12, bazen 40 dakikada tamamladı. İşletme müşteriye net bir teslim saati veremedi.",
+          "s": "Koridor uçuşunda mesafe sabitse süre de sabittir. İşletme müşteriye tahmin değil, taahhüt edilebilir bir teslim aralığı verebilir."
+        }
+      ],
+      "whyK": "05 · Neden hava yolu",
+      "whyTitle": "Kara ulaşımının aksadığı durumlarda hava yolu en hızlı ulaştırma yöntemidir",
+      "whyItems": [
+        "Şehir içi ulaşım yükü, kırsal lojistik maliyetleri ve afet sonrası ilk müdahale süresi çözülmemiş problemlerdir.",
+        "Hava yolu, yol kapalıyken de hayati yardımı en kısa sürede ulaştırabilen tek hattır.",
+        "Aynı platform ailesi kargo, numune ve acil yardım taşımasında tek operasyon modeliyle çalışır."
+      ],
+      "newsK": "06 · Gündem",
+      "newsTitle": "Sahadan ve geliştirme hattından",
+      "news": [
+        {
+          "tag": "Platform",
+          "t": "VK-9 VTOL seri üretime geçti",
+          "b": "Dikey kalkışlı sabit kanat platform, kırk kilometre menzil ve iki saat havada kalış ile teslim edilmeye başlandı."
+        },
+        {
+          "tag": "Operasyon",
+          "t": "Otonom iniş istasyonu saha testinde",
+          "b": "Noktadan noktaya teslimde pilot müdahalesi olmadan iniş ve yük bırakma denemeleri sürüyor."
+        },
+        {
+          "tag": "Platform",
+          "t": "İnsan taşımacılığı için yük kapasitesi çalışması",
+          "b": "Yedekli uçuş kontrolü ve daha yüksek yük kapasitesi hedefiyle platform geliştirme devam ediyor."
+        }
+      ],
+      "reqK": "07 · Talep",
+      "reqTitle": "Talep oluşturun",
+      "reqBody": "Mühendis ya da girişimci olarak katılmak, pilot uygulama önermek veya bir taşımacılık ihtiyacınızı iletmek için talebinizi oluşturun.",
+      "afterK": "Talepten sonra ne oluyor",
+      "afterItems": [
+        "Talebiniz iki iş günü içinde okunur ve ilgili ekibe yönlendirilir.",
+        "Kısa bir görüşmede taşınacak yük, mesafe ve teslim noktaları netleştirilir.",
+        "Uygun görülen taleplerde bir pilot uçuş planı ve takvim paylaşılır."
+      ],
+      "form": {
+        "ad": "Ad soyad",
+        "kurum": "Kurum / şirket",
+        "eposta": "E-posta",
+        "telefon": "Telefon",
+        "rol": "Rolünüz",
+        "alan": "İlgili alan",
+        "mesaj": "Talebiniz",
+        "mesajPh": "Taşınacak yük, mesafe, kalkış ve teslim noktası ile beklediğiniz takvim",
+        "onay": "KVKK aydınlatma metnini okudum; talebimin değerlendirilmesi için iletişim bilgilerimin işlenmesini kabul ediyorum.",
+        "pick": "Seçiniz",
+        "send": "Talebi gönder",
+        "sending": "Gönderiliyor…",
+        "note": "* işaretli alanlar zorunludur. Talepler yalnızca değerlendirme amacıyla kullanılır.",
+        "sentTitle": "Talebiniz alındı",
+        "sent": "Talebiniz alındı; iki iş günü içinde dönüş yapılır. Acil bir durum varsa 0850 241 70 00 numarasından çağrı merkezine ulaşabilirsiniz.",
+        "again": "Yeni talep oluştur",
+        "errName": "Lütfen ad soyad bilgisini girin.",
+        "errEmail": "Geçerli bir e-posta adresi girin.",
+        "errMessage": "Talebinizi en az birkaç cümleyle açıklayın.",
+        "errConsent": "Devam etmek için KVKK onayı gerekli.",
+        "errNetwork": "Talep gönderilemedi. Lütfen biraz sonra tekrar deneyin."
+      },
+      "roles": [
+        "Mühendis",
+        "Girişimci",
+        "Öğrenci",
+        "Kurum / şirket",
+        "Kamu kurumu",
+        "Diğer"
+      ],
+      "interests": [
+        "Kargo ve paket teslimi",
+        "Şehir içi taşıma",
+        "Acil durum ve afet",
+        "İnsan taşımacılığı",
+        "Ekibe katılım"
+      ],
+      "apK": "Kullanım alanları",
+      "apTitle": "Alan alan, ne teslim ediyoruz",
+      "apLead": "Her alanda görevin çıktısı teslim edilmiş bir yük ve tek bir dosyadır: teslim onayı, uçuş kaydı ve operasyon raporu. Aşağıda alan başına teslim edilenler listelenmiştir.",
+      "deliver": "Teslim edilenler",
+      "tpK": "Teknoloji",
+      "tpTitle": "Platformlar, yükler, yazılım",
+      "tpLead": "Üç uçuş platformu, dört sensör yükü ve tek bir veri hattı. Görev profili hangi kombinasyonun uçacağını belirler.",
       "matrixTitle": "Platform karşılaştırma tablosu",
-      "doc": "DT-SER",
-      "rev": "Rev 04",
-      "sheet": "Sayfa 01 / 03",
-      "sheet2": "Sayfa 02 / 03",
       "cols": {
         "no": "No",
         "prop": "Özellik",
@@ -225,122 +284,6 @@
           "r": "Sürekli rüzgâr"
         }
       ],
-      "note": {
-        "a": "Değerler ",
-        "b": " platformu için standart konfigürasyonda, deniz seviyesinde ölçülmüştür."
-      },
-      "stepsK": "05 · Süreç",
-      "stepsTitle": "Görevden teslime dört adım",
-      "steps": [
-        {
-          "n": "01",
-          "t": "Görev tanımı",
-          "b": "Alanın sınırları, çözünürlük hedefi, teslim formatı ve takvim birlikte belirlenir."
-        },
-        {
-          "n": "02",
-          "t": "İzin ve uçuş planı",
-          "b": "SHGM kaydı, uçuşa yasak saha kontrolü ve bildirim süreci bizim tarafımızda yürür."
-        },
-        {
-          "n": "03",
-          "t": "Veri toplama",
-          "b": "Otonom hat uçuşu; RTK düzeltmesi ve yer kontrol noktaları ile ölçüm sahada doğrulanır."
-        },
-        {
-          "n": "04",
-          "t": "İşleme ve teslim",
-          "b": "Ortofoto, yükseklik modeli, nokta bulutu veya denetim raporu beş iş günü içinde teslim edilir."
-        }
-      ],
-      "caseK": "06 · Vaka çalışması",
-      "caseQuote": "“İki yüz kilometrelik iletim hattını üç günde taradık; iki kırık izolatör ve bir aşırı ısınan bağlantı bulduk. Ekip aynı işi iki haftada yapıyordu.”",
-      "caseAuthor": "— M. Alkan, bakım şefi, bölgesel dağıtım şirketi",
-      "caseMetrics": [
-        {
-          "v": "204 km",
-          "l": "Taranan hat"
-        },
-        {
-          "v": "3 gün",
-          "l": "Saha süresi"
-        },
-        {
-          "v": "%78",
-          "l": "Zaman tasarrufu"
-        }
-      ],
-      "regK": "08 · Mevzuat",
-      "regTitle": "Uçuş izinleri bizim tarafımızda",
-      "regBody": "Ticari İHA operasyonu Sivil Havacılık Genel Müdürlüğü mevzuatına tabidir. Kayıt, izin ve sigorta süreçlerini görev başlamadan önce biz yürütüyoruz.",
-      "regItems": [
-        "İHA-2 / İHA-3 kayıt ve tescil",
-        "Ticari uçuş faaliyet izni",
-        "Uzaktan pilot lisansı ve sağlık raporu",
-        "Üçüncü şahıs mali sorumluluk sigortası"
-      ],
-      "newsK": "09 · Haberler",
-      "newsTitle": "Sahadan notlar",
-      "news": [
-        {
-          "d": "12.06.2026",
-          "tag": "Ürün",
-          "t": "VK-9 VTOL seri üretime geçti",
-          "b": "Dikey kalkışlı sabit kanat platform, kırk kilometre menzil ve iki saat havada kalış ile teslim edilmeye başlandı."
-        },
-        {
-          "d": "28.04.2026",
-          "tag": "Saha",
-          "t": "Konya ovasında 12.000 hektar tarama",
-          "b": "Bir sezonda dokuz kooperatif için bitki sağlığı haritası üretildi; sulama planları buna göre revize edildi."
-        },
-        {
-          "d": "05.03.2026",
-          "tag": "Yazılım",
-          "t": "Veri hattına otomatik rapor eklendi",
-          "b": "Uçuş sonrası işleme, denetim bulgularını koordinatları ile birlikte tek dosyada topluyor."
-        }
-      ],
-      "ctaK": "11 · İletişim",
-      "ctaTitle": "Talep oluşturun",
-      "ctaBody": "Mühendis ya da girişimci olarak katılmak, pilot uygulama önermek veya bir taşımacılık ihtiyacınızı iletmek için talebinizi oluşturun.",
-      "form": {
-        "ad": "Ad soyad",
-        "kurum": "Kurum",
-        "eposta": "E-posta",
-        "telefon": "Telefon",
-        "uni": "Üniversite / bölüm",
-        "rol": "Mühendis / girişimci",
-        "sektor": "İlgi alanı",
-        "mesaj": "Kendiniz ve fikriniz hakkında",
-        "send": "Talebi gönder",
-        "pick": "Seçiniz",
-        "sentTitle": "Talebiniz alındı",
-        "sent": "Talebinizi aldık; iki iş günü içinde dönüş yapacağız.",
-        "again": "Yeni talep",
-        "err": "Ad soyad, e-posta ve açıklama alanlarını doldurun."
-      },
-      "roles": [
-        "Mühendis",
-        "Girişimci",
-        "Öğrenci",
-        "Kurum temsilcisi"
-      ],
-      "sectors": [
-        "Tarım",
-        "Enerji & Altyapı",
-        "Ölçüm & İnşaat",
-        "Kamu Güvenliği",
-        "Lojistik",
-        "Diğer"
-      ],
-      "apK": "Kullanım alanları",
-      "apTitle": "Alan alan, ne teslim ediyoruz",
-      "apLead": "Her alanda uçuşun çıktısı bir dosyadır: harita, rapor veya koordinat listesi. Aşağıda alan başına teslim edilenler listelenmiştir.",
-      "deliver": "Teslim edilenler",
-      "tpK": "Teknoloji",
-      "tpTitle": "Platformlar, yükler, yazılım",
-      "tpLead": "Üç uçuş platformu, dört sensör yükü ve tek bir veri hattı. Görev profili hangi kombinasyonun uçacağını belirler.",
       "payloadK": "Sensör yükleri",
       "payloadTitle": "Dört yük, aynı gövde arayüzü",
       "payloads": [
@@ -377,38 +320,6 @@
           "b": "Çıktılar koordinat sistemi etiketiyle arşivlenir; önceki uçuşlarla karşılaştırılabilir."
         }
       ],
-      "cpK": "İletişim",
-      "teamK": "Ekip",
-      "teamTitle": "Görevi kuran ekip",
-      "team": [
-        {
-          "i": "SK",
-          "n": "Selin Kaya",
-          "r": "Operasyon direktörü"
-        },
-        {
-          "i": "ED",
-          "n": "Emre Demir",
-          "r": "Uçuş sistemleri, baş mühendis"
-        },
-        {
-          "i": "BA",
-          "n": "Burak Aydın",
-          "r": "Uzaktan pilot ekip lideri"
-        },
-        {
-          "i": "NY",
-          "n": "Nihan Yılmaz",
-          "r": "Coğrafi veri ve analiz"
-        }
-      ],
-      "officeTitle": "Ofis",
-      "office": [
-        "Teknopark İzmir, Urla / İzmir",
-        "+90 544 694 32 78",
-        "iletisim@dronetek.com.tr"
-      ],
-      "footer": "© 2026 DroneTek İnsansız Hava Aracı Sistemleri A.Ş.",
       "docBack": "Ana sayfaya dön",
       "docUpdated": "Son güncelleme",
       "docs": {
@@ -419,15 +330,15 @@
             {
               "h": "Kimiz",
               "p": [
-                "DroneTek, paket, kargo ve insan taşımacılığı için drone tabanlı ulaşım sistemleri geliştiren bir mühendislik ve girişimcilik platformudur. Faaliyetlerimiz uçuş platformu geliştirme, sensör yükü entegrasyonu, uçuş yazılımı ve saha operasyonlarını kapsar.",
+                "HavarTek.com, paket, kargo ve insan taşımacılığı için drone tabanlı ulaşım sistemleri geliştiren bir mühendislik ve girişimcilik platformudur. Faaliyetlerimiz uçuş platformu geliştirme, sensör yükü entegrasyonu, uçuş yazılımı ve saha operasyonlarını kapsar.",
                 "Şirket, DEV YAPIMCILIK YAYINCILIK SAN. TİC. LTD. ŞTİ. iştirakidir ve Deprem Teknolojileri ile aynı grup içinde yer alır."
               ]
             },
             {
               "h": "Ne yapıyoruz",
               "p": [
-                "Tarım, enerji altyapısı denetimi, haritalama, lojistik, arama-kurtarma, inşaat, güvenlik ve çevre izleme alanlarında insansız hava aracı ile veri toplama ve taşıma operasyonları yürütüyoruz. Her görev, görev profiline göre yapılandırılmış bir platform ve sensör yükü ile uçurulur.",
-                "Uçuşun çıktısı her zaman teslim edilebilir bir dosyadır: ortofoto, sayısal yükseklik modeli, nokta bulutu, denetim raporu veya koordinat listesi."
+                "Lojistik, şehir içi ulaşım ve acil durum lojistiği alanlarında insansız hava aracı ile taşıma operasyonları yürütüyoruz. Her görev, görev profiline göre yapılandırılmış bir platform ve yük ile uçurulur.",
+                "Her görevin çıktısı teslim edilmiş bir yük ve tek bir dosyadır: teslim onayı, uçuş kaydı ve operasyon raporu."
               ]
             },
             {
@@ -447,7 +358,7 @@
             {
               "h": "Şirket bilgileri",
               "p": [
-                "DroneTek İnsansız Hava Aracı Sistemleri A.Ş. — Teknopark İzmir, Urla / İzmir. E-posta: iletisim@dronetek.com.tr — Telefon: +90 544 694 32 78"
+                "HavarTek İnsansız Hava Aracı Sistemleri A.Ş. — Gölbaşı / Ankara. E-posta: bedirkaraabali@girisimciturk.com — Telefon: 0850 241 70 00"
               ]
             }
           ]
@@ -492,13 +403,13 @@
             {
               "h": "Veri sorumlusu",
               "p": [
-                "6698 sayılı Kişisel Verilerin Korunması Kanunu uyarınca veri sorumlusu DroneTek İnsansız Hava Aracı Sistemleri A.Ş.’dir. Adres: Teknopark İzmir, Urla / İzmir. E-posta: kvkk@dronetek.com.tr"
+                "6698 sayılı Kişisel Verilerin Korunması Kanunu uyarınca veri sorumlusu HavarTek İnsansız Hava Aracı Sistemleri A.Ş.’dir. Adres: Gölbaşı / Ankara. E-posta: bedirkaraabali@girisimciturk.com"
               ]
             },
             {
               "h": "İşlenen kişisel veriler",
               "p": [
-                "Talep formu üzerinden: ad soyad, kurum, e-posta, telefon, üniversite ve bölüm bilgisi, rol seçimi ve iletmiş olduğunuz açıklama metni.",
+                "Talep formu üzerinden: ad soyad, kurum, e-posta, telefon, rol ve ilgili alan seçimi ile iletmiş olduğunuz talep metni.",
                 "Bülten kaydı üzerinden: e-posta adresi.",
                 "Site kullanımı üzerinden: onay verdiyseniz anonim kullanım istatistikleri."
               ]
@@ -520,7 +431,7 @@
               "h": "Haklarınız",
               "p": [
                 "Kanunun 11. maddesi uyarınca; verilerinizin işlenip işlenmediğini öğrenme, bilgi talep etme, düzeltilmesini veya silinmesini isteme, işlemeye itiraz etme ve zararınızın giderilmesini talep etme hakkına sahipsiniz.",
-                "Başvurularınızı kvkk@dronetek.com.tr adresine iletebilirsiniz. Talebiniz en geç otuz gün içinde yanıtlanır."
+                "Başvurularınızı bedirkaraabali@girisimciturk.com adresine iletebilirsiniz. Talebiniz en geç otuz gün içinde yanıtlanır."
               ]
             },
             {
@@ -538,7 +449,7 @@
             {
               "h": "Kapsam",
               "p": [
-                "Bu koşullar dronetek.com.tr sitesinin kullanımını düzenler. Siteyi kullanarak koşulları kabul etmiş sayılırsınız."
+                "Bu koşullar HavarTek.com sitesinin kullanımını düzenler. Siteyi kullanarak koşulları kabul etmiş sayılırsınız."
               ]
             },
             {
@@ -557,19 +468,19 @@
             {
               "h": "Fikri mülkiyet",
               "p": [
-                "Sitedeki metin, görsel, marka ve yazılım unsurları DroneTek’e veya lisans verenlerine aittir. İzinsiz kopyalanamaz, çoğaltılamaz veya ticari amaçla kullanılamaz."
+                "Sitedeki metin, görsel, marka ve yazılım unsurları HavarTek.com’a veya lisans verenlerine aittir. İzinsiz kopyalanamaz, çoğaltılamaz veya ticari amaçla kullanılamaz."
               ]
             },
             {
               "h": "Sorumluluğun sınırı",
               "p": [
-                "Site kesintisiz ve hatasız çalışacağı garanti edilmez. Sitedeki bilgilere dayanılarak alınan kararlardan doğan dolaylı zararlardan DroneTek sorumlu tutulamaz."
+                "Site kesintisiz ve hatasız çalışacağı garanti edilmez. Sitedeki bilgilere dayanılarak alınan kararlardan doğan dolaylı zararlardan HavarTek.com sorumlu tutulamaz."
               ]
             },
             {
               "h": "Uygulanacak hukuk",
               "p": [
-                "Bu koşullar Türkiye Cumhuriyeti hukukuna tabidir. Uyuşmazlıklarda İzmir mahkemeleri yetkilidir."
+                "Bu koşullar Türkiye Cumhuriyeti hukukuna tabidir. Uyuşmazlıklarda Ankara mahkemeleri yetkilidir."
               ]
             }
           ]
@@ -582,19 +493,19 @@
               "h": "Talebiniz nasıl ilerler",
               "p": [
                 "Talep formunu gönderdiğinizde e-posta ile bir talep numarası iletilir. Bu numara ile süreci takip edebilirsiniz.",
-                "Birinci aşama: teknik değerlendirme — iki iş günü. İkinci aşama: uçuş planı, teslim listesi ve fiyat aralığı ile dönüş. Üçüncü aşama: izin süreçleri ve uçuş takvimi. Dördüncü aşama: saha operasyonu ve veri işleme. Beşinci aşama: teslim."
+                "Birinci aşama: teknik değerlendirme — iki iş günü. İkinci aşama: uçuş planı, teslim listesi ve fiyat aralığı ile dönüş. Üçüncü aşama: izin süreçleri ve uçuş takvimi. Dördüncü aşama: uçuş operasyonu. Beşinci aşama: teslim ve raporlama."
               ]
             },
             {
               "h": "Teslim süresi",
               "p": [
-                "Standart görevlerde işlenmiş çıktı, saha çalışmasının tamamlanmasından itibaren beş iş günü içinde teslim edilir. LiDAR ve büyük alan projelerinde bu süre görev büyüklüğüne göre uzayabilir ve teklifte belirtilir."
+                "Standart görevlerde teslim onayı, uçuş kaydı ve operasyon raporu, uçuşun tamamlanmasından itibaren beş iş günü içinde tek dosyada paylaşılır. Çok noktalı ve uzun koridorlu projelerde bu süre görev büyüklüğüne göre uzayabilir ve teklifte belirtilir."
               ]
             },
             {
               "h": "Bilgi almak için",
               "p": [
-                "Talep numaranız ile iletisim@dronetek.com.tr adresine yazabilir veya +90 544 694 32 78 numaralı hattı arayabilirsiniz."
+                "Talep numaranız ile bedirkaraabali@girisimciturk.com adresine yazabilir veya 0850 241 70 00 numaralı çağrı merkezini arayabilirsiniz."
               ]
             }
           ]
@@ -606,20 +517,20 @@
             {
               "h": "Sözleşmenin konusu",
               "p": [
-                "Sözleşme; DroneTek tarafından yürütülecek insansız hava aracı ile veri toplama, denetim veya taşıma hizmetinin kapsamını, teslim edilecek çıktıları, takvimi ve bedeli düzenler."
+                "Sözleşme; HavarTek.com tarafından yürütülecek insansız hava aracı ile taşıma hizmetinin kapsamını, teslim edilecek çıktıları, takvimi ve bedeli düzenler."
               ]
             },
             {
               "h": "Tarafların yükümlülükleri",
               "p": [
-                "DroneTek; uçuş izinlerinin alınması, uçuşun mevzuata uygun yürütülmesi, sigorta kapsamının sağlanması ve kararlaştırılan çıktıların teslim edilmesinden sorumludur.",
-                "Müşteri; saha erişiminin sağlanması, alan sınırlarının ve bilinen engellerin bildirilmesi ve gerekli kurum izinlerinin kendi tarafında olan kısmının tamamlanmasından sorumludur."
+                "HavarTek.com; uçuş izinlerinin alınması, uçuşun mevzuata uygun yürütülmesi, sigorta kapsamının sağlanması ve kararlaştırılan çıktıların teslim edilmesinden sorumludur.",
+                "Müşteri; saha erişiminin sağlanması, kalkış ve teslim noktalarının ve bilinen engellerin bildirilmesi ve gerekli kurum izinlerinin kendi tarafında olan kısmının tamamlanmasından sorumludur."
               ]
             },
             {
               "h": "Bedel ve ödeme",
               "p": [
-                "Bedel; görev alanı, çözünürlük hedefi, sensör yükü ve teslim formatına göre belirlenir ve teklifte sabitlenir. Ödeme, teklifte belirtilen takvime göre yapılır."
+                "Bedel; mesafe, taşınacak yük, sefer sayısı ve teslim takvimine göre belirlenir ve teklifte sabitlenir. Ödeme, teklifte belirtilen takvime göre yapılır."
               ]
             },
             {
@@ -631,7 +542,7 @@
             {
               "h": "Veri sahipliği ve gizlilik",
               "p": [
-                "Uçuş sonucu üretilen çıktıların kullanım hakkı müşteriye aittir. DroneTek, referans amaçlı kullanım için ayrıca yazılı izin alır. Saha verileri üçüncü taraflarla paylaşılmaz."
+                "Uçuş sonucu üretilen çıktıların kullanım hakkı müşteriye aittir. HavarTek.com, referans amaçlı kullanım için ayrıca yazılı izin alır. Saha verileri üçüncü taraflarla paylaşılmaz."
               ]
             },
             {
@@ -689,7 +600,7 @@
             {
               "h": "Saha verisi",
               "p": [
-                "Ham görüntü ve ölçüm verisi, işleme tamamlandıktan sonra erişimi kısıtlı arşivde tutulur. Arşiv erişimi görev ekibi ile sınırlıdır.",
+                "Ham görüntü ve uçuş verisi, işleme tamamlandıktan sonra erişimi kısıtlı arşivde tutulur. Arşiv erişimi görev ekibi ile sınırlıdır.",
                 "Müşteri talebi halinde ham veri teslim edilir ve sistemlerimizden silinir."
               ]
             },
@@ -715,57 +626,34 @@
         }
       },
       "ft": {
-        "desc": "Paket, kargo ve insan taşımacılığı için drone tabanlı ulaşım sistemleri.",
-        "nlTitle": "Drone teknolojileri bültenine katılın",
-        "nlBody": "Yeni platformlar, saha uygulamaları, mevzuat değişiklikleri ve açık çağrılardan ilk siz haberdar olun. Dilediğiniz zaman çıkabilirsiniz.",
+        "desc": "Drone tabanlı ulaşım sistemleri için mühendislik ve girişimcilik platformu.",
+        "nlTitle": "Gelişmeleri e-posta ile alın",
+        "nlBody": "Platform güncellemeleri, saha örnekleri ve açık çağrılar ayda bir kez.",
         "nlPh": "E-posta adresiniz",
-        "nlBtn": "Abone Ol",
+        "nlBtn": "Abone ol",
         "nlOk": "Kaydınız alındı. Teşekkürler.",
-        "colAreas": "Kullanım Alanları",
-        "colSupport": "Destek & Bilgi",
-        "supportItems": [
-          "Talep Takibi",
-          "Hizmet Sözleşmesi",
-          "SHGM İzin ve Yetkiler",
-          "Gizlilik ve Veri Güvenliği",
-          "İletişim"
-        ],
-        "colGroup": "Drone Teknolojileri",
+        "contactTitle": "İletişim",
+        "wa": "WhatsApp",
+        "mail": "E-posta",
+        "colAreas": "Kullanım alanları",
+        "colSupport": "Destek",
+        "colGroup": "Grup",
         "groupItems": [
           {
-            "l": "Hakkımızda",
-            "h": "https://girisimciturk.com/ekyp/drone-teknolojileri/"
+            "l": "Girişimci Türk",
+            "h": "https://girisimciturk.com/"
           },
           {
-            "l": "Girişimci Türk",
-            "h": "https://girisimciturk.com"
+            "l": "Hakkımızda",
+            "h": "https://girisimciturk.com/hakkimizda/"
           },
           {
             "l": "İletişim",
             "h": "https://girisimciturk.com/iletisim/"
           }
         ],
-        "colTrust": "Yetki ve Güvence",
-        "trustItems": [
-          "SHGM kayıtlı ticari İHA operatörü",
-          "Üçüncü şahıs mali sorumluluk sigortası",
-          "KVKK uyumlu veri işleme"
-        ],
-        "contactTitle": "Doğrudan iletişim",
-        "wa": "WhatsApp",
-        "call": "Çağrı Merkezi",
-        "mail": "E-posta",
-        "copy": "© 2026 DroneTek. Tüm hakları saklıdır.",
-        "affilA": "Bu site bir ",
-        "affilB": "DEV YAPIMCILIK YAYINCILIK SAN. TİC. LTD. ŞTİ.",
-        "affilC": " iştirakidir.",
-        "legal": [
-          "Hakkımızda",
-          "Çerez Politikası",
-          "KVKK Aydınlatma Metni",
-          "Kullanım Koşulları"
-        ],
-        "prefs": "Çerez Tercihleri"
+        "copy": "© 2026 HavarTek.com. Tüm hakları saklıdır.",
+        "prefs": "Çerez tercihleri"
       },
       "ck": {
         "barTitle": "Çerez tercihleriniz",
@@ -806,193 +694,252 @@
       "nav3d": "3D Model",
       "cta": "Create a request",
       "hero": {
-        "l1": "Drone-based transport systems for",
-        "l2": "packages, cargo and people.",
-        "sub": "DroneTek is a platform bringing together the engineering solutions, emerging technologies and entrepreneurial teams working on drone-based transport systems. Our aim is to build air transport infrastructure that reduces traffic load, saves time and energy, and stays safe and sustainable.",
-        "b1": "Create a request",
-        "b2": "See the applications"
+        "l1": "We build drone-based systems for",
+        "l2": "package, cargo and passenger transport.",
+        "sub": "HavarTek.com is a platform bringing together the engineering solutions, emerging technologies and entrepreneurial teams working on drone-based transport systems. Our aim is to build air transport infrastructure that reduces traffic load, saves time and energy, and stays safe and sustainable."
       },
+      "promiseK": "01 · Our promise",
+      "promiseTitle": "Road conditions change, delivery time does not",
+      "promiseItems": [
+        {
+          "t": "No courier waiting in traffic",
+          "b": "The flight route is planned independently of road congestion; delivery time does not stretch with traffic."
+        },
+        {
+          "t": "Orders enter a corridor, not a road",
+          "b": "The shortest air route between take-off and landing points gives the same flight time every trip."
+        },
+        {
+          "t": "No need to clear a road in an emergency",
+          "b": "Medicine, blood and emergency supplies arrive within the first hours, without getting caught in road traffic."
+        },
+        {
+          "t": "Fewer vehicles, less energy",
+          "b": "Small loads are carried directly instead of touring one by one in a vehicle; energy use and emissions drop."
+        }
+      ],
       "missionK": "02 · Platform",
       "missionTitle": "What this platform does",
+      "missionLead": "The promises above are not a slogan; they are the result of three jobs. We build the platform ourselves, roll it out in urban and emergency operations, and turn it into a product that works in the field.",
       "missionItems": [
         {
           "t": "Builds systems",
-          "b": "Develops drone-based systems for package, cargo and passenger transport, and supports their testing, validation and path to real deployment."
+          "b": "Develops drone-based systems for package, cargo and passenger transport, and supports their testing, validation and path to real deployment.",
+          "n": "Behind the fixed delivery time promise stand our own flight platform and ground station."
         },
         {
           "t": "Widens adoption",
-          "b": "Contributes to the adoption of drone transport in urban mobility, logistics and emergency response."
+          "b": "Contributes to the adoption of drone transport in urban mobility, logistics and emergency response.",
+          "n": "As corridors multiply, \"delivery without hitting the road\" becomes a working network rather than a one-off mission."
         },
         {
           "t": "Turns it into product",
-          "b": "Converts engineering knowledge into products, platforms and operational solutions through entrepreneurship and systems design."
-        }
-      ],
-      "oppK": "07 · Opportunity",
-      "oppTitle": "A chance to solve Turkey’s transport and emergency logistics problems",
-      "oppItems": [
-        "Build systems that make package, cargo and passenger transport fast and safe",
-        "Design air transport solutions that cut traffic and delays",
-        "Prove the systems in the field through pilot projects and tests",
-        "Produce solutions that improve daily life in cities"
-      ],
-      "oppNote": "Taking part here is not only about developing technology; it is about solving a real national problem.",
-      "disasterA": "In earthquakes and similar disasters, ground transport can break down.",
-      "disasterB": "Drone technology delivers vital aid by the fastest route.",
-      "joinK": "10 · Participation",
-      "joinTitle": "Open to anyone who wants to be part of the solution",
-      "joinItems": [
-        "Anyone who knows or is drawn to drone, software or mechanical engineering",
-        "People focused on transport, logistics, autonomous systems and operations",
-        "Entrepreneurs who want to contribute to product, business model and scaling work",
-        "Anyone who wants to solve urban and emergency transport problems in Turkey"
-      ],
-      "joinNote": "Your knowledge, experience and ideas can shape the transport, logistics and emergency response solutions of the future.",
-      "statsK": "01 · By the numbers",
-      "stats": [
-        {
-          "v": "18,400",
-          "l": "Logged flight hours"
-        },
-        {
-          "v": "8",
-          "l": "Application fields"
-        },
-        {
-          "v": "±2 cm",
-          "l": "Positional accuracy (RTK)"
-        },
-        {
-          "v": "42",
-          "l": "Provinces operated in"
+          "b": "Converts engineering knowledge into products, platforms and operational solutions through entrepreneurship and systems design.",
+          "n": "Not a prototype: a repeatable operating model complete with permits, maintenance and reporting."
         }
       ],
       "areasK": "03 · Applications",
-      "areasTitle": "Eight fields, one platform family",
-      "areasLead": "The same flight software and the same data pipeline. Only the sensor payload and the flight plan change from mission to mission.",
+      "areasTitle": "Three fields of activity, one platform family",
+      "areasLead": "The same flight software and the same ground station. Only the load carried and the flight corridor change from mission to mission.",
       "cats": [
         {
           "id": "all",
           "label": "All"
         },
         {
-          "id": "tarim",
-          "label": "Agriculture & Environment"
-        },
-        {
-          "id": "enerji",
-          "label": "Energy & Infrastructure"
-        },
-        {
-          "id": "olcum",
-          "label": "Survey & Construction"
-        },
-        {
-          "id": "kamu",
-          "label": "Public Safety"
-        },
-        {
           "id": "lojistik",
           "label": "Logistics"
+        },
+        {
+          "id": "sehir",
+          "label": "Urban Mobility"
+        },
+        {
+          "id": "acil",
+          "label": "Emergency & Disaster"
         }
       ],
       "areas": [
         {
-          "cat": "tarim",
-          "catLabel": "Agriculture & Environment",
-          "title": "Crop spraying",
-          "body": "Variable-rate spraying, row-following application and autonomous flight from a prescription file. Twelve minutes per hectare on average with a six-kilogram tank.",
-          "items": [
-            "Per-flight application report",
-            "Field boundary and obstacle map",
-            "Chemical usage breakdown"
-          ]
-        },
-        {
-          "cat": "olcum",
-          "catLabel": "Survey & Construction",
-          "title": "Mapping and photogrammetry",
-          "body": "Orthophoto, digital elevation model and point cloud production. Sub-three-centimetre horizontal accuracy with ground control points.",
-          "items": [
-            "GeoTIFF orthophoto",
-            "Point cloud (LAS)",
-            "Accuracy report"
-          ]
-        },
-        {
-          "cat": "enerji",
-          "catLabel": "Energy & Infrastructure",
-          "title": "Power line inspection",
-          "body": "Transmission corridor, insulator, conductor and transformer scanning. Thermal and visible bands are recorded on the same flight.",
-          "items": [
-            "Fault location list",
-            "Thermal anomaly imagery",
-            "Corridor vegetation analysis"
-          ]
-        },
-        {
-          "cat": "kamu",
-          "catLabel": "Public Safety",
-          "title": "Search, rescue and disaster",
-          "body": "Night search with thermal scanning, post-collapse damage mapping and a first twenty-four-hour situation report.",
-          "items": [
-            "Live video downlink",
-            "Damage classification map",
-            "Coordinate list"
-          ]
-        },
-        {
           "cat": "lojistik",
           "catLabel": "Logistics",
-          "title": "Cargo and sample delivery",
+          "title": "Cargo and package delivery",
           "body": "Point-to-point delivery up to four kilograms on island, highland and construction routes, with an autonomous landing station.",
           "items": [
             "Route plan and flight schedule",
+            "Delivery confirmation and flight log",
+            "Operation report"
+          ]
+        },
+        {
+          "cat": "sehir",
+          "catLabel": "Urban Mobility",
+          "title": "Urban transport corridors",
+          "body": "Autonomous air corridors planned between designated take-off and landing points, away from heavy traffic.",
+          "items": [
+            "Corridor plan and landing points",
+            "Committed delivery window",
+            "Trip log and monthly report"
+          ]
+        },
+        {
+          "cat": "acil",
+          "catLabel": "Emergency & Disaster",
+          "title": "Emergency and disaster logistics",
+          "body": "Delivering medicine, blood and emergency supplies by air when ground transport breaks down.",
+          "items": [
+            "Flight plan ready on call",
             "Temperature-logged transport",
-            "Delivery confirmation record"
+            "First 24-hour delivery report"
           ]
         },
         {
-          "cat": "olcum",
-          "catLabel": "Survey & Construction",
-          "title": "Construction and mining",
-          "body": "Earthwork volume calculation, slope stability monitoring and weekly progress comparison.",
+          "cat": "sehir",
+          "catLabel": "Urban Mobility",
+          "title": "Preparing for passenger transport",
+          "body": "Development work on payload capacity, redundant flight control and landing infrastructure for vertical take-off platforms.",
           "items": [
-            "Volume report (cut/fill)",
-            "Weekly progress comparison",
-            "Slope cross-sections"
-          ]
-        },
-        {
-          "cat": "kamu",
-          "catLabel": "Public Safety",
-          "title": "Security and surveillance",
-          "body": "Perimeter patrol flights, fence breach detection and live video during an incident.",
-          "items": [
-            "Patrol flight plan",
-            "Breach event log",
-            "Night vision sweep"
-          ]
-        },
-        {
-          "cat": "tarim",
-          "catLabel": "Agriculture & Environment",
-          "title": "Forest and environmental monitoring",
-          "body": "Low-altitude flights for early fire detection, wetland boundary tracking and species counts.",
-          "items": [
-            "Temperature anomaly alert",
-            "Area change comparison",
-            "Count report"
+            "Payload capacity test report",
+            "Redundant flight control validation",
+            "Landing infrastructure feasibility"
           ]
         }
       ],
-      "techK": "04 · Technical data",
-      "specTitle": "Flight platforms — technical data",
+      "stepsK": "04 · Process",
+      "stepsTitle": "Four steps from mission to delivery",
+      "steps": [
+        {
+          "n": "01",
+          "t": "Mission definition",
+          "b": "Take-off and delivery points, the load to be carried, weight limit and schedule are set together."
+        },
+        {
+          "n": "02",
+          "t": "Permits and flight plan",
+          "b": "Civil aviation registration, restricted airspace checks and notification run on our side."
+        },
+        {
+          "n": "03",
+          "t": "Flight operation",
+          "b": "Autonomous corridor flight; load security and landing precision are verified in the field."
+        },
+        {
+          "n": "04",
+          "t": "Delivery and reporting",
+          "b": "Delivery confirmation, flight log and operation report are shared in a single file after the mission."
+        }
+      ],
+      "storiesK": "Cases from the field",
+      "storiesTitle": "What happens when the road is blocked, and what we do",
+      "storiesLead": "The cases below are typical scenarios where air transport makes the difference. Tap a heading to see the solution.",
+      "storiesCta": "Have a similar case? Create a request",
+      "stories": [
+        {
+          "who": "City hospital · blood bank",
+          "t": "Emergency blood shipment stuck in traffic",
+          "p": "The 14-kilometre road between two hospitals took over 50 minutes in evening traffic. For a product carried in a cold chain, that was beyond the acceptable limit.",
+          "s": "The air route between the same two points is 6 kilometres. With a fixed rooftop station as the take-off and landing point, delivery time becomes independent of traffic and stays the same every trip."
+        },
+        {
+          "who": "Disaster coordination · rural settlement",
+          "t": "The village road was closed on day one of the earthquake",
+          "p": "A landslide closed the only access road; the vehicle carrying medicine and infant formula waited 11 hours. Nothing reached the settlement until the road reopened.",
+          "s": "With a corridor unaffected by road conditions, loads up to four kilograms can be landed directly in the settlement. What went where in the first 24 hours is reported together with the flight log."
+        },
+        {
+          "who": "Infrastructure site · field crew",
+          "t": "A construction site stopped for a single part",
+          "p": "A round trip to the nearest depot for a faulty hydraulic fitting took 3.5 hours. A crew of ten stood idle the whole time.",
+          "s": "Small, critical parts are delivered straight from depot to site without pulling a vehicle and driver off the job. The request is entered at the ground station and the flight plan is generated automatically."
+        },
+        {
+          "who": "Urban delivery · business",
+          "t": "Courier in traffic, order gone cold",
+          "p": "At peak hours a motorbike courier covered the same distance in 12 minutes one time and 40 the next. The business could not give customers a firm delivery time.",
+          "s": "In corridor flight, if the distance is fixed, so is the time. The business can give customers a delivery window it can commit to, not an estimate."
+        }
+      ],
+      "whyK": "05 · Why by air",
+      "whyTitle": "When ground transport breaks down, air is the fastest way to deliver",
+      "whyItems": [
+        "Urban transport load, rural logistics costs and post-disaster first response time remain unsolved problems.",
+        "Air is the only route that can deliver vital aid in the shortest time even when the road is closed.",
+        "The same platform family carries cargo, samples and emergency aid under a single operating model."
+      ],
+      "newsK": "06 · Updates",
+      "newsTitle": "From the field and the development line",
+      "news": [
+        {
+          "tag": "Platform",
+          "t": "VK-9 VTOL enters series production",
+          "b": "The vertical take-off fixed-wing platform now ships with forty kilometres of range and two hours of endurance."
+        },
+        {
+          "tag": "Operations",
+          "t": "Autonomous landing station in field testing",
+          "b": "Trials of landing and load release without pilot intervention in point-to-point delivery are under way."
+        },
+        {
+          "tag": "Platform",
+          "t": "Payload capacity study for passenger transport",
+          "b": "Platform development continues with the goal of redundant flight control and higher payload capacity."
+        }
+      ],
+      "reqK": "07 · Request",
+      "reqTitle": "Create a request",
+      "reqBody": "Create a request to join as an engineer or entrepreneur, propose a pilot project, or tell us about a transport need.",
+      "afterK": "What happens after your request",
+      "afterItems": [
+        "Your request is read within two working days and routed to the relevant team.",
+        "A short call clarifies the load to be carried, the distance and the delivery points.",
+        "For suitable requests, a pilot flight plan and schedule are shared."
+      ],
+      "form": {
+        "ad": "Full name",
+        "kurum": "Organisation / company",
+        "eposta": "Email",
+        "telefon": "Phone",
+        "rol": "Your role",
+        "alan": "Area of interest",
+        "mesaj": "Your request",
+        "mesajPh": "The load to be carried, distance, take-off and delivery points, and the timeline you expect",
+        "onay": "I have read the Privacy Notice and consent to my contact details being processed to evaluate my request.",
+        "pick": "Select",
+        "send": "Send the request",
+        "sending": "Sending…",
+        "note": "Fields marked * are required. Requests are used for evaluation only.",
+        "sentTitle": "Request received",
+        "sent": "We have your request; you will hear back within two working days. For urgent matters, call our call centre on 0850 241 70 00.",
+        "again": "Create a new request",
+        "errName": "Please enter your full name.",
+        "errEmail": "Enter a valid email address.",
+        "errMessage": "Describe your request in at least a few sentences.",
+        "errConsent": "Privacy consent is required to continue.",
+        "errNetwork": "The request could not be sent. Please try again shortly."
+      },
+      "roles": [
+        "Engineer",
+        "Entrepreneur",
+        "Student",
+        "Organisation / company",
+        "Public institution",
+        "Other"
+      ],
+      "interests": [
+        "Cargo and package delivery",
+        "Urban transport",
+        "Emergency and disaster",
+        "Passenger transport",
+        "Joining the team"
+      ],
+      "apK": "Applications",
+      "apTitle": "Field by field, what we deliver",
+      "apLead": "In every field a mission ends with a delivered load and a single file: delivery confirmation, flight log and operation report. Deliverables per field are listed below.",
+      "deliver": "Deliverables",
+      "tpK": "Technology",
+      "tpTitle": "Platforms, payloads, software",
+      "tpLead": "Three flight platforms, four sensor payloads and a single data pipeline. The mission profile decides which combination flies.",
       "matrixTitle": "Platform comparison table",
-      "doc": "DT-SER",
-      "rev": "Rev 04",
-      "sheet": "Sheet 01 / 03",
-      "sheet2": "Sheet 02 / 03",
       "cols": {
         "no": "No.",
         "prop": "Property",
@@ -1021,122 +968,6 @@
           "r": "Sustained wind"
         }
       ],
-      "note": {
-        "a": "Values measured for the ",
-        "b": " platform in its standard configuration at sea level."
-      },
-      "stepsK": "05 · Process",
-      "stepsTitle": "Four steps from mission to delivery",
-      "steps": [
-        {
-          "n": "01",
-          "t": "Mission definition",
-          "b": "Area boundaries, resolution target, delivery format and schedule are set together."
-        },
-        {
-          "n": "02",
-          "t": "Permits and flight plan",
-          "b": "Registration, restricted airspace checks and notification run on our side."
-        },
-        {
-          "n": "03",
-          "t": "Data collection",
-          "b": "Autonomous line flights; measurements are verified on site with RTK and ground control points."
-        },
-        {
-          "n": "04",
-          "t": "Processing and delivery",
-          "b": "Orthophoto, elevation model, point cloud or inspection report delivered within five working days."
-        }
-      ],
-      "caseK": "06 · Case study",
-      "caseQuote": "“We scanned two hundred kilometres of transmission line in three days and found two cracked insulators and one overheating joint. The crew used to need two weeks.”",
-      "caseAuthor": "— M. Alkan, maintenance chief, regional distribution utility",
-      "caseMetrics": [
-        {
-          "v": "204 km",
-          "l": "Line scanned"
-        },
-        {
-          "v": "3 days",
-          "l": "Time on site"
-        },
-        {
-          "v": "78%",
-          "l": "Time saved"
-        }
-      ],
-      "regK": "08 · Regulation",
-      "regTitle": "Flight permits are on our side",
-      "regBody": "Commercial UAV operation is regulated by the Turkish Directorate General of Civil Aviation. Registration, permits and insurance are handled by us before the mission starts.",
-      "regItems": [
-        "UAV-2 / UAV-3 registration",
-        "Commercial operating permit",
-        "Remote pilot licence and medical",
-        "Third-party liability insurance"
-      ],
-      "newsK": "09 · News",
-      "newsTitle": "Notes from the field",
-      "news": [
-        {
-          "d": "12.06.2026",
-          "tag": "Product",
-          "t": "VK-9 VTOL enters series production",
-          "b": "The vertical take-off fixed-wing platform now ships with forty kilometres of range and two hours of endurance."
-        },
-        {
-          "d": "28.04.2026",
-          "tag": "Field",
-          "t": "12,000 hectares scanned on the Konya plain",
-          "b": "Crop health maps were produced for nine cooperatives in one season and irrigation plans were revised accordingly."
-        },
-        {
-          "d": "05.03.2026",
-          "tag": "Software",
-          "t": "Automatic reporting added to the pipeline",
-          "b": "Post-flight processing now collects inspection findings with their coordinates in a single file."
-        }
-      ],
-      "ctaK": "11 · Contact",
-      "ctaTitle": "Create a request",
-      "ctaBody": "Create a request to join as an engineer or entrepreneur, propose a pilot project, or tell us about a transport need.",
-      "form": {
-        "ad": "Full name",
-        "kurum": "Organisation",
-        "eposta": "Email",
-        "telefon": "Phone",
-        "uni": "University / department",
-        "rol": "Engineer / entrepreneur",
-        "sektor": "Area of interest",
-        "mesaj": "About you and your idea",
-        "send": "Send the request",
-        "pick": "Select",
-        "sentTitle": "Request received",
-        "sent": "We have your request and will come back within two working days.",
-        "again": "New request",
-        "err": "Please fill in name, email and the description."
-      },
-      "roles": [
-        "Engineer",
-        "Entrepreneur",
-        "Student",
-        "Organisation representative"
-      ],
-      "sectors": [
-        "Agriculture",
-        "Energy & Infrastructure",
-        "Survey & Construction",
-        "Public Safety",
-        "Logistics",
-        "Other"
-      ],
-      "apK": "Applications",
-      "apTitle": "Field by field, what we deliver",
-      "apLead": "In every field the output of a flight is a file: a map, a report or a coordinate list. Deliverables per field are listed below.",
-      "deliver": "Deliverables",
-      "tpK": "Technology",
-      "tpTitle": "Platforms, payloads, software",
-      "tpLead": "Three flight platforms, four sensor payloads and a single data pipeline. The mission profile decides which combination flies.",
       "payloadK": "Sensor payloads",
       "payloadTitle": "Four payloads, one airframe interface",
       "payloads": [
@@ -1173,38 +1004,6 @@
           "b": "Outputs are archived with their coordinate system so they can be compared against earlier flights."
         }
       ],
-      "cpK": "Contact",
-      "teamK": "Team",
-      "teamTitle": "The team behind the mission",
-      "team": [
-        {
-          "i": "SK",
-          "n": "Selin Kaya",
-          "r": "Director of operations"
-        },
-        {
-          "i": "ED",
-          "n": "Emre Demir",
-          "r": "Lead engineer, flight systems"
-        },
-        {
-          "i": "BA",
-          "n": "Burak Aydın",
-          "r": "Remote pilot team lead"
-        },
-        {
-          "i": "NY",
-          "n": "Nihan Yılmaz",
-          "r": "Geospatial data and analysis"
-        }
-      ],
-      "officeTitle": "Office",
-      "office": [
-        "Teknopark İzmir, Urla / İzmir",
-        "+90 544 694 32 78",
-        "iletisim@dronetek.com.tr"
-      ],
-      "footer": "© 2026 DroneTek Unmanned Aircraft Systems",
       "docBack": "Back to home",
       "docUpdated": "Last updated",
       "docs": {
@@ -1215,15 +1014,15 @@
             {
               "h": "Who we are",
               "p": [
-                "DroneTek is an engineering and entrepreneurship platform developing drone-based transport systems for packages, cargo and passengers. Our work covers flight platform development, sensor payload integration, flight software and field operations.",
+                "HavarTek.com is an engineering and entrepreneurship platform developing drone-based transport systems for packages, cargo and passengers. Our work covers flight platform development, sensor payload integration, flight software and field operations.",
                 "The company is an affiliate of DEV YAPIMCILIK YAYINCILIK SAN. TİC. LTD. ŞTİ. and sits in the same group as Deprem Teknolojileri."
               ]
             },
             {
               "h": "What we do",
               "p": [
-                "We run unmanned aircraft data collection and transport operations in agriculture, energy infrastructure inspection, mapping, logistics, search and rescue, construction, security and environmental monitoring. Each mission flies a platform and payload configured to its mission profile.",
-                "The output of a flight is always a deliverable file: an orthophoto, an elevation model, a point cloud, an inspection report or a coordinate list."
+                "We run unmanned aircraft transport operations in logistics, urban mobility and emergency logistics. Each mission flies a platform and load configured to its mission profile.",
+                "Every mission ends with a delivered load and a single file: delivery confirmation, flight log and operation report."
               ]
             },
             {
@@ -1243,7 +1042,7 @@
             {
               "h": "Company details",
               "p": [
-                "DroneTek Unmanned Aircraft Systems — Teknopark İzmir, Urla / İzmir. Email: iletisim@dronetek.com.tr — Phone: +90 544 694 32 78"
+                "HavarTek Unmanned Aircraft Systems — Gölbaşı / Ankara. Email: bedirkaraabali@girisimciturk.com — Phone: 0850 241 70 00"
               ]
             }
           ]
@@ -1288,13 +1087,13 @@
             {
               "h": "Data controller",
               "p": [
-                "Under Turkish Personal Data Protection Law no. 6698 the data controller is DroneTek Unmanned Aircraft Systems. Address: Teknopark İzmir, Urla / İzmir. Email: kvkk@dronetek.com.tr"
+                "Under Turkish Personal Data Protection Law no. 6698 the data controller is HavarTek Unmanned Aircraft Systems. Address: Gölbaşı / Ankara. Email: bedirkaraabali@girisimciturk.com"
               ]
             },
             {
               "h": "Personal data processed",
               "p": [
-                "Through the request form: full name, organisation, email, phone, university and department, role selection and the description you submit.",
+                "Through the request form: full name, organisation, email, phone, your role and area of interest, and the request text you submit.",
                 "Through newsletter signup: email address.",
                 "Through site usage: anonymous usage statistics, if you have consented."
               ]
@@ -1316,7 +1115,7 @@
               "h": "Your rights",
               "p": [
                 "Under article 11 of the law you may learn whether your data is processed, request information, request correction or deletion, object to processing and claim compensation for damage.",
-                "Send requests to kvkk@dronetek.com.tr. Requests are answered within thirty days at the latest."
+                "Send requests to bedirkaraabali@girisimciturk.com. Requests are answered within thirty days at the latest."
               ]
             },
             {
@@ -1334,7 +1133,7 @@
             {
               "h": "Scope",
               "p": [
-                "These terms govern the use of dronetek.com.tr. By using the site you accept them."
+                "These terms govern the use of HavarTek.com. By using the site you accept them."
               ]
             },
             {
@@ -1353,19 +1152,19 @@
             {
               "h": "Intellectual property",
               "p": [
-                "Text, imagery, trademarks and software on this site belong to DroneTek or its licensors. They may not be copied, reproduced or used commercially without permission."
+                "Text, imagery, trademarks and software on this site belong to HavarTek.com or its licensors. They may not be copied, reproduced or used commercially without permission."
               ]
             },
             {
               "h": "Limitation of liability",
               "p": [
-                "The site is not guaranteed to run uninterrupted or error-free. DroneTek is not liable for indirect damages arising from decisions based on information on the site."
+                "The site is not guaranteed to run uninterrupted or error-free. HavarTek.com is not liable for indirect damages arising from decisions based on information on the site."
               ]
             },
             {
               "h": "Governing law",
               "p": [
-                "These terms are governed by the laws of the Republic of Turkey. The courts of İzmir have jurisdiction over disputes."
+                "These terms are governed by the laws of the Republic of Turkey. The courts of Ankara have jurisdiction over disputes."
               ]
             }
           ]
@@ -1378,19 +1177,19 @@
               "h": "How your request progresses",
               "p": [
                 "When you submit the request form you receive a request number by email. You can track the process with this number.",
-                "Stage one: technical evaluation — two working days. Stage two: response with flight plan, delivery list and price range. Stage three: permit processes and flight schedule. Stage four: field operation and data processing. Stage five: delivery."
+                "Stage one: technical evaluation — two working days. Stage two: response with flight plan, delivery list and price range. Stage three: permit processes and flight schedule. Stage four: flight operation. Stage five: delivery and reporting."
               ]
             },
             {
               "h": "Delivery time",
               "p": [
-                "For standard missions the processed output is delivered within five working days of completing the field work. For LiDAR and large-area projects this may extend with mission size and is stated in the quotation."
+                "For standard missions the delivery confirmation, flight log and operation report are shared in a single file within five working days of completing the flight. For multi-point and long-corridor projects this may extend with mission size and is stated in the quotation."
               ]
             },
             {
               "h": "Getting in touch",
               "p": [
-                "Write to iletisim@dronetek.com.tr with your request number, or call +90 544 694 32 78."
+                "Write to bedirkaraabali@girisimciturk.com with your request number, or call our call centre on 0850 241 70 00."
               ]
             }
           ]
@@ -1402,20 +1201,20 @@
             {
               "h": "Subject",
               "p": [
-                "The agreement sets out the scope of the unmanned aircraft data collection, inspection or transport service to be performed by DroneTek, the deliverables, the schedule and the price."
+                "The agreement sets out the scope of the unmanned aircraft transport service to be performed by HavarTek.com, the deliverables, the schedule and the price."
               ]
             },
             {
               "h": "Obligations of the parties",
               "p": [
-                "DroneTek is responsible for obtaining flight permits, conducting the flight in line with regulation, maintaining insurance cover and delivering the agreed outputs.",
-                "The client is responsible for providing site access, declaring area boundaries and known obstacles, and completing any institutional permissions that fall on their side."
+                "HavarTek.com is responsible for obtaining flight permits, conducting the flight in line with regulation, maintaining insurance cover and delivering the agreed outputs.",
+                "The client is responsible for providing site access, declaring take-off and delivery points and known obstacles, and completing any institutional permissions that fall on their side."
               ]
             },
             {
               "h": "Price and payment",
               "p": [
-                "The price is set by mission area, resolution target, sensor payload and delivery format, and is fixed in the quotation. Payment follows the schedule stated there."
+                "The price is set by distance, the load to be carried, number of trips and delivery schedule, and is fixed in the quotation. Payment follows the schedule stated there."
               ]
             },
             {
@@ -1427,7 +1226,7 @@
             {
               "h": "Data ownership and confidentiality",
               "p": [
-                "The right to use the outputs produced by the flight belongs to the client. DroneTek obtains separate written permission for any reference use. Field data is not shared with third parties."
+                "The right to use the outputs produced by the flight belongs to the client. HavarTek.com obtains separate written permission for any reference use. Field data is not shared with third parties."
               ]
             },
             {
@@ -1485,7 +1284,7 @@
             {
               "h": "Field data",
               "p": [
-                "Raw imagery and measurement data is held in a restricted archive once processing is complete. Archive access is limited to the mission team.",
+                "Raw imagery and flight data is held in a restricted archive once processing is complete. Archive access is limited to the mission team.",
                 "On client request the raw data is delivered and deleted from our systems."
               ]
             },
@@ -1511,57 +1310,34 @@
         }
       },
       "ft": {
-        "desc": "Drone-based transport systems for packages, cargo and people.",
-        "nlTitle": "Join the drone technologies newsletter",
-        "nlBody": "Be first to hear about new platforms, field deployments, regulatory changes and open calls. You can unsubscribe at any time.",
+        "desc": "An engineering and entrepreneurship platform for drone-based transport systems.",
+        "nlTitle": "Get updates by email",
+        "nlBody": "Platform updates, field cases and open calls, once a month.",
         "nlPh": "Your email address",
         "nlBtn": "Subscribe",
         "nlOk": "You are on the list. Thank you.",
+        "contactTitle": "Contact",
+        "wa": "WhatsApp",
+        "mail": "Email",
         "colAreas": "Applications",
-        "colSupport": "Support & Information",
-        "supportItems": [
-          "Request Tracking",
-          "Service Agreement",
-          "Civil Aviation Permits",
-          "Privacy and Data Security",
-          "Contact"
-        ],
-        "colGroup": "Drone Technologies",
+        "colSupport": "Support",
+        "colGroup": "Group",
         "groupItems": [
           {
-            "l": "About us",
-            "h": "https://girisimciturk.com/ekyp/drone-teknolojileri/"
+            "l": "Girişimci Türk",
+            "h": "https://girisimciturk.com/"
           },
           {
-            "l": "Girişimci Türk",
-            "h": "https://girisimciturk.com"
+            "l": "About us",
+            "h": "https://girisimciturk.com/hakkimizda/"
           },
           {
             "l": "Contact",
             "h": "https://girisimciturk.com/iletisim/"
           }
         ],
-        "colTrust": "Authorisation and Assurance",
-        "trustItems": [
-          "Registered commercial UAV operator",
-          "Third-party liability insurance",
-          "GDPR/KVKK compliant data processing"
-        ],
-        "contactTitle": "Direct contact",
-        "wa": "WhatsApp",
-        "call": "Call centre",
-        "mail": "Email",
-        "copy": "© 2026 DroneTek. All rights reserved.",
-        "affilA": "This site is an affiliate of ",
-        "affilB": "DEV YAPIMCILIK YAYINCILIK SAN. TİC. LTD. ŞTİ.",
-        "affilC": ".",
-        "legal": [
-          "About us",
-          "Cookie Policy",
-          "Privacy Notice",
-          "Terms of Use"
-        ],
-        "prefs": "Cookie Preferences"
+        "copy": "© 2026 HavarTek.com. All rights reserved.",
+        "prefs": "Cookie preferences"
       },
       "ck": {
         "barTitle": "Your cookie preferences",

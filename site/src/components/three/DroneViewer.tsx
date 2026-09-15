@@ -17,9 +17,9 @@ export type ViewerLabels = {
 /** Sahne kutusu — yer tutucu ile aynı ölçüde olmalı ki yükleme sırasında zıplamasın. */
 export const stageBox = 'relative w-full h-[min(78vh,760px)] min-h-[420px] overflow-hidden bg-white';
 
-/** Sahne üzerindeki açık zeminli düğme (tasarımdaki three-d-stage araç çubuğu). */
+/** Sahne üzerindeki açık zeminli düğme; pasifken beyaz, aktifken mavi dolgu. */
 const toolbarButton =
-  'cursor-pointer rounded-[8px] border border-[rgba(20,20,19,0.18)] px-3 py-[9px] text-[12.5px] font-medium leading-none transition-colors';
+  'cursor-pointer rounded-[8px] border border-line-strong px-3 py-[9px] text-[12.5px] font-medium leading-none transition-colors';
 
 type Home = { position: THREE.Vector3; target: THREE.Vector3 };
 
@@ -211,7 +211,7 @@ export function DroneViewer({ labels }: { labels: ViewerLabels }) {
   return (
     <div ref={hostRef} className={stageBox}>
       {!webglSupported ? (
-        <p className="absolute inset-0 m-0 flex items-center justify-center px-6 text-center text-[14px] leading-[1.6] text-[#8a2f20]">
+        <p className="absolute inset-0 m-0 flex items-center justify-center px-6 text-center text-[14px] leading-[1.6] text-error">
           {labels.unsupported}
         </p>
       ) : null}
@@ -221,7 +221,7 @@ export function DroneViewer({ labels }: { labels: ViewerLabels }) {
           <button
             type="button"
             onClick={resetView}
-            className={cn(toolbarButton, 'bg-white/92 text-[#1a1915] hover:bg-white')}
+            className={cn(toolbarButton, 'bg-white/92 text-ink hover:bg-white')}
           >
             {labels.reset}
           </button>
@@ -232,8 +232,8 @@ export function DroneViewer({ labels }: { labels: ViewerLabels }) {
             className={cn(
               toolbarButton,
               autoRotate
-                ? 'border-transparent bg-amber text-ink hover:bg-amber-lift'
-                : 'bg-white/92 text-[#1a1915] hover:bg-white',
+                ? 'border-transparent bg-blue text-white hover:bg-blue-lift'
+                : 'bg-white/92 text-ink hover:bg-white',
             )}
           >
             {labels.autorotate}
