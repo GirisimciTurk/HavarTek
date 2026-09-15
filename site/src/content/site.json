@@ -909,7 +909,7 @@
         "sending": "Sending…",
         "note": "Fields marked * are required. Requests are used for evaluation only.",
         "sentTitle": "Request received",
-        "sent": "We have your request; you will hear back within two working days. For urgent matters, call our call centre on 0850 241 70 00.",
+        "sent": "We have your request; you will hear back within two working days. For urgent matters, call our call centre on +90 850 241 70 00.",
         "again": "Create a new request",
         "errName": "Please enter your full name.",
         "errEmail": "Enter a valid email address.",
@@ -1042,7 +1042,7 @@
             {
               "h": "Company details",
               "p": [
-                "HavarTek Unmanned Aircraft Systems — Gölbaşı / Ankara. Email: bedirkaraabali@girisimciturk.com — Phone: 0850 241 70 00"
+                "HavarTek Unmanned Aircraft Systems — Gölbaşı / Ankara. Email: bedirkaraabali@girisimciturk.com — Phone: +90 850 241 70 00"
               ]
             }
           ]
@@ -1189,7 +1189,7 @@
             {
               "h": "Getting in touch",
               "p": [
-                "Write to bedirkaraabali@girisimciturk.com with your request number, or call our call centre on 0850 241 70 00."
+                "Write to bedirkaraabali@girisimciturk.com with your request number, or call our call centre on +90 850 241 70 00."
               ]
             }
           ]
@@ -1379,7 +1379,7 @@
       "values": [
         "42 dk / 42 min",
         "8 km",
-        "6,0 kg",
+        "6,0 kg / 6.0 kg",
         "±2 cm",
         "12 m/s"
       ]
@@ -1393,7 +1393,7 @@
       "values": [
         "180 dk / 180 min",
         "60 km",
-        "2,5 kg",
+        "2,5 kg / 2.5 kg",
         "±3 cm",
         "14 m/s"
       ]
@@ -1407,7 +1407,7 @@
       "values": [
         "120 dk / 120 min",
         "40 km",
-        "4,0 kg",
+        "4,0 kg / 4.0 kg",
         "±2 cm",
         "16 m/s"
       ]

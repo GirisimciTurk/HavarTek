@@ -101,14 +101,14 @@ jobs:
         run: HOST=vps ./deploy/sync.sh
 
       # HEALTH_URL depo değişkeni (vars) tanımlıysa o adres denetlenir; yoksa
-      # sunucunun IP'si. TLS açılıp 80 → 443 yönlendirmesi başlayınca
-      # HEALTH_URL=https://havartek.com/tr olarak ayarlanmalı.
+      # sunucunun IP'si. -L: TLS açılınca 80 → 443 yönlendirmesi izlenir, denetim
+      # kırılmaz (HEALTH_URL=https://havartek.com/tr ayarlamak yine de önerilir).
       - name: Sağlık denetimi
         env:
           VPS_HOST: ${{ secrets.VPS_HOST }}
           HEALTH_URL: ${{ vars.HEALTH_URL }}
         run: |
           url="${HEALTH_URL:-http://$VPS_HOST/tr}"
-          code=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 20 "$url")
+          code=$(curl -sSL -o /dev/null -w '%{http_code}' --max-time 20 "$url")
           echo "$url -> $code"
           test "$code" = "200"

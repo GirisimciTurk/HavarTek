@@ -16,8 +16,9 @@ export const ORG = {
   name: 'HavarTek.com',
   legalName: 'HavarTek İnsansız Hava Aracı Sistemleri A.Ş.',
   email: 'bedirkaraabali@girisimciturk.com',
-  /** Çağrı merkezi (tasarımdaki tel: bağlantısı) */
+  /** Çağrı merkezi (tasarımdaki tel: bağlantısı); EN sayfada uluslararası biçim */
   phone: '0850 241 70 00',
+  phoneIntl: '+90 850 241 70 00',
   phoneRaw: '+908502417000',
   /** WhatsApp hattı — wa.me bağlantısı için ülke kodlu, artısız */
   whatsapp: '0544 694 32 78',
@@ -94,7 +95,7 @@ export function organizationJsonLd(locale: Locale) {
     logo: absolute('/logo.png'),
     description: t.ft.desc,
     email: ORG.email,
-    telephone: ORG.phone,
+    telephone: ORG.phoneIntl,
     address: {
       '@type': 'PostalAddress',
       addressLocality: `${ORG.address.district} / ${ORG.address.city}`,

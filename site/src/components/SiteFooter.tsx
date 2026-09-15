@@ -87,7 +87,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               {t.ft.wa}
             </a>
             <a href={`tel:${ORG.phoneRaw}`} className={pillClass}>
-              {ORG.phone}
+              {locale === 'en' ? ORG.phoneIntl : ORG.phone}
             </a>
             <a href={`mailto:${ORG.email}`} className={pillClass}>
               {t.ft.mail}

@@ -55,7 +55,7 @@ export function RequestSection({
 
           <div className="mt-[30px] flex flex-wrap gap-2">
             <a href={`tel:${ORG.phoneRaw}`} className={pillClass}>
-              {ORG.phone}
+              {locale === 'en' ? ORG.phoneIntl : ORG.phone}
             </a>
             <a
               href={`https://wa.me/${ORG.whatsappRaw}`}

@@ -102,6 +102,8 @@ export function ButtonLink({
 export function chipClass(active: boolean): string {
   return cn(
     'cursor-pointer rounded-full border px-4 py-[9px] text-[14px] transition-colors',
+    // Radyo düğmesi sr-only olduğu için odak halkası görünen etikete taşınır.
+    'has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-[3px] has-[:focus-visible]:outline-blue',
     active
       ? 'border-blue bg-blue text-white hover:text-white'
       : 'border-line-strong bg-white text-muted hover:border-line-chip hover:text-ink',
@@ -112,9 +114,13 @@ export function chipClass(active: boolean): string {
    Kart — beyaz zemin, ince kenarlık, yuvarlatılmış köşe
 ------------------------------------------------------------------------- */
 
-/** Tasarımdaki beyaz kartın ortak sınıfları; hover'da 5px yükselir. */
+/**
+ * Tasarımdaki beyaz kartın ortak sınıfları; hover'da 5px yükselir.
+ * Tailwind v4'te translate-* `transform` değil ayrı `translate` özelliğini
+ * yazar; geçiş listesi de onu dinlemeli, yoksa yükselme animasyonsuz olur.
+ */
 export const cardClass =
-  'rounded-2xl border border-line-soft bg-white transition-[transform,box-shadow] duration-[350ms] ease-out-soft hover:-translate-y-[5px] hover:shadow-card';
+  'rounded-2xl border border-line-soft bg-white transition-[translate,box-shadow] duration-[350ms] ease-out-soft hover:-translate-y-[5px] hover:shadow-card';
 
 /* -------------------------------------------------------------------------
    Üst çizgili liste — tasarımda tekrar eden madde listesi

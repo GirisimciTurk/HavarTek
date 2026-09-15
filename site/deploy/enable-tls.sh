@@ -2,7 +2,7 @@
 # HavarTek — Let's Encrypt sertifikasını alır ve nginx'i TLS'li sürüme geçirir.
 #
 # Sunucuda root olarak çalıştırılır:
-#   /var/www/havartek/deploy/enable-tls.sh
+#   /var/www/havartek/app/deploy/enable-tls.sh
 #
 # Ön koşul: havartek.com ve www.havartek.com A kayıtları BU sunucuyu
 # göstermeli. Betik önce bunu doğrular; DNS hazır değilse hiçbir şeye dokunmaz.
@@ -11,7 +11,7 @@ set -euo pipefail
 DOMAIN="${DOMAIN:-havartek.com}"
 EMAIL="${EMAIL:-}"
 SITE_CONF=/etc/nginx/sites-available/havartek.conf
-REPO_CONF=/var/www/havartek/deploy/nginx.conf
+REPO_CONF=/var/www/havartek/app/deploy/nginx.conf
 
 [ "$(id -u)" -eq 0 ] || { echo "root olarak çalıştırın" >&2; exit 1; }
 
@@ -43,8 +43,11 @@ if [ -n "$EMAIL" ]; then
 else
   mail_args=(--register-unsafely-without-email)
 fi
+# --deploy-hook: certonly kipinde certbot yenilemede nginx'i kendisi yeniden
+# yüklemez; kanca olmasa 90 gün sonra süresi dolmuş sertifika sunulurdu.
 certbot certonly --webroot -w /var/www/certbot \
   --non-interactive --agree-tos "${mail_args[@]}" \
+  --deploy-hook 'systemctl reload nginx' \
   -d "$DOMAIN" -d "www.$DOMAIN"
 
 echo "→ nginx TLS'li sürüme geçiyor (eski yapılandırma .bak olarak saklanır)"

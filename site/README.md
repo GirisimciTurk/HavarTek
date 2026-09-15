@@ -273,35 +273,31 @@ Günlükler: `docker compose logs -f web`
 ### b) Docker'sız (Node + systemd) — yayındaki yol
 
 ```bash
-# 1) Node 22 ve nginx kurulu olmalı; servis kullanıcısı:
+# 1) Node 22 ve nginx kurulu olmalı; servis kullanıcısı ve dizin:
 sudo adduser --system --group --home /var/www/havartek havartek
+sudo -u havartek cp site/.env.example /var/www/havartek/.env && sudo -u havartek nano /var/www/havartek/.env
 
-# 2) site/ klasörünün İÇERİĞİNİ /var/www/havartek içine alın. Yayındaki sunucuda
-#    bu iş git ile değil, yerelden `deploy/sync.sh` ile (rsync) yapılıyor; git
-#    tercih edilirse: git clone … /srv/havartek && ln -s /srv/havartek/site /var/www/havartek
+# 2) İlk dağıtım — yerelden (sunucuda git klonu yok, kaynak rsync ile gider):
+./deploy/sync.sh          # HOST=root@1.2.3.4 ./deploy/sync.sh
+# Betik kaynağı /var/www/havartek/app içine kopyalar, orada `npm ci && npm run build`
+# çalıştırır, standalone çıktısını /var/www/havartek/release yapar, deploy/havartek.service
+# birimini kurar/günceller ve servisi başlatır. Derleme yayındaki klasörde değil app/
+# içinde yapıldığı için sonraki dağıtımlarda site kesintiye uğramaz.
 
-# 3) Derleyin
-cd /var/www/havartek
-sudo -u havartek cp .env.example .env && sudo -u havartek nano .env
-sudo -u havartek npm ci
-sudo -u havartek npm run build
-
-# 4) standalone sunucusunun ihtiyaç duyduğu dosyaları yanına kopyalayın
-sudo -u havartek cp -r public .next/standalone/public
-sudo -u havartek cp -r .next/static .next/standalone/.next/static
-sudo -u havartek mkdir -p .next/standalone/.next/cache   # görsel önbelleği
-
-# 5) Servis
-sudo cp deploy/havartek.service /etc/systemd/system/
-sudo systemctl daemon-reload
-sudo systemctl enable --now havartek
-systemctl status havartek
-
-# 6) nginx + certbot: (a) yolundaki 4. ve 5. adımların aynısı
+# 3) nginx + certbot: (a) yolundaki 4. ve 5. adımların aynısı
 ```
 
-Güncelleme: `./deploy/sync.sh` (3. ve 4. adımları + `systemctl restart havartek`'i
-kendisi yapar). Günlükler: `journalctl -u havartek -f`
+Sunucudaki düzen:
+
+```
+/var/www/havartek/
+├─ .env        çalışma anı ayarları (SMTP vb.) — sync.sh dokunmaz
+├─ app/        kaynak + node_modules + .next  (derleme burada)
+└─ release/    yayındaki standalone sunucu     (havartek.service WorkingDirectory)
+```
+
+Güncelleme: `./deploy/sync.sh` ya da `main`'e push (CI aynı betiği çalıştırır).
+Günlükler: `journalctl -u havartek -f`
 
 ---
 
@@ -320,17 +316,14 @@ kendisi yapar). Günlükler: `journalctl -u havartek -f`
 | TLS'i açma | `deploy/enable-tls.sh` (sunucuda, DNS çevrildikten sonra) |
 
 Sunucuda git klonu **yok**; kaynak rsync ile gidiyor ve güncelleme `deploy/sync.sh`
-ile yapılıyor — **CI de aynı betiği kullanıyor**. Betik dosyaları gönderir, `npm ci &&
-npm run build` çalıştırır, standalone dosyalarını yerine kopyalar ve servisi yeniden
-başlatır. Tek çekirdekli makinede derlemenin belleğe takılmaması için 2 GB `/swapfile`
-açıldı.
+ile yapılıyor — **CI de aynı betiği kullanıyor**. Betik dosyaları `app/` içine gönderir,
+orada `npm ci && npm run build` çalıştırır, standalone çıktısını `release/` yapar ve
+servisi yeniden başlatır; yeni sürüm ayağa kalkmazsa öncekine döner. Tek çekirdekli
+makinede derlemenin belleğe takılmaması için 2 GB `/swapfile` açıldı.
 
-> **Sunucudaki adlar değişmedi.** Marka HavarTek.com'a geçti ama dizin
-> (`/var/www/havartek`), sistem kullanıcısı (`havartek`), servis (`havartek.service`),
-> nginx dosyası (`havartek.conf`) ve SSH takma adı (`havartek-vps`) bilerek aynı
-> bırakıldı; çalışan kurulumu bozmamak için. Bunları yeniden adlandırmak isterseniz
-> `deploy/*` dosyaları, `sync.sh` içindeki `REMOTE_DIR`/`chown`/`runuser`/`systemctl`
-> satırları ve CI secrets'ı birlikte değişmeli.
+> Sunucudaki tüm adlar (dizin `/var/www/havartek`, kullanıcı `havartek`,
+> `havartek.service`, nginx `havartek.conf`, SSH takma adı `havartek-vps`) marka ile
+> birlikte 2026-09-15'te eski addan `havartek`'e taşındı; eski adda hiçbir şey kalmadı.
 
 ### Kalan iki adım
 
@@ -340,7 +333,7 @@ Kayıt bu sunucuya çevrildikten sonra tek komut yeter:
 
 ```bash
 ssh havartek-vps
-EMAIL=bedirkaraabali@girisimciturk.com /var/www/havartek/deploy/enable-tls.sh
+EMAIL=bedirkaraabali@girisimciturk.com /var/www/havartek/app/deploy/enable-tls.sh
 ```
 
 Betik önce A kayıtlarının gerçekten bu sunucuyu gösterdiğini ve
@@ -397,9 +390,10 @@ Akış dosyası: `.github/workflows/ci.yml`. Depo: `GirisimciTurk/HavarTek`, var
 `deploy`: `production` ortamında, aynı anda tek dağıtım (`concurrency: deploy-production`,
 bekleyen iptal edilmez), 30 dakika zaman aşımı. Adımlar: secrets'tan SSH anahtarı ve
 `~/.ssh/config` içine `Host vps` girdisi yazılır → `HOST=vps ./deploy/sync.sh`
-(yerelde kullanılan betiğin aynısı: rsync + uzakta `npm ci && npm run build` +
-standalone kopyaları + `systemctl restart havartek`) → `curl` ile sağlık denetimi
-(`HEALTH_URL` değişkeni, yoksa `http://<VPS_HOST>/tr`; 200 beklenir).
+(yerelde kullanılan betiğin aynısı: rsync → `app/`, uzakta `npm ci && npm run build`,
+standalone çıktısı → `release/`, `systemctl restart havartek`) → `curl -L` ile sağlık
+denetimi (`HEALTH_URL` değişkeni, yoksa `http://<VPS_HOST>/tr`; yönlendirme izlenir,
+200 beklenir).
 
 Sunucuda derleme yapıldığı için CI'daki `build` adımı yalnızca **kapı** görevi görür;
 sunucuya giden şey kaynak koddur, derleme çıktısı değil.

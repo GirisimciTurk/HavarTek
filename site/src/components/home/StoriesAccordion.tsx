@@ -61,7 +61,7 @@ export function StoriesAccordion({ stories }: { stories: readonly StoryItem[] })
               <span
                 aria-hidden
                 className={cn(
-                  'grid h-[26px] w-[26px] flex-none place-items-center rounded-full text-[18px] leading-none transition-[transform,background-color,color] duration-200 ease-out-soft',
+                  'grid h-[26px] w-[26px] flex-none place-items-center rounded-full text-[18px] leading-none transition-[rotate,background-color,color] duration-[250ms] ease-out-soft',
                   open ? 'rotate-45 bg-blue text-white' : 'bg-tint text-blue',
                 )}
               >

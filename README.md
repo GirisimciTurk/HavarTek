@@ -33,9 +33,7 @@ Göndermeden önce CI'nın çalıştırdığı üçlü: `npm run lint && npm run
 
 ## Yayın
 
-`main`'e her push CI'dan geçer ve `site/deploy/sync.sh` ile sunucuya gider (rsync +
-sunucuda derleme + `systemctl restart`); aynı betik yerelden de çalıştırılabilir.
-Sunucudaki dizin/kullanıcı/servis adları (`/var/www/havartek`, `havartek`,
-`havartek.service`) marka değişikliğinden sonra bilerek aynı bırakıldı. Secrets
-kurulumu, sunucu bilgileri ve TLS/SMTP için kalan adımlar
-[`site/README.md`](site/README.md) içinde.
+`main`'e her push CI'dan geçer ve `site/deploy/sync.sh` ile sunucuya gider (rsync →
+`/var/www/havartek/app`, sunucuda derleme, çıktı → `release/`, `systemctl restart`);
+aynı betik yerelden de çalıştırılabilir. Secrets kurulumu, sunucu bilgileri ve
+TLS/SMTP için kalan adımlar [`site/README.md`](site/README.md) içinde.

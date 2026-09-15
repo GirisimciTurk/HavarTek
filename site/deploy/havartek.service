@@ -5,9 +5,11 @@
 #   sudo systemctl enable --now havartek
 #   journalctl -u havartek -f
 #
-# Ön koşul: /var/www/havartek içinde `npm ci && npm run build` çalıştırılmış,
-# public/ ve .next/static klasörleri .next/standalone içine kopyalanmış olmalı
-# (adımlar README'de). Uygulama yalnızca localhost'u dinler; 80/443'ü nginx karşılar.
+# Ön koşul: deploy/sync.sh çalışmış olmalı — derlenmiş standalone sunucu
+# /var/www/havartek/release içinde (public/ ve .next/static dahil) durur, kaynak
+# ve derleme /var/www/havartek/app içindedir. sync.sh bu dosyayı sunucudakiyle
+# karşılaştırıp değişmişse kendisi kurar. Uygulama yalnızca localhost'u dinler;
+# 80/443'ü nginx karşılar.
 
 [Unit]
 Description=HavarTek kurumsal sitesi (Next.js standalone)
@@ -19,7 +21,7 @@ Wants=network-online.target
 Type=simple
 User=havartek
 Group=havartek
-WorkingDirectory=/var/www/havartek
+WorkingDirectory=/var/www/havartek/release
 
 # NEXT_PUBLIC_* değerleri derleme anında gömülür; burada okunanlar SMTP gibi
 # çalışma anı ayarlarıdır. Dosya yoksa servis başlamaz — "-" ile isteğe bağlı.
@@ -29,8 +31,8 @@ Environment=NEXT_TELEMETRY_DISABLED=1
 Environment=PORT=3000
 Environment=HOSTNAME=127.0.0.1
 
-# standalone sunucusu kendi klasörüne geçer; statik dosyaları oradan okur.
-ExecStart=/usr/bin/node .next/standalone/server.js
+# standalone sunucusu kendi klasöründen çalışır; statik dosyaları oradan okur.
+ExecStart=/usr/bin/node server.js
 
 Restart=always
 RestartSec=5
@@ -65,7 +67,7 @@ MemoryDenyWriteExecute=false
 
 # ProtectSystem=strict tüm dosya sistemini salt okunur yapar; next/image
 # önbelleğinin yazabilmesi için yalnızca bu klasör açılır (önceden oluşturun).
-ReadWritePaths=/var/www/havartek/.next/standalone/.next/cache
+ReadWritePaths=/var/www/havartek/release/.next/cache
 
 [Install]
 WantedBy=multi-user.target

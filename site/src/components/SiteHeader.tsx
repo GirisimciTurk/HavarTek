@@ -44,14 +44,18 @@ export function SiteHeader({ locale, nav, ctaLabel, menuLabel, closeLabel }: Pro
   const [menuOpen, setMenuOpen] = useState(false);
   const [hovered, setHovered] = useState<keyof NavLabels | null>(null);
 
-  // Menü açıkken arka planın kaymasını engelle
+  // Tasarımdaki gibi: pencere masaüstü eşiğini (lg = 1024px) geçince mobil
+  // menü kapanır; aksi halde gizlenen panel açık kalır. Sayfa kaydırması
+  // kilitlenmez — panel yüzen menünün altında akar.
   useEffect(() => {
     if (!menuOpen) return;
-    const previous = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = previous;
+    const desktop = window.matchMedia('(min-width: 1024px)');
+    const close = () => {
+      if (desktop.matches) setMenuOpen(false);
     };
+    close();
+    desktop.addEventListener('change', close);
+    return () => desktop.removeEventListener('change', close);
   }, [menuOpen]);
 
   const { segments } = splitPath(pathname);
