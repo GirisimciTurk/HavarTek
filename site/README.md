@@ -196,7 +196,7 @@ npm run build        # üretim derlemesi (.next + .next/standalone)
 npm start            # derlenmiş sürümü yerelde çalıştır
 npm run images       # public/ altındaki simgeleri yeniden üret
 npm run lint         # ESLint
-npm run typecheck    # tsc --noEmit
+npm run typecheck    # next typegen + tsc --noEmit (next-env.d.ts derleme olmadan da üretilir)
 ```
 
 `npm run build` sırasında **internet erişimi gerekir**: `next/font/google` Poppins'i
