@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
-# HavarTek — Let's Encrypt sertifikasını alır ve nginx'i TLS'li sürüme geçirir.
+# GökTek — Let's Encrypt sertifikasını alır ve nginx'i TLS'li sürüme geçirir.
 #
 # Sunucuda root olarak çalıştırılır:
 #   /var/www/havartek/app/deploy/enable-tls.sh
 #
-# Ön koşul: havartek.com ve www.havartek.com A kayıtları BU sunucuyu
+# Ön koşul: goktek.com ve www.goktek.com A kayıtları BU sunucuyu
 # göstermeli. Betik önce bunu doğrular; DNS hazır değilse hiçbir şeye dokunmaz.
 set -euo pipefail
 
-DOMAIN="${DOMAIN:-havartek.com}"
+DOMAIN="${DOMAIN:-goktek.com}"
 EMAIL="${EMAIL:-}"
 SITE_CONF=/etc/nginx/sites-available/havartek.conf
 REPO_CONF=/var/www/havartek/app/deploy/nginx.conf
@@ -62,9 +62,12 @@ fi
 systemctl reload nginx
 
 echo "→ doğrulama"
-curl -sS -o /dev/null -w "  https://$DOMAIN/tr      -> %{http_code} (http %{http_version})\n" "https://$DOMAIN/tr"
-curl -sS -o /dev/null -w "  http://$DOMAIN/tr       -> %{http_code} -> %{redirect_url}\n" "http://$DOMAIN/tr"
-curl -sS -o /dev/null -w "  https://www.$DOMAIN/tr  -> %{http_code} -> %{redirect_url}\n" "https://www.$DOMAIN/tr"
+# reload hemen döner, işçiler yeni sertifikayı birkaç saniye içinde alır; bu arada
+# eski sertifika sunulabilir. Doğrulama bilgi amaçlı: hata betiği kırmaz.
+sleep 3
+curl -sS -o /dev/null -w "  https://$DOMAIN/tr      -> %{http_code} (http %{http_version})\n" "https://$DOMAIN/tr" || true
+curl -sS -o /dev/null -w "  http://$DOMAIN/tr       -> %{http_code} -> %{redirect_url}\n" "http://$DOMAIN/tr" || true
+curl -sS -o /dev/null -w "  https://www.$DOMAIN/tr  -> %{http_code} -> %{redirect_url}\n" "https://www.$DOMAIN/tr" || true
 systemctl list-timers certbot.timer --no-pager | tail -2
 
 echo "✓ TLS açık. Yenileme certbot.timer ile otomatik."

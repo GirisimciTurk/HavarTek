@@ -5,7 +5,7 @@ import { getUi } from '@/content/ui';
 import { href, htmlLang, locales, type Locale, type Route } from '@/lib/i18n';
 
 /** Kanonik adres. VPS'te NEXT_PUBLIC_SITE_URL ile ayarlanır. */
-export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://havartek.com').replace(
+export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://goktek.com').replace(
   /\/+$/,
   '',
 );
@@ -13,8 +13,8 @@ export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://havartek.co
 export const absolute = (path: string) => `${siteUrl}${path}`;
 
 export const ORG = {
-  name: 'HavarTek.com',
-  legalName: 'HavarTek İnsansız Hava Aracı Sistemleri A.Ş.',
+  name: 'GökTek',
+  legalName: 'GökTek İnsansız Hava Aracı Sistemleri A.Ş.',
   email: 'bedirkaraabali@girisimciturk.com',
   /** Çağrı merkezi (tasarımdaki tel: bağlantısı); EN sayfada uluslararası biçim */
   phone: '0850 241 70 00',

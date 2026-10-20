@@ -1,4 +1,4 @@
-# HavarTek — Docker kullanmadan çalıştırma (systemd)
+# GökTek — Docker kullanmadan çalıştırma (systemd)
 #
 #   sudo cp deploy/havartek.service /etc/systemd/system/
 #   sudo systemctl daemon-reload
@@ -12,8 +12,8 @@
 # 80/443'ü nginx karşılar.
 
 [Unit]
-Description=HavarTek kurumsal sitesi (Next.js standalone)
-Documentation=https://havartek.com
+Description=GökTek kurumsal sitesi (Next.js standalone)
+Documentation=https://goktek.com
 After=network-online.target
 Wants=network-online.target
 

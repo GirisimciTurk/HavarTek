@@ -1,4 +1,4 @@
-# HavarTek.com — CI/CD
+# GökTek — CI/CD
 #
 # Her PR ve main'e her push'ta site/ derlenir (lint + tip denetimi + next build).
 # main'e push'ta ayrıca VPS'e dağıtım yapılır; dağıtım yerelde de kullanılan
@@ -46,7 +46,7 @@ jobs:
       - name: Üretim derlemesi
         run: npm run build
         env:
-          NEXT_PUBLIC_SITE_URL: https://havartek.com
+          NEXT_PUBLIC_SITE_URL: https://goktek.com
 
   deploy:
     name: VPS'e dağıtım
@@ -102,7 +102,7 @@ jobs:
 
       # HEALTH_URL depo değişkeni (vars) tanımlıysa o adres denetlenir; yoksa
       # sunucunun IP'si. -L: TLS açılınca 80 → 443 yönlendirmesi izlenir, denetim
-      # kırılmaz (HEALTH_URL=https://havartek.com/tr ayarlamak yine de önerilir).
+      # kırılmaz (HEALTH_URL=https://goktek.com/tr ayarlamak yine de önerilir).
       - name: Sağlık denetimi
         env:
           VPS_HOST: ${{ secrets.VPS_HOST }}

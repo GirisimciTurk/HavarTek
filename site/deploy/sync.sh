@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# HavarTek.com — yereldeki site/ klasörünü sunucuya gönderip yeniden derler ve
+# GökTek — yereldeki site/ klasörünü sunucuya gönderip yeniden derler ve
 # kesintisiz yayına alır.
 #
 # Sunucuda git klonu yok; kaynak rsync ile gidiyor. CI de main'e her push'ta

@@ -82,7 +82,7 @@ export function SiteHeader({ locale, nav, ctaLabel, menuLabel, closeLabel }: Pro
         <Link
           href={pageHref(locale, 'home')}
           className="mr-auto flex flex-none items-center"
-          aria-label="HavarTek.com"
+          aria-label="GökTek"
         >
           <Image src={logo} alt="" height={50} className="block h-[50px] w-auto" priority />
         </Link>

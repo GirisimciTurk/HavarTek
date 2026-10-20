@@ -9,7 +9,7 @@ import { defaultLocale } from '@/lib/i18n';
 
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
-export const alt = 'HavarTek.com';
+export const alt = 'GökTek';
 
 /** Logonun gerçek en-boy oranı (1280×1000) — bozulmadan ölçeklensin. */
 const MARK_HEIGHT = 120;
@@ -179,7 +179,7 @@ export default async function OpengraphImage() {
                 color: INK,
               }}
             >
-              HavarTek.com
+              GökTek
             </div>
             <div
               style={{

@@ -1,6 +1,6 @@
-# HavarTek.com kurumsal sitesi
+# GökTek kurumsal sitesi
 
-HavarTek.com'un iki dilli (TR/EN) kurumsal sitesi — paket, kargo ve insan taşımacılığı
+GökTek'in iki dilli (TR/EN) kurumsal sitesi — paket, kargo ve insan taşımacılığı
 için drone tabanlı ulaşım sistemleri. Kaynak tasarım, Claude Design canvas dosyası
 **`design-src/HavarTek Aydınlık Tema.dc.html`** (eski `HavarTek v4.dc.html` koyu tema
 arşivde); buradaki tüm ölçüler, renkler, boşluklar ve hover davranışları koda birebir
@@ -59,14 +59,14 @@ Tek yer: `src/lib/site.ts → ORG`. Bileşenler buradan okur, metne gömmez.
 
 | | |
 | --- | --- |
-| Marka | HavarTek.com (`ORG.name`) — logo `src/assets/havartek-logo.webp`, 1280×1000, lacivert yazı + mavi drone işareti; **açık zemin ister** |
+| Marka | GökTek (`ORG.name`) — logo `src/assets/havartek-logo.webp`, 1280×1000, lacivert yazı + mavi drone işareti; **açık zemin ister**. Logo, alan adı değişikliğinden (2026-10-20) sonra bilerek eski "HAVARTEK.com" yazısıyla bırakıldı |
 | Yasal unvan | `ORG.legalName` — dokümanlardaki unvan cümleleri buna bağlı |
 | Çağrı merkezi | 0850 241 70 00 (`tel:+908502417000`) |
 | WhatsApp | 0544 694 32 78 (`https://wa.me/905446943278`) |
 | E-posta | bedirkaraabali@girisimciturk.com |
 | Adres | Gölbaşı / Ankara |
 
-Alan adı şimdilik `havartek.com` (`NEXT_PUBLIC_SITE_URL`). Başka bir alan adına
+Alan adı `goktek.com` (`NEXT_PUBLIC_SITE_URL`; 2026-10-20'de `havartek.com`'dan geçildi). Başka bir alan adına
 geçilirse `.env`, `deploy/nginx.conf` (`server_name`), `deploy/enable-tls.sh` (`DOMAIN`)
 ve `ci.yml` içindeki `NEXT_PUBLIC_SITE_URL` birlikte değişir.
 
@@ -217,7 +217,7 @@ geçmeden birleştirilmemeli; aynı üçlüyü yerelde de çalıştırabilirsini
 | `SMTP_SECURE` | 465 kullanılıyorsa `true`, 587 için `false`. |
 | `SMTP_USER` | SMTP kullanıcı adı. |
 | `SMTP_PASS` | SMTP parolası. Depoya girmez; sunucuda `.env` içinde durur. |
-| `MAIL_FROM` | Gönderen adresi, örn. `"HavarTek.com Web <web@havartek.com>"`. |
+| `MAIL_FROM` | Gönderen adresi, örn. `"GökTek Web <web@goktek.com>"`. |
 | `MAIL_TO` | Form taleplerinin düşeceği kutu: `bedirkaraabali@girisimciturk.com`. |
 
 `.env` dosyası `.gitignore` ve `.dockerignore` içindedir; imaja veya depoya girmez.
@@ -256,7 +256,7 @@ sudo nginx -t && sudo systemctl reload nginx
 
 # 5) TLS sertifikası (apex + www tek sertifikada)
 sudo certbot certonly --webroot -w /var/www/certbot \
-  -d havartek.com -d www.havartek.com
+  -d goktek.com -d www.goktek.com
 # 443 bloklarını geri açın:
 sudo nginx -t && sudo systemctl reload nginx
 ```
@@ -327,9 +327,8 @@ makinede derlemenin belleğe takılmaması için 2 GB `/swapfile` açıldı.
 
 ### Kalan iki adım
 
-**1. TLS — DNS bekliyor.** `havartek.com` A kaydı şu an **93.89.226.17**
-adresini gösteriyor (bu sunucu değil), bu yüzden certbot doğrulaması geçmez.
-Kayıt bu sunucuya çevrildikten sonra tek komut yeter:
+**1. TLS — DNS hazır, sertifika bekliyor.** `goktek.com` ve `www.goktek.com` A kayıtları
+bu sunucuyu (**179.198.201.109**) gösteriyor; sertifikayı almak için tek komut yeter:
 
 ```bash
 ssh havartek-vps
@@ -342,7 +341,7 @@ tamam değilse **hiçbir şeye dokunmadan durur**. Sonra sertifikayı alır, ngi
 `deploy/nginx.conf` sürümüne geçirir (eskisini `.bak` olarak saklar), test
 başarısızsa geri alır ve HTTPS'i doğrular. Yenileme `certbot.timer` ile otomatik.
 TLS açıldıktan sonra 80 → 443 yönlendirmesi başlayacağı için CI'daki sağlık denetimi
-adresini de değiştirin: `gh variable set HEALTH_URL --body https://havartek.com/tr`.
+adresini de değiştirin: `gh variable set HEALTH_URL --body https://goktek.com/tr`.
 
 `deploy/nginx.conf` sunucuda kendinden imzalı sertifikayla önden denendi:
 HTTP/2, `www` → apex ve 80 → 443 yönlendirmeleri ile HSTS başlığı çalışıyor.
@@ -385,7 +384,7 @@ Akış dosyası: `.github/workflows/ci.yml`. Depo: `GirisimciTurk/HavarTek`, var
 
 `check`: `ubuntu-latest`, Node 22, npm önbelleği (`site/package-lock.json`),
 `npm ci` → `npm run lint` → `npm run typecheck` → `npm run build`
-(`NEXT_PUBLIC_SITE_URL=https://havartek.com`, `NEXT_TELEMETRY_DISABLED=1`).
+(`NEXT_PUBLIC_SITE_URL=https://goktek.com`, `NEXT_TELEMETRY_DISABLED=1`).
 
 `deploy`: `production` ortamında, aynı anda tek dağıtım (`concurrency: deploy-production`,
 bekleyen iptal edilmez), 30 dakika zaman aşımı. Adımlar: secrets'tan SSH anahtarı ve
@@ -408,7 +407,7 @@ sunucuya giden şey kaynak koddur, derleme çıktısı değil.
 | `VPS_KNOWN_HOSTS` | `ssh-keyscan 179.198.201.109` çıktısı (sunucu parmak izi; ilk bağlantı sorusunu ortadan kaldırır) |
 
 İsteğe bağlı depo değişkeni (`gh variable set`): `HEALTH_URL` — sağlık denetimi adresi
-(TLS açılınca `https://havartek.com/tr`).
+(TLS açılınca `https://goktek.com/tr`).
 
 Secrets depo düzeyinde tutulur; `production` ortamı ilk çalışmada GitHub tarafından
 kendiliğinden oluşturulur. Dağıtım öncesi onay istenecekse Settings → Environments →

@@ -1,8 +1,8 @@
-# HavarTek
+# GökTek
 
-HavarTek.com kurumsal sitesi — paket, kargo ve insan taşımacılığı için drone tabanlı
+GökTek kurumsal sitesi — paket, kargo ve insan taşımacılığı için drone tabanlı
 ulaşım sistemleri. DEV YAPIMCILIK YAYINCILIK SAN. TİC. LTD. ŞTİ. iştiraki; yasal unvan
-HavarTek İnsansız Hava Aracı Sistemleri A.Ş. Depo: `GirisimciTurk/HavarTek`, dal `main`.
+GökTek İnsansız Hava Aracı Sistemleri A.Ş. Depo: `GirisimciTurk/HavarTek`, dal `main`.
 
 ## Depo düzeni
 

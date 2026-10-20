@@ -102,8 +102,8 @@ async function main() {
     path.join(publicDir, 'manifest.webmanifest'),
     `${JSON.stringify(
       {
-        name: 'HavarTek.com',
-        short_name: 'HavarTek',
+        name: 'GökTek',
+        short_name: 'GökTek',
         description:
           'Drone tabanlı ulaşım sistemleri için mühendislik ve girişimcilik platformu.',
         start_url: '/tr',

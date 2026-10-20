@@ -66,7 +66,7 @@ export async function POST(request: Request) {
 
   const locale = raw.locale === 'en' ? 'en' : 'tr';
   const text = [
-    'HavarTek.com web sitesi — yeni talep',
+    'GökTek web sitesi — yeni talep',
     '',
     `Ad soyad     : ${ad}`,
     `Kurum        : ${kurum || '-'}`,
@@ -83,7 +83,7 @@ export async function POST(request: Request) {
   ].join('\n');
 
   try {
-    await sendMail({ subject: `HavarTek talep — ${ad}`, text, replyTo: eposta });
+    await sendMail({ subject: `GökTek talep — ${ad}`, text, replyTo: eposta });
   } catch (error) {
     // Teslimat başarısızsa talep kaybolmasın: içerik günlüğe düşsün.
     console.error('[contact] gönderilemedi', error, text);
