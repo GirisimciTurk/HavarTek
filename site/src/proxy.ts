@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 
-import { defaultLocale, isLocale, LOCALE_HEADER, locales } from '@/lib/i18n';
+import { defaultLocale, isLocale, locales } from '@/lib/i18n';
 
 /**
  * Her adres bir dil ön ekiyle başlar (/tr, /en). Ön eki olmayan istekler
@@ -30,12 +30,7 @@ export function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
   const first = pathname.split('/').filter(Boolean)[0];
 
-  if (first && isLocale(first)) {
-    // 404 sınırı `params` alamıyor; dili başlıkla taşıyoruz (bkz. not-found.tsx).
-    const headers = new Headers(request.headers);
-    headers.set(LOCALE_HEADER, first);
-    return NextResponse.next({ request: { headers } });
-  }
+  if (first && isLocale(first)) return NextResponse.next();
 
   const locale = pickLocale(request);
   const rest = pathname === '/' ? '' : pathname;

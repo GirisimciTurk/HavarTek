@@ -325,10 +325,13 @@ makinede derlemenin belleğe takılmaması için 2 GB `/swapfile` açıldı.
 > `havartek.service`, nginx `havartek.conf`, SSH takma adı `havartek-vps`) marka ile
 > birlikte 2026-09-15'te eski addan `havartek`'e taşındı; eski adda hiçbir şey kalmadı.
 
-### Kalan iki adım
+### TLS ve kalan adımlar
 
-**1. TLS — DNS hazır, sertifika bekliyor.** `goktek.com` ve `www.goktek.com` A kayıtları
-bu sunucuyu (**179.198.201.109**) gösteriyor; sertifikayı almak için tek komut yeter:
+**TLS — açık (2026-10-20).** `goktek.com` ve `www.goktek.com` tek Let's Encrypt
+sertifikasında; HTTP/2, `www` → apex ve 80 → 443 yönlendirmeleri ile HSTS çalışıyor.
+Yenileme `certbot.timer` ile otomatik, `renew_hook` nginx'i yeniden yükler. CI sağlık
+denetimi `HEALTH_URL=https://goktek.com/tr`. Alan adı yeniden değişirse aynı betik
+yeni `DOMAIN` ile çalıştırılır (önce depodaki adlar güncellenip dağıtılmalı):
 
 ```bash
 ssh havartek-vps
@@ -339,24 +342,11 @@ Betik önce A kayıtlarının gerçekten bu sunucuyu gösterdiğini ve
 `/.well-known/acme-challenge/` yolunun dışarıdan okunabildiğini doğrular; ikisi
 tamam değilse **hiçbir şeye dokunmadan durur**. Sonra sertifikayı alır, nginx'i
 `deploy/nginx.conf` sürümüne geçirir (eskisini `.bak` olarak saklar), test
-başarısızsa geri alır ve HTTPS'i doğrular. Yenileme `certbot.timer` ile otomatik.
-TLS açıldıktan sonra 80 → 443 yönlendirmesi başlayacağı için CI'daki sağlık denetimi
-adresini de değiştirin: `gh variable set HEALTH_URL --body https://goktek.com/tr`.
+başarısızsa geri alır ve HTTPS'i doğrular.
 
-`deploy/nginx.conf` sunucuda kendinden imzalı sertifikayla önden denendi:
-HTTP/2, `www` → apex ve 80 → 443 yönlendirmeleri ile HSTS başlığı çalışıyor.
-
-**O zamana kadar geçici ön izleme adresi:**
-
-> **https://179-198-201-109.sslip.io/tr** — geçerli Let's Encrypt sertifikası, HTTP/2.
-> (`http://179.198.201.109/tr` de çalışır, ama tarayıcılar `https`'e zorlarsa hata verir.)
-
-`sslip.io`, IP adresini kendi adında taşıyan bir DNS hizmetidir; bu ad doğrudan
-179.198.201.109'a çözülür. Yapılandırması `/etc/nginx/sites-available/havartek-preview.conf`
-içinde ayrı durur — asıl `havartek.conf`'a dokunmaz — ve arama motorlarına
-girmemesi için `X-Robots-Tag: noindex, nofollow` gönderir.
-
-Alan adı çalışmaya başlayınca ön izleme kaldırılır:
+**1. Ön izleme kaldırılacak.** Alan adı çalışmadan önce site geçici olarak
+`https://179-198-201-109.sslip.io/tr` adresinden yayındaydı (ayrı
+`havartek-preview.conf`, `X-Robots-Tag: noindex`). Artık gerekmiyor:
 
 ```bash
 rm /etc/nginx/sites-enabled/havartek-preview.conf
@@ -456,6 +446,24 @@ kaldırın. Sunucu yeniden kurulursa (parmak izi değişirse) `VPS_KNOWN_HOSTS` 
 
 ---
 
+## SEO ve GEO
+
+- **Başlık ve açıklama:** `src/content/ui.ts → seo` (sayfa başına; başlık "— GökTek"
+  ekiyle ≤ 60, açıklama ≤ 160 karakter). Sayfadaki h1 tasarımın metni, arama sonucu
+  başlığı aranan ifadeler. Dokümanlarda başlık doküman adı, açıklama ilk paragraf.
+- **Yapılandırılmış veri:** yerleşim her sayfaya Organization + WebSite (`siteJsonLd`,
+  `src/lib/site.ts`), sayfalar `routeJsonLd` (`src/components/JsonLd.tsx`) ile
+  WebPage + BreadcrumbList basar; ana sayfada FAQPage, kullanım alanlarında Service
+  listesi, dokümanlarda `dateModified`. Düğümler `@id` ile bağlı.
+- **SSS:** `site.json → faq` hem ana sayfadaki bölümü hem FAQPage verisini besler.
+  Yanıtlar yalnızca sitede zaten yazan bilgilerden derlendi; yeni iddia eklemeyin.
+- **Yapay zekâ motorları:** `/llms.txt` (özet + sayfa haritası) ve `/llms-full.txt`
+  (iki dilde tüm içerik) `src/lib/llms.ts` ile derlemede üretilir. `robots.txt`
+  yapay zekâ tarayıcılarını adlarıyla açar.
+- **Girişimci Fest:** `FEST` ve `festHref()` (`src/lib/site.ts`); şerit, menü ve alt
+  bilgi bağlantıları `utm_source=goktek` ve yerleşime göre `utm_content` taşır.
+  Metinler `ui.ts → fest`. Festival bitince üçü de buradan kaldırılır.
+
 ## Koda dokunmadan önce: üç tuzak
 
 **1. 404 sınırı sunucu bileşeni olmalı.**
@@ -463,9 +471,12 @@ Kök yerleşim `app/[locale]/layout.tsx` altında olduğu için `not-found.tsx`
 dosyalarının içinde istemci (`'use client'`) bileşenleri **sessizce çizilmiyor** —
 Next kendi sade 404'üne düşüyor, hata da vermiyor. Bu yüzden
 `app/[locale]/not-found.tsx` ve `app/[locale]/[...slug]/not-found.tsx` birer sunucu
-bileşeni; dili `params` yerine proxy'nin eklediği `x-havartek-locale` başlığından
-okuyorlar (`LOCALE_HEADER`, `src/lib/i18n.ts`). Görünüm `NotFoundView` içinde ve
-hiç React kancası kullanmıyor. Buraya kanca eklerseniz sayfa sessizce kaybolur.
+bileşeni. `params` alamadıkları için her iki dilin görünümünü basıyorlar; `<html lang>`
+ile uyuşmayanı `globals.css` içindeki `[data-locale-only]` kuralı gizliyor. Görünüm
+`NotFoundView` içinde ve hiç React kancası kullanmıyor. Buraya kanca eklerseniz sayfa
+sessizce kaybolur. Dili `headers()` ile okumayın: tek bir `headers()` çağrısı bütün
+`[locale]` ağacını statik üretimden çıkarıp her isteği sunucuda çizdirir (2026-10-20'ye
+kadar böyleydi). Derleme çıktısında sayfaların `●` (SSG) olarak görünmesi gerekir.
 
 **2. Hazır başlık ölçeğinin puntosunu ezmeye çalışmayın.**
 Tailwind, aynı özelliğin iki keyfi değerini (`text-[20px]` ve `text-[21px]` gibi)
@@ -477,7 +488,9 @@ var: puntosuz yüzler (`face.*`) ve hazır ölçekler (`display.*`). Tasarımdak
 
 **3. Üst menü akışta yer kaplamıyor.**
 `SiteHeader` yüzen bir çubuk (`sticky`, `top: 14px`, **yükseklik 0**); altındaki
-içeriği aşağı itmez. Her sayfanın ilk bölümü kendi üst boşluğunu taşır (yukarıda
+içeriği aşağı itmez. Tasarımdaki 14px üst dolgu akışta yer kapladığı için çocuklar
+`relative top-[14px]` ile itiliyor; üstündeki Girişimci Fest şeridi (`FestBar`) ise
+akışta yer kaplar. Her sayfanın ilk bölümü kendi üst boşluğunu taşır (yukarıda
 "Tasarım: açık tema"). Yeni bir sayfa ya da manşet yazarken bu boşluğu vermezseniz
 başlık menünün altında kalır — ve hiçbir hata almazsınız.
 

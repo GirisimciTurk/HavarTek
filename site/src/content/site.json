@@ -201,6 +201,43 @@
           "b": "Yedekli uçuş kontrolü ve daha yüksek yük kapasitesi hedefiyle platform geliştirme devam ediyor."
         }
       ],
+      "faqK": "Sık sorulan sorular",
+      "faqTitle": "Drone ile taşımacılık hakkında merak edilenler",
+      "faqLead": "Taşınan yükler, platformlar, izin süreçleri ve talep adımları hakkında en sık sorulan sorular.",
+      "faq": [
+        {
+          "q": "GökTek nedir?",
+          "a": "GökTek, paket, kargo ve insan taşımacılığı için drone tabanlı ulaşım sistemleri geliştiren, Ankara Gölbaşı merkezli bir mühendislik ve girişimcilik platformudur. Uçuş platformu geliştirme, sensör yükü entegrasyonu, uçuş yazılımı ve saha operasyonlarını kendi bünyesinde yürütür."
+        },
+        {
+          "q": "Drone ile hangi yükler taşınıyor?",
+          "a": "Lojistikte ada, yayla ve şantiye hatlarında dört kilograma kadar paket ve kargo noktadan noktaya taşınır. Acil durumlarda ilaç, kan ve acil yardım malzemesi hava yoluyla ulaştırılır; sıcaklığa duyarlı yükler sıcaklık kaydıyla taşınır."
+        },
+        {
+          "q": "Hangi drone platformlarını kullanıyorsunuz?",
+          "a": "Üç platform var. VK-4 çok rotorlu: 42 dakika havada kalış, 8 km telemetri menzili, 6 kg faydalı yük. VK-7 sabit kanat: 180 dakika, 60 km, 2,5 kg. VK-9 VTOL (dikey kalkışlı sabit kanat): 120 dakika, 40 km, 4 kg. Görev profili hangi platformun uçacağını belirler."
+        },
+        {
+          "q": "Drone ile teslimat kara yoluna göre ne kazandırır?",
+          "a": "Uçuş hattı yol yoğunluğundan bağımsız planlandığı için teslim süresi trafikle uzamaz ve her seferde aynı kalır. Örneğin iki hastane arasındaki 14 kilometrelik yol akşam trafiğinde 50 dakikayı aşarken, aynı iki nokta arasındaki hava hattı 6 kilometredir."
+        },
+        {
+          "q": "Drone ile insan taşımacılığı yapıyor musunuz?",
+          "a": "Henüz hayır. Dikey kalkışlı platformlarda yük kapasitesi, yedekli uçuş kontrolü ve iniş altyapısı üzerine geliştirme çalışmaları sürüyor."
+        },
+        {
+          "q": "SHGM izinleri kimin sorumluluğunda?",
+          "a": "Bizim. İHA-2 ve İHA-3 sınıfı araç kayıt ve tescili, ticari uçuş faaliyet izni, lisanslı pilot kadrosu ve üçüncü şahıs mali sorumluluk sigortasına sahibiz. Görev başına saha kontrolü, izin başvurusu ve uçuş bildirimi de bizim tarafımızda yürür; müşteriden ek bir izin işlemi beklenmez."
+        },
+        {
+          "q": "Görev sonunda ne teslim ediliyor?",
+          "a": "Her görevin çıktısı tek bir dosyadır: teslim onayı, uçuş kaydı ve operasyon raporu. Standart görevlerde bu dosya, uçuşun tamamlanmasından itibaren beş iş günü içinde paylaşılır."
+        },
+        {
+          "q": "Nasıl talep oluşturabilirim?",
+          "a": "İletişim sayfasındaki talep formunu doldurabilir veya 0850 241 70 00 numaralı çağrı merkezini arayabilirsiniz. Talebiniz iki iş günü içinde teknik olarak değerlendirilir; uygun görülen taleplerde pilot uçuş planı ve takvim paylaşılır."
+        }
+      ],
       "reqK": "07 · Talep",
       "reqTitle": "Talep oluşturun",
       "reqBody": "Mühendis ya da girişimci olarak katılmak, pilot uygulama önermek veya bir taşımacılık ihtiyacınızı iletmek için talebinizi oluşturun.",
@@ -640,6 +677,10 @@
         "colGroup": "Grup",
         "groupItems": [
           {
+            "l": "Girişimci Fest 2027",
+            "h": "https://girisimcifest.com/"
+          },
+          {
             "l": "Girişimci Türk",
             "h": "https://girisimciturk.com/"
           },
@@ -883,6 +924,43 @@
           "tag": "Platform",
           "t": "Payload capacity study for passenger transport",
           "b": "Platform development continues with the goal of redundant flight control and higher payload capacity."
+        }
+      ],
+      "faqK": "Frequently asked questions",
+      "faqTitle": "What people ask about drone transport",
+      "faqLead": "The most common questions about what we carry, our platforms, permits and how requests work.",
+      "faq": [
+        {
+          "q": "What is GökTek?",
+          "a": "GökTek is an engineering and entrepreneurship platform based in Gölbaşı, Ankara, developing drone-based transport systems for packages, cargo and people. It runs flight platform development, sensor payload integration, flight software and field operations in-house."
+        },
+        {
+          "q": "What can be carried by drone?",
+          "a": "In logistics, parcels and cargo of up to four kilograms are flown point to point on island, highland and construction-site routes. In emergencies, medicine, blood and relief supplies are delivered by air; temperature-sensitive loads are carried with a temperature log."
+        },
+        {
+          "q": "Which drone platforms do you use?",
+          "a": "There are three. VK-4 multirotor: 42 minutes endurance, 8 km telemetry range, 6 kg payload. VK-7 fixed wing: 180 minutes, 60 km, 2.5 kg. VK-9 VTOL (vertical take-off fixed wing): 120 minutes, 40 km, 4 kg. The mission profile decides which platform flies."
+        },
+        {
+          "q": "What does drone delivery gain over road transport?",
+          "a": "The flight line is planned independently of road congestion, so delivery time does not grow with traffic and stays the same on every run. For example, a 14 km road between two hospitals took over 50 minutes in evening traffic, while the air line between the same two points is 6 km."
+        },
+        {
+          "q": "Do you carry passengers by drone?",
+          "a": "Not yet. Development work on payload capacity, redundant flight control and landing infrastructure for vertical take-off platforms is ongoing."
+        },
+        {
+          "q": "Who handles civil aviation (SHGM) permits?",
+          "a": "We do. We hold UAV-2 and UAV-3 class aircraft registration, a commercial flight operations permit, licensed remote pilots and third-party liability insurance. Per-mission airspace checks, permit applications and flight notifications are also handled by us; no additional permit work is expected from the client."
+        },
+        {
+          "q": "What is delivered at the end of a mission?",
+          "a": "Every mission produces a single file: delivery confirmation, flight log and operations report. For standard missions this file is shared within five business days of the flight."
+        },
+        {
+          "q": "How do I submit a request?",
+          "a": "Fill in the request form on the Contact page or call our service line at +90 850 241 70 00. Your request is technically reviewed within two business days; for suitable requests a pilot flight plan and schedule are shared."
         }
       ],
       "reqK": "07 · Request",
@@ -1323,6 +1401,10 @@
         "colSupport": "Support",
         "colGroup": "Group",
         "groupItems": [
+          {
+            "l": "Girişimci Fest 2027",
+            "h": "https://girisimcifest.com/"
+          },
           {
             "l": "Girişimci Türk",
             "h": "https://girisimciturk.com/"

@@ -6,12 +6,14 @@ import type { ReactNode } from 'react';
 import '@/app/globals.css';
 
 import { CookieConsent } from '@/components/CookieConsent';
+import { FestBar } from '@/components/FestBar';
+import { JsonLd } from '@/components/JsonLd';
 import { SiteFooter } from '@/components/SiteFooter';
 import { SiteHeader } from '@/components/SiteHeader';
 import { getDictionary } from '@/content';
 import { getUi } from '@/content/ui';
 import { docHref, htmlLang, isLocale, locales, type Locale } from '@/lib/i18n';
-import { organizationJsonLd, siteUrl } from '@/lib/site';
+import { festHref, siteJsonLd, siteUrl } from '@/lib/site';
 
 const poppins = Poppins({
   subsets: ['latin', 'latin-ext'],
@@ -41,7 +43,7 @@ export async function generateMetadata({
   return {
     metadataBase: new URL(siteUrl),
     title: ui.siteName,
-    description: ui.metaDescription,
+    description: ui.seo.home.description,
     applicationName: ui.siteName,
     icons: {
       icon: [
@@ -80,12 +82,15 @@ export default async function LocaleLayout({
           {ui.skipToContent}
         </a>
 
+        <FestBar locale={locale} />
+
         <SiteHeader
           locale={locale}
           nav={t.nav}
           ctaLabel={t.cta}
           menuLabel={ui.menu}
           closeLabel={ui.close}
+          external={{ label: ui.fest.nav, href: festHref('nav') }}
         />
 
         <main id="main">{children}</main>
@@ -110,11 +115,7 @@ export default async function LocaleLayout({
           }}
         />
 
-        <script
-          type="application/ld+json"
-          // Yapılandırılmış veri; içerik kendi kaynağımızdan geliyor.
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd(locale)) }}
-        />
+        <JsonLd data={siteJsonLd(locale)} />
       </body>
     </html>
   );

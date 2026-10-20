@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import { JsonLd, routeJsonLd } from '@/components/JsonLd';
 import { HomePage } from '@/components/pages/HomePage';
 import { isLocale, type Locale } from '@/lib/i18n';
 import { metadataFor } from '@/lib/page-meta';
@@ -19,5 +20,12 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
   const { locale: raw } = await params;
   if (!isLocale(raw)) notFound();
   const locale: Locale = raw;
-  return <HomePage locale={locale} />;
+  return (
+    <>
+      <HomePage locale={locale} />
+      {routeJsonLd(locale, { kind: 'home' }).map((data, index) => (
+        <JsonLd key={index} data={data} />
+      ))}
+    </>
+  );
 }

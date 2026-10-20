@@ -1,12 +1,20 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import { JsonLd, routeJsonLd } from '@/components/JsonLd';
 import { AreasPage } from '@/components/pages/AreasPage';
 import { ContactPage } from '@/components/pages/ContactPage';
 import { DocPage } from '@/components/pages/DocPage';
 import { Model3dPage } from '@/components/pages/Model3dPage';
 import { TechPage } from '@/components/pages/TechPage';
-import { allSubRoutes, isLocale, resolveRoute, routeSegments, type Locale } from '@/lib/i18n';
+import {
+  allSubRoutes,
+  isLocale,
+  resolveRoute,
+  routeSegments,
+  type Locale,
+  type Route,
+} from '@/lib/i18n';
 import { metadataFor } from '@/lib/page-meta';
 
 type Params = { locale: string; slug: string[] };
@@ -41,6 +49,17 @@ export default async function CatchAllPage({ params }: { params: Promise<Params>
   const route = resolveRoute(locale, slug ?? []);
   if (!route) notFound();
 
+  return (
+    <>
+      <RoutePage locale={locale} route={route} />
+      {routeJsonLd(locale, route).map((data, index) => (
+        <JsonLd key={index} data={data} />
+      ))}
+    </>
+  );
+}
+
+function RoutePage({ locale, route }: { locale: Locale; route: Route }) {
   switch (route.kind) {
     case 'areas':
       return <AreasPage locale={locale} />;

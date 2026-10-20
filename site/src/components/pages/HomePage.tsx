@@ -1,5 +1,6 @@
 import { RequestSection } from '@/components/contact/RequestSection';
 import { AreasSection } from '@/components/home/AreasSection';
+import { FaqSection } from '@/components/home/FaqSection';
 import { HeroSection } from '@/components/home/HeroSection';
 import { MissionSection } from '@/components/home/MissionSection';
 import { NewsSection } from '@/components/home/NewsSection';
@@ -11,8 +12,9 @@ import type { Locale } from '@/lib/i18n';
 
 /**
  * Ana sayfa. Bölümlerin sırası tasarımdaki ("HavarTek Aydınlık Tema.dc.html",
- * 90–410. satırlar) sırayla birebir aynı. Menüdeki "#alanlar" ve "#iletisim"
- * çapaları AreasSection ve RequestSection üstünde.
+ * 90–410. satırlar) sırayla birebir aynı; tasarımda olmayan tek ek, Talep'ten
+ * önceki SSS bölümü (arama ve yapay zekâ yanıtları için). Menüdeki "#alanlar"
+ * ve "#iletisim" çapaları AreasSection ve RequestSection üstünde.
  */
 export function HomePage({ locale }: { locale: Locale }) {
   return (
@@ -25,6 +27,7 @@ export function HomePage({ locale }: { locale: Locale }) {
       <StoriesSection locale={locale} />
       <WhyAirSection locale={locale} />
       <NewsSection locale={locale} />
+      <FaqSection locale={locale} />
       <RequestSection locale={locale} id="iletisim" />
     </>
   );

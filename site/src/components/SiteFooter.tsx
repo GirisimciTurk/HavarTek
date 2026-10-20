@@ -14,7 +14,7 @@ import {
   supportDocKeys,
   type Locale,
 } from '@/lib/i18n';
-import { ORG } from '@/lib/site';
+import { FEST, festHref, ORG } from '@/lib/site';
 
 function whatsappHref(locale: Locale): string {
   const text =
@@ -131,10 +131,11 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           <ul className="m-0 flex list-none flex-col gap-2.5 p-0">
             {t.ft.groupItems.map((item) => (
               <li key={item.h}>
+                {/* Festival bağlantısı UTM'li gider; referrer de açık kalsın. */}
                 <a
-                  href={item.h}
+                  href={item.h === FEST.url ? festHref('footer') : item.h}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel={item.h === FEST.url ? 'noopener' : 'noopener noreferrer'}
                   className={columnLinkClass}
                 >
                   {item.l}

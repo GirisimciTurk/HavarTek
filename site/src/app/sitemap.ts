@@ -1,5 +1,7 @@
 import type { MetadataRoute } from 'next';
 
+import { docDateIso } from '@/components/JsonLd';
+import { getDictionary } from '@/content';
 import { allRoutes, defaultLocale, href, htmlLang, locales, type Route } from '@/lib/i18n';
 import { absolute } from '@/lib/site';
 
@@ -34,13 +36,18 @@ function languagesFor(route: Route) {
  * bildiriliyor; böylece arama motorları iki sürümü kopya değil çeviri sayıyor.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
+  // Site haritası derlemede üretiliyor: sayfalar için tarih yayın anı,
+  // dokümanlar için metindeki "Son güncelleme" tarihi.
+  const built = new Date();
+  const docs = getDictionary('tr').docs;
+  const lastModified = (route: Route) =>
+    (route.kind === 'doc' && docDateIso(docs[route.doc].u)) || built;
   const routes = allRoutes();
 
   return locales.flatMap((locale) =>
     routes.map((route) => ({
       url: absolute(href(locale, route)),
-      lastModified,
+      lastModified: lastModified(route),
       changeFrequency: hints[route.kind].changeFrequency,
       priority: hints[route.kind].priority,
       alternates: { languages: languagesFor(route) },

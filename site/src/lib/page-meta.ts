@@ -5,31 +5,29 @@ import { getUi } from '@/content/ui';
 import type { Locale, Route } from '@/lib/i18n';
 import { buildMetadata } from '@/lib/site';
 
-/** Bir rotanın başlık ve açıklaması — içerik sözlüğünden türetilir. */
+/** Google arama sonucunda açıklamayı ~160 karakterde keser. */
+const DESCRIPTION_MAX = 160;
+
+/** Uzun metni kelime sınırında kısaltır; kesildiyse sonuna üç nokta koyar. */
+function clip(text: string, max = DESCRIPTION_MAX): string {
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max - 1);
+  return `${cut.slice(0, cut.lastIndexOf(' ')).replace(/[\s,;:.—-]+$/, '')}…`;
+}
+
+/**
+ * Bir rotanın arama sonucu başlığı ve açıklaması. Sayfalar `ui.seo` tablosundan,
+ * dokümanlar kendi başlığından ve ilk paragrafından gelir.
+ */
 export function routeMeta(locale: Locale, route: Route): { title: string; description: string } {
-  const t = getDictionary(locale);
   const ui = getUi(locale);
 
-  switch (route.kind) {
-    case 'home':
-      return {
-        title: `${t.hero.l1} ${t.hero.l2}`.replace(/\s+/g, ' ').trim(),
-        description: t.hero.sub,
-      };
-    case 'areas':
-      return { title: t.apTitle, description: t.apLead };
-    case 'tech':
-      return { title: t.tpTitle, description: t.tpLead };
-    case 'contact':
-      return { title: t.reqTitle, description: t.reqBody };
-    case 'model3d':
-      return { title: ui.model3d.title, description: ui.model3d.lead };
-    case 'doc': {
-      const doc = t.docs[route.doc];
-      const first = doc.s[0]?.p[0] ?? ui.metaDescription;
-      return { title: doc.t, description: first.slice(0, 300) };
-    }
+  if (route.kind === 'doc') {
+    const doc = getDictionary(locale).docs[route.doc];
+    const first = doc.s[0]?.p[0] ?? ui.seo.home.description;
+    return { title: doc.t, description: clip(first) };
   }
+  return ui.seo[route.kind];
 }
 
 export function metadataFor(locale: Locale, route: Route): Metadata {

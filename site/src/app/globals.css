@@ -124,6 +124,13 @@
   padding-block: clamp(48px, 6vw, 88px);
 }
 
+/* 404 iki dilde de basılıyor; <html lang> ile uyuşmayan görünüm gizlenir
+   (bkz. app/[locale]/not-found.tsx). */
+[data-locale-only='tr']:not(:lang(tr)),
+[data-locale-only='en']:not(:lang(en)) {
+  display: none;
+}
+
 /* Mavi, harf aralıklı üst etiket ("03 · Kullanım alanları") */
 @utility kicker {
   display: block;

@@ -149,9 +149,3 @@ export const htmlLang: Record<Locale, string> = { tr: 'tr-TR', en: 'en' };
 
 /** Kullanım alanları sayfasındaki kategori filtresinin sorgu parametresi. */
 export const categoryParam: Record<Locale, string> = { tr: 'kategori', en: 'category' };
-
-/**
- * Aktif dili sunucu bileşenlerine taşıyan istek başlığı. Proxy ekler;
- * `params` alamayan 404 sınırı bunu okur.
- */
-export const LOCALE_HEADER = 'x-havartek-locale';

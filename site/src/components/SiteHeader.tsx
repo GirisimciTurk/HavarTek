@@ -23,6 +23,8 @@ type Props = {
   ctaLabel: string;
   menuLabel: string;
   closeLabel: string;
+  /** Menünün sonundaki dış bağlantı (Girişimci Fest); yeni sekmede açılır. */
+  external: { label: string; href: string };
 };
 
 const navOrder: Array<keyof NavLabels> = ['home', 'areas', 'tech', 'contact'];
@@ -39,7 +41,7 @@ function splitPath(pathname: string) {
  * Yüzen hap menü. Tasarımdaki gibi akışta 0 yükseklik kaplar; her sayfanın
  * ilk bölümü içeriğini menünün altından kurtaracak üst boşluğu kendisi taşır.
  */
-export function SiteHeader({ locale, nav, ctaLabel, menuLabel, closeLabel }: Props) {
+export function SiteHeader({ locale, nav, ctaLabel, menuLabel, closeLabel, external }: Props) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [hovered, setHovered] = useState<keyof NavLabels | null>(null);
@@ -77,7 +79,9 @@ export function SiteHeader({ locale, nav, ctaLabel, menuLabel, closeLabel }: Pro
   });
 
   return (
-    <header className="sticky top-[14px] z-30 h-0 px-[clamp(14px,3vw,40px)] pt-[14px]">
+    // Tasarımdaki 14px üst dolgu akışta yer kaplıyordu; duyuru şeridiyle hero
+    // arasında açık bir çizgi bırakmasın diye çocuklar `relative top` ile itiliyor.
+    <header className="sticky top-[14px] z-30 h-0 px-[clamp(14px,3vw,40px)] [&>*]:relative [&>*]:top-[14px]">
       <div className="mx-auto flex w-full max-w-[1320px] flex-wrap items-center gap-x-7 gap-y-3 rounded-[20px] border border-line bg-ground/90 px-[clamp(16px,2vw,26px)] py-3 shadow-float backdrop-blur-[14px]">
         <Link
           href={pageHref(locale, 'home')}
@@ -119,6 +123,17 @@ export function SiteHeader({ locale, nav, ctaLabel, menuLabel, closeLabel }: Pro
               </Link>
             </span>
           ))}
+          <a
+            href={external.href}
+            target="_blank"
+            rel="noopener"
+            className="whitespace-nowrap text-[15px] font-medium text-blue transition-colors hover:text-blue-lift"
+          >
+            {external.label}
+            <span aria-hidden className="ml-1">
+              ↗
+            </span>
+          </a>
         </nav>
 
         <LocaleSwitch locale={locale} localeHref={localeHref} />
@@ -185,6 +200,17 @@ export function SiteHeader({ locale, nav, ctaLabel, menuLabel, closeLabel }: Pro
               {label}
             </Link>
           ))}
+          <a
+            href={external.href}
+            target="_blank"
+            rel="noopener"
+            className="border-b border-line py-4 font-display text-[19px] font-semibold tracking-[-0.015em] text-blue transition-colors hover:text-blue-lift"
+          >
+            {external.label}
+            <span aria-hidden className="ml-1.5">
+              ↗
+            </span>
+          </a>
           <ButtonLink href={pageHref(locale, 'contact')} className="mt-6">
             {ctaLabel}
           </ButtonLink>
