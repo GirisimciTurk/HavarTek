@@ -64,7 +64,7 @@ export function TechPage({ locale }: { locale: Locale }) {
                 ratio="3/4"
                 slot={platformSlots[index]}
                 alt={platformLabel(index)}
-                sizes="(max-width: 660px) 100vw, (max-width: 1080px) 50vw, 420px"
+                sizes="(max-width: 660px) calc(100vw - 40px), (max-width: 1080px) 50vw, 420px"
                 frameClassName="flex-none rounded-2xl"
               />
               <h3 className="m-0 mt-[18px] font-display text-[24px] font-extrabold leading-[1.2] tracking-[-0.02em] text-ink">
@@ -137,7 +137,7 @@ export function TechPage({ locale }: { locale: Locale }) {
                 ratio="1/1"
                 slot={payloadSlots[index]}
                 alt={payload.t}
-                sizes="(max-width: 620px) 100vw, (max-width: 1080px) 50vw, 300px"
+                sizes="(max-width: 620px) calc(100vw - 40px), (max-width: 1080px) 50vw, 300px"
                 frameClassName="flex-none rounded-2xl"
               />
               <h3 className={cn(display.cardSm, 'm-0 mt-4 text-ink')}>{payload.t}</h3>
@@ -170,7 +170,7 @@ export function TechPage({ locale }: { locale: Locale }) {
           ratio="4/3"
           slot="software"
           alt={photoAlt(locale, 'software')}
-          sizes="(max-width: 900px) 100vw, 460px"
+          sizes="(max-width: 900px) calc(100vw - 40px), 460px"
           frameClassName="rounded-2xl"
         />
       </section>

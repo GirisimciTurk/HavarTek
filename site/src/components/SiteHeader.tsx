@@ -88,7 +88,8 @@ export function SiteHeader({ locale, nav, ctaLabel, menuLabel, closeLabel, exter
           className="mr-auto flex flex-none items-center"
           aria-label="GökTek"
         >
-          <Image src={logo} alt="" height={50} className="block h-[50px] w-auto" priority />
+          {/* Ön yükleme yok: küçük dosya, manşet görseliyle bant genişliği için yarışmasın. */}
+          <Image src={logo} alt="" height={50} className="block h-[50px] w-auto" loading="eager" />
         </Link>
 
         {/* Masaüstü menüsü */}

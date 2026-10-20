@@ -9,8 +9,9 @@ const nextConfig: NextConfig = {
   agentRules: false,
   images: {
     // Fotoğraf ağırlıklı site: modern formatlar ve tasarımdaki kırılma noktaları.
+    // 750: telefonda tam genişlik kart (~372px × 2x) 828'e değil buna düşsün.
     formats: ['image/avif', 'image/webp'],
-    deviceSizes: [420, 640, 828, 1080, 1320, 1920, 2560],
+    deviceSizes: [420, 640, 750, 828, 1080, 1320, 1920, 2560],
     imageSizes: [96, 160, 240, 320, 460],
     minimumCacheTTL: 60 * 60 * 24 * 30,
   },

@@ -39,13 +39,20 @@ function supportsWebGL(): boolean {
   }
 }
 
-function createRenderer(): THREE.WebGLRenderer | null {
+/**
+ * Piksel oranı üst sınırı. Telefonlarda 3x ekranı tam çözünürlükte çizmek
+ * GPU'yu 4 kat yorar; 1.5'un üstündeki fark bu modelde gözle seçilmiyor.
+ */
+const MAX_PIXEL_RATIO = 1.5;
+
+function createRenderer(pixelRatio: number): THREE.WebGLRenderer | null {
   try {
     // preserveDrawingBuffer: son kare kompozitten sonra da okunabilir kalsın —
     // ekran görüntüsü / paylaşım araçları boş tuval yerine sahneyi yakalar
     // (tasarımdaki three-d-stage.js de bu yüzden açıyor).
     return new THREE.WebGLRenderer({
-      antialias: true,
+      // Yüksek yoğunluklu ekranda kenarlar zaten pürüzsüz; MSAA yalnızca 1x'te.
+      antialias: pixelRatio < 1.5,
       alpha: true,
       preserveDrawingBuffer: true,
     });
@@ -76,10 +83,11 @@ export function DroneViewer({ labels }: { labels: ViewerLabels }) {
     const host = hostRef.current;
     if (!host || !webglSupported) return;
 
-    const renderer = createRenderer();
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, MAX_PIXEL_RATIO);
+    const renderer = createRenderer(pixelRatio);
     if (!renderer) return;
 
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setPixelRatio(pixelRatio);
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFShadowMap;
     renderer.domElement.style.display = 'block';
@@ -152,12 +160,23 @@ export function DroneViewer({ labels }: { labels: ViewerLabels }) {
     };
     controls.addEventListener('start', stopAutoRotate);
 
+    // Sahne yalnızca gerektiğinde çizilir: kamera hareket ederken (sönümleme,
+    // otomatik dönüş) ya da boyut değişince. Durağan modelde her kare
+    // yeniden çizmek telefonda pili ve ana iş parçacığını boşuna yorar.
+    let dirty = true;
+    // OrbitControls kamerayı her oynattığında (sürükleme, sönümleme, otomatik
+    // dönüş, "Görünümü sıfırla") 'change' yayar.
+    const markDirty = () => {
+      dirty = true;
+    };
+    controls.addEventListener('change', markDirty);
     const fit = () => {
       const w = host.clientWidth || 1;
       const h = host.clientHeight || 1;
       renderer.setSize(w, h);
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
+      dirty = true;
     };
     fit();
     const observer = new ResizeObserver(fit);
@@ -167,14 +186,28 @@ export function DroneViewer({ labels }: { labels: ViewerLabels }) {
     const loop = () => {
       frame = requestAnimationFrame(loop);
       controls.update();
-      renderer.render(scene, camera);
+      if (dirty) {
+        renderer.render(scene, camera);
+        dirty = false;
+      }
     };
-    loop();
+
+    // Sahne ekran dışına kaydırılınca döngü tamamen durur.
+    const visibility = new IntersectionObserver(([entry]) => {
+      cancelAnimationFrame(frame);
+      if (entry?.isIntersecting) {
+        dirty = true;
+        loop();
+      }
+    });
+    visibility.observe(host);
 
     return () => {
       cancelAnimationFrame(frame);
+      visibility.disconnect();
       observer.disconnect();
       controls.removeEventListener('start', stopAutoRotate);
+      controls.removeEventListener('change', markDirty);
       controls.dispose();
       controlsRef.current = null;
       homeRef.current = null;

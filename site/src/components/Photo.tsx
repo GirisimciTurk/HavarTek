@@ -9,6 +9,11 @@ type PhotoProps = {
   alt: string;
   /** next/image `sizes` — fotoğraf ağırlıklı sayfada doğru dosyanın inmesi için zorunlu. */
   sizes: string;
+  /**
+   * Sayfanın LCP görseli (manşet). Ön yükleme bağlantısı ve img aynı yüksek
+   * öncelikle istenir; Next 16'da `priority` yalnızca ön yükleme ekliyor,
+   * `fetchpriority` vermiyordu.
+   */
   priority?: boolean;
   className?: string;
   /** Tasarımdaki kaydırılmış kırpma için `object-position` ezmesi. */
@@ -26,7 +31,8 @@ export function Photo({ slot, alt, sizes, priority, className, position }: Photo
       alt={alt}
       fill
       sizes={sizes}
-      priority={priority}
+      preload={priority}
+      fetchPriority={priority ? 'high' : undefined}
       placeholder="blur"
       className={cn('object-cover', className)}
       style={{ objectPosition: position ?? objectPosition[slot] ?? '50% 50%' }}

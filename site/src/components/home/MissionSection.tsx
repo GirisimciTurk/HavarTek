@@ -32,7 +32,7 @@ export function MissionSection({ locale }: { locale: Locale }) {
               ratio="4/3"
               slot={slots[i]}
               alt={item.t}
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              sizes="(max-width: 640px) calc(100vw - 40px), (max-width: 1024px) 50vw, 33vw"
               frameClassName="flex-none"
             />
             <div className="px-[22px] pt-5 pb-6">

@@ -14,6 +14,7 @@
 #   .env       çalışma anı ayarları (SMTP vb.) — rsync dokunmaz
 #   app/       kaynak + node_modules + .next  — derleme burada yapılır
 #   release/   yayındaki standalone sunucu     — havartek.service buradan çalışır
+#   cache/     next/image önbelleği            — sürümler arasında korunur
 # Derleme yayındaki klasörde değil app/ içinde yapılır; bitince standalone
 # çıktısı tek bir `mv` ile release/ olur ve servis yeniden başlar. Böylece
 # derleme süresince (tek çekirdekte dakikalar) site kesintiye uğramaz.
@@ -52,7 +53,13 @@ runuser -u havartek -- env NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 npm run
 # standalone sunucusu public/ ve .next/static dosyalarını kendi yanında arar.
 runuser -u havartek -- cp -r public .next/standalone/public
 runuser -u havartek -- cp -r .next/static .next/standalone/.next/static
-runuser -u havartek -- mkdir -p .next/standalone/.next/cache
+# Görsel önbelleği (next/image'ın ürettiği AVIF/WebP'ler) sürümler arasında
+# kalıcı: her dağıtımda boşalsaydı tek çekirdekte tüm görseller yeniden
+# kodlanır, ilk ziyaretler saniyelerce beklerdi. Anahtarlar dosya içeriğinin
+# özetini taşıdığı için eski girdiler yanlış görsel döndürmez.
+runuser -u havartek -- mkdir -p "$REMOTE_DIR/cache"
+runuser -u havartek -- mkdir -p .next/standalone/.next
+runuser -u havartek -- ln -sfn "$REMOTE_DIR/cache" .next/standalone/.next/cache
 
 # Servis birimi değiştiyse yenisini kur.
 if ! cmp -s deploy/havartek.service /etc/systemd/system/havartek.service; then

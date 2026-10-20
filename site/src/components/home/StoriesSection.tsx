@@ -33,7 +33,7 @@ export function StoriesSection({ locale }: { locale: Locale }) {
             ratio="4/3"
             slot="stories"
             alt={photoAlt(locale, 'stories')}
-            sizes="(max-width: 700px) 100vw, 50vw"
+            sizes="(max-width: 700px) calc(100vw - 40px), 50vw"
             frameClassName="mt-7 rounded-2xl"
           />
           <ButtonLink href={pageHref(locale, 'contact')} variant="primary" size="lg" className="mt-6">

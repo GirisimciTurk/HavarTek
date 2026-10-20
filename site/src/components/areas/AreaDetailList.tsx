@@ -58,7 +58,7 @@ function AreaDetailView({
               ratio={area.ratio}
               slot={area.slot}
               alt={area.title}
-              sizes="(max-width: 900px) 100vw, 50vw"
+              sizes="(max-width: 900px) calc(100vw - 40px), 50vw"
               frameClassName="rounded-2xl"
             />
             <div>

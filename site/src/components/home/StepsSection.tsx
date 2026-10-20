@@ -34,7 +34,7 @@ export function StepsSection({ locale }: { locale: Locale }) {
                 <Photo
                   slot={stepSlots[i]}
                   alt={s.t}
-                  sizes="(max-width: 560px) 100vw, (max-width: 1000px) 50vw, 25vw"
+                  sizes="(max-width: 560px) calc(100vw - 40px), (max-width: 1000px) 50vw, 25vw"
                 />
               </Frame>
               <span className="pointer-events-none absolute top-4 left-4 rounded-full bg-blue px-[11px] py-[5px] font-display text-[15px] font-extrabold tracking-[0.02em] text-white tnum">

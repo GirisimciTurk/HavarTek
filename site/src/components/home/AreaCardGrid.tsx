@@ -57,7 +57,7 @@ export function AreaCardGrid({ cats, areas, legend, areasHref, categoryParam }: 
             <Photo
               slot={`area-${index}` as SlotId}
               alt={area.title}
-              sizes="(max-width: 900px) 100vw, 50vw"
+              sizes="(max-width: 900px) calc(100vw - 40px), 50vw"
             />
             <Scrim gradient={scrims.areaCard} />
             {/* Izgara öğesinde z-index `position` olmadan da çalışır. Kap
