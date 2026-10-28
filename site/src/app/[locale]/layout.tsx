@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Poppins } from 'next/font/google';
 import { notFound } from 'next/navigation';
+import Script from 'next/script';
 import type { ReactNode } from 'react';
 
 import '@/app/globals.css';
@@ -116,6 +117,7 @@ export default async function LocaleLayout({
         />
 
         <JsonLd data={siteJsonLd(locale)} />
+        <Script src="/bayram/popup.js" strategy="afterInteractive" />
       </body>
     </html>
   );
