@@ -4,8 +4,8 @@
  *
  *   npm run images
  *
- * Kaynak: src/assets/havartek-logo.webp (1280×1000, şeffaf zemin; üstte mavi
- * drone işareti, altta lacivert "HAVARTEK.com" yazısı). Logo açık zemin
+ * Kaynak: src/assets/havartek-logo.webp (1024×800, şeffaf zemin; üstte mavi
+ * drone işareti ve sarı pervane uçları, altta lacivert "GÖKTEK TEK.com" yazısı). Logo açık zemin
  * istediği için simgeler BEYAZ kare üzerine yerleştirilir. Favicon ve PWA
  * simgelerinde küçük ölçekte okunmayan yazı atılır, yalnızca üstteki drone
  * işareti kullanılır; public/logo.png ve og/mark.png tam logodur.
@@ -24,11 +24,17 @@ const WHITE = { r: 0xff, g: 0xff, b: 0xff, alpha: 1 };
 const TRANSPARENT = { ...WHITE, alpha: 0 };
 
 /**
- * Drone işaretinin kaynak logodaki yeri, 1280×1000 ölçüsüne göre. Pervane
- * uçları iki yana kadar uzandığı için tam genişlik; yazı 588. satırda
- * başlıyor, aradaki boşluk 524–587 (alfa kanalından ölçüldü).
+ * Simge PNG'leri için sıkıştırma: logo düz renkli olduğundan 256 renklik palet
+ * (libimagequant) gözle fark edilmeden dosyayı yarıdan fazla küçültüyor.
  */
-const MARK_REGION = { left: 0, top: 0, width: 1280, height: 524, sourceWidth: 1280 };
+const PNG_OPTIONS = { palette: true, quality: 90, effort: 10, compressionLevel: 9 };
+
+/**
+ * Drone işaretinin kaynak logodaki yeri, 1024×800 ölçüsüne göre. Pervane
+ * uçları iki yana kadar uzandığı için tam genişlik; yazı (Ö'nün noktaları)
+ * 433. satırda başlıyor, aradaki boşluk 419–432 (alfa kanalından ölçüldü).
+ */
+const MARK_REGION = { left: 0, top: 0, width: 1024, height: 419, sourceWidth: 1024 };
 
 /** Kaynak ölçüsü değiştiyse bölgeyi aynı oranla ölçekler. */
 async function markRegion() {
@@ -61,7 +67,7 @@ async function icon(input, size, { padding = 0.18, background = WHITE } = {}) {
     create: { width: size, height: size, channels: 4, background },
   })
     .composite([{ input: artwork, gravity: 'center' }])
-    .png()
+    .png(PNG_OPTIONS)
     .toBuffer();
 }
 
@@ -96,7 +102,7 @@ async function main() {
     .toFile(path.join(ogDir, 'bg.jpg'));
 
   // Tam logo, şeffaf zemin; beyaz kartın içine opengraph-image.tsx yerleştiriyor
-  await sharp(source).resize({ height: 240 }).png().toFile(path.join(ogDir, 'mark.png'));
+  await sharp(source).resize({ height: 240 }).png(PNG_OPTIONS).toFile(path.join(ogDir, 'mark.png'));
 
   await writeFile(
     path.join(publicDir, 'manifest.webmanifest'),

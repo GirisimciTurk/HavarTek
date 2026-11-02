@@ -59,7 +59,7 @@ Tek yer: `src/lib/site.ts → ORG`. Bileşenler buradan okur, metne gömmez.
 
 | | |
 | --- | --- |
-| Marka | GökTek (`ORG.name`) — logo `src/assets/havartek-logo.webp`, 1280×1000, lacivert yazı + mavi drone işareti; **açık zemin ister**. Logo, alan adı değişikliğinden (2026-10-20) sonra bilerek eski "HAVARTEK.com" yazısıyla bırakıldı |
+| Marka | GökTek (`ORG.name`) — logo `src/assets/havartek-logo.webp`, 1024×800, lacivert "GÖKTEK TEK.com" yazısı + mavi drone işareti; **açık zemin ister**. Yeni GökTek logosu 2026-11-02'de geldi (dosya adı değişmedi) |
 | Yasal unvan | `ORG.legalName` — dokümanlardaki unvan cümleleri buna bağlı |
 | Çağrı merkezi | 0850 241 70 00 (`tel:+908502417000`) |
 | WhatsApp | 0544 694 32 78 (`https://wa.me/905446943278`) |
@@ -181,7 +181,9 @@ derlemesini düşürür.
 Site simgeleri (favicon, PWA, `public/logo.png`, sosyal paylaşım kaynakları)
 `npm run images` ile `scripts/build-images.mjs` tarafından `src/assets/havartek-logo.webp`
 kaynağından üretilir; logo açık zemin istediği için simgeler beyaz kare üzerine
-yerleştirilir. Logo değişirse betiği yeniden çalıştırıp `public/` çıktısını commit edin.
+yerleştirilir ve 256 renklik palete sıkıştırılır. Logo değişirse betikteki `MARK_REGION`'ı
+(drone işaretiyle yazı arasındaki boş satır) alfa kanalından yeniden ölçüp betiği
+çalıştırın, `public/` ve `src/og-assets/` çıktısını commit edin.
 
 ---
 

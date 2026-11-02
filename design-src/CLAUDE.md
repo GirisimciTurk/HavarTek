@@ -1,4 +1,4 @@
 - Aktif tasarım: `HavarTek Aydınlık Tema.dc.html` — marka **HavarTek.com**, açık mavi-beyaz zemin (#F4F7FB), lacivert metin (#0C1D38), mavi vurgu (#0F4CA8), Poppins. Tek sayfa TR; site bunu çok sayfalı TR/EN yapıya birebir görünümle taşıyor. Şartname ve karar kayıtları için `aydinlik-tema-sync.md`.
 - `HavarTek v4.dc.html` ve öncekiler (`HavarTek.dc.html`, `v2`, `v3`) arşiv — koyu tema, amber vurgu, Archivo + Instrument Sans. Yalnızca referans; yeni iş bunlardan türetilmez.
-- Logo: `site/src/assets/havartek-logo.webp` (1280×1000, lacivert yazı + mavi drone işareti; beyaz/açık zemin ister). Tasarım dosyası bu yola göreli `src` ile bakar. Eski `assets/logo.png` arşiv tasarımlara ait.
+- Logo: `site/src/assets/havartek-logo.webp` (1024×800, lacivert "GÖKTEK TEK.com" yazısı + mavi drone işareti; beyaz/açık zemin ister). Tasarım dosyası bu yola göreli `src` ile bakar. Eski `assets/logo.png` arşiv tasarımlara ait.
 - Bağlı "Industry" tasarım sistemi kullanılmıyor — kullanıcı o temayı istemedi.
